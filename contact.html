@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WANGESHI</title>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body class="contact-page">
+<nav class="nav">
+    <a href="about.html">About Me</a>
+    <a href="gallery.html">Portfolio</a>
+    <a href="index.html" class="logo">WANGESHI</a>
+    <a href="ai-buddy.html">AI & ME</a>
+    <a href="contact.html">Contact</a>
+</nav>
+
+<main class="contact-main">
+    <section class="contact-hero reveal">
+        <p class="contact-kicker">LET'S CONNECT</p>
+        <h1>Tell me what you are building.</h1>
+        <p class="contact-sub">
+            From strategy sessions to content support, I would love to hear your idea and help shape it into something beautiful and effective.
+        </p>
+    </section>
+
+    <section class="contact-grid reveal">
+        <article class="contact-panel">
+            <h2>Reach Me Faster</h2>
+            <div class="contact-cards">
+                <a class="contact-chip" href="mailto:gwangeshi9@gmail.com">
+                    <span class="chip-label">Email</span>
+                    <span class="chip-value">gwangeshi9@gmail.com</span>
+                </a>
+                <a class="contact-chip" href="https://instagram.com/" target="_blank" rel="noopener noreferrer">
+                    <span class="chip-label">Instagram</span>
+                    <span class="chip-value">Add your handle</span>
+                </a>
+            </div>
+            <p class="contact-note">Best response time: within 24 hours.</p>
+        </article>
+
+        <article class="contact-panel contact-form-panel">
+            <h2>Send a Message</h2>
+            <form class="contact-form" action="mailto:gwangeshi9@gmail.com" method="post" enctype="text/plain">
+                <label>
+                    Name
+                    <input type="text" name="name" placeholder="Your name" required>
+                </label>
+                <label>
+                    Email
+                    <input type="email" name="email" placeholder="you@example.com" required>
+                </label>
+                <label>
+                    Project type
+                    <select name="project_type" id="projectType">
+                        <option value="Social Media Strategy">Social Media Strategy</option>
+                        <option value="Content Creation">Content Creation</option>
+                        <option value="Brand Support">Brand Support</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </label>
+                <label>
+                    Message
+                    <textarea name="message" id="messageField" rows="5" placeholder="Tell me about your idea..." required></textarea>
+                </label>
+                <div class="contact-form-footer">
+                    <small id="charCount">0 / 300</small>
+                    <button type="submit">Send Message</button>
+                </div>
+            </form>
+        </article>
+    </section>
+</main>
+
+<script>
+const messageField = document.getElementById("messageField");
+const charCount = document.getElementById("charCount");
+
+if (messageField && charCount) {
+    const maxChars = 300;
+    messageField.maxLength = maxChars;
+
+    messageField.addEventListener("input", () => {
+        charCount.textContent = `${messageField.value.length} / ${maxChars}`;
+    });
+}
+</script>
+
+</body>
+</html>

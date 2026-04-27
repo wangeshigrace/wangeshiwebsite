@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WANGESHI</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Cormorant+Garamond:wght@400;600&family=Lora:wght@400&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+
+    body.ai-page {
+      background:#fdfaf6;
+      color:#2a1a0e;
+      font-family:'Cormorant Garamond',serif;
+      overflow-x:hidden;
+    }
+
+    /* ── HERO ── */
+    .ai-hero {
+      min-height:90vh;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:80px 8% 60px;
+      gap:40px;
+      position:relative;
+      overflow:hidden;
+      background:#fdfaf6;
+    }
+
+    .hero-text{flex:1;max-width:560px;}
+
+    .hero-kicker{
+      font-size:11px;letter-spacing:3.5px;text-transform:uppercase;
+      color:#c8b6a6;margin-bottom:20px;display:block;
+      opacity:0;animation:up 0.7s ease 0.2s forwards;
+    }
+
+    .hero-h1{
+      font-family:'Playfair Display',serif;
+      font-size:clamp(36px,5.2vw,66px);font-weight:700;
+      line-height:1.08;letter-spacing:-2px;color:#2a1a0e;
+      margin-bottom:26px;
+    }
+
+    .hero-h1 .line{display:block;overflow:hidden;}
+
+    .hero-h1 .word{
+      display:inline-block;
+      transform:translateY(110%);
+      transition:transform 0.72s cubic-bezier(0.16,1,0.3,1);
+    }
+
+    .hero-h1 .word.up{transform:translateY(0);}
+    .hero-h1 em{font-style:italic;color:#8b5e3c;}
+
+    .hero-sub{
+      font-size:clamp(17px,1.9vw,21px);color:#6b4f35;
+      line-height:1.72;max-width:460px;
+      opacity:0;animation:up 0.7s ease 0.9s forwards;margin-bottom:36px;
+    }
+
+    .hero-cta{
+      display:inline-block;padding:14px 36px;
+      border:2px solid #2a1a0e;border-radius:999px;
+      font-family:'Cormorant Garamond',serif;
+      font-size:15px;letter-spacing:2px;text-transform:uppercase;
+      color:#2a1a0e;text-decoration:none;background:transparent;
+      cursor:pointer;opacity:0;animation:up 0.7s ease 1.1s forwards;
+      transition:background 0.3s,color 0.3s;
+    }
+    .hero-cta:hover{background:#2a1a0e;color:#fdfaf6;}
+
+    /* cartoon side */
+    .hero-cartoon{
+      flex-shrink:0;
+      width:clamp(240px,34vw,400px);
+      position:relative;
+      display:flex;align-items:flex-end;justify-content:center;
+    }
+
+    .hero-cartoon svg{width:100%;height:auto;}
+
+    .bubble{
+      position:absolute;
+      background:#2a1a0e;color:#fdfaf6;
+      font-family:'Playfair Display',serif;font-weight:700;
+      border-radius:14px;padding:9px 16px;
+      white-space:nowrap;font-size:clamp(12px,1.4vw,16px);
+      opacity:0;transform:scale(0.7) translateY(8px);
+      transition:opacity 0.4s ease,transform 0.4s ease;
+      pointer-events:none;z-index:10;
+    }
+    .bubble::after{
+      content:'';position:absolute;bottom:-8px;left:20px;
+      width:0;height:0;
+      border-left:8px solid transparent;
+      border-right:8px solid transparent;
+      border-top:8px solid #2a1a0e;
+    }
+    .bubble.show{opacity:1;transform:scale(1) translateY(0);}
+
+    .bubble-1{top:6%;left:-12%;}
+    .bubble-2{top:34%;right:-8%;}
+    .bubble-3{top:60%;left:-10%;}
+
+    @keyframes up{
+      from{opacity:0;transform:translateY(20px);}
+      to{opacity:1;transform:translateY(0);}
+    }
+
+    /* ── SHARED ── */
+    .ai-section{padding:88px 8%;}
+    .tl-bg{background:#f6efe7;}
+    .quiz-bg{background:#f6efe7;}
+
+    .ai-kicker{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#c8b6a6;margin-bottom:12px;display:block;}
+
+    .ai-h2{
+      font-family:'Playfair Display',serif;
+      font-size:clamp(34px,4.5vw,54px);font-weight:700;
+      letter-spacing:-1.5px;color:#2a1a0e;margin-bottom:14px;
+    }
+
+    .ai-intro{font-size:clamp(17px,1.8vw,21px);color:#6b4f35;max-width:580px;line-height:1.75;margin-bottom:48px;}
+
+    .section-rule{width:48px;height:2px;background:#2a1a0e;margin-bottom:48px;}
+
+    /* timeline */
+    .timeline{position:relative;max-width:720px;}
+    .timeline::before{
+      content:'';position:absolute;left:23px;top:0;bottom:0;width:1px;
+      background:linear-gradient(to bottom,transparent,#c8b6a6 8%,#c8b6a6 92%,transparent);
+    }
+
+    .tl-item{
+      display:flex;gap:28px;margin-bottom:50px;
+      opacity:0;transform:translateX(-22px);
+      transition:opacity 0.6s ease,transform 0.6s ease;
+    }
+    .tl-item.in{opacity:1;transform:translateX(0);}
+
+    .tl-dot{
+      flex-shrink:0;width:46px;height:46px;border-radius:50%;
+      background:#fdfaf6;border:1.5px solid #c8b6a6;
+      display:flex;align-items:center;justify-content:center;
+      font-size:18px;position:relative;z-index:1;
+    }
+
+    .tl-year{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:#c8b6a6;margin-bottom:5px;}
+    .tl-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#2a1a0e;margin-bottom:8px;}
+    .tl-text{font-size:18px;color:#6b4f35;line-height:1.72;}
+
+    /* tools */
+    .tools-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+      gap:18px;max-width:960px;
+    }
+
+    .tool-card{
+      background:#fff;border:1.5px solid rgba(200,182,166,0.5);
+      border-radius:20px;padding:28px 22px;
+      opacity:0;transform:translateY(22px);
+      transition:opacity 0.5s ease,transform 0.5s ease,box-shadow 0.3s;
+    }
+    .tool-card.in{opacity:1;transform:translateY(0);}
+    .tool-card:hover{box-shadow:0 10px 28px rgba(42,26,14,0.1);transform:translateY(-3px);}
+
+    .tool-icon{font-size:28px;margin-bottom:14px;display:block;}
+    .tool-name{font-family:'Playfair Display',serif;font-size:21px;font-weight:700;color:#2a1a0e;margin-bottom:8px;}
+    .tool-use{font-size:16px;color:#6b4f35;line-height:1.65;}
+    .tool-tag{
+      display:inline-block;margin-top:14px;padding:4px 14px;
+      border-radius:999px;background:rgba(200,182,166,0.22);
+      font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:#8b5e3c;
+    }
+
+    /* quiz */
+    .quiz-box{
+      max-width:640px;background:#fff;
+      border:1.5px solid rgba(200,182,166,0.5);
+      border-radius:24px;padding:48px 42px;
+    }
+
+    .quiz-progress-label{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:#c8b6a6;margin-bottom:14px;}
+
+    .quiz-bar{width:100%;height:2px;background:rgba(200,182,166,0.3);border-radius:999px;margin-bottom:32px;overflow:hidden;}
+    .quiz-bar-fill{height:100%;background:#2a1a0e;border-radius:999px;transition:width 0.5s ease;}
+
+    .quiz-q{
+      font-family:'Playfair Display',serif;
+      font-size:clamp(20px,2.6vw,27px);font-weight:700;
+      color:#2a1a0e;margin-bottom:28px;min-height:58px;
+    }
+
+    .quiz-opts{display:flex;flex-direction:column;gap:12px;}
+
+    .quiz-opt{
+      padding:13px 20px;border:1.5px solid rgba(200,182,166,0.5);
+      border-radius:12px;font-family:'Cormorant Garamond',serif;
+      font-size:19px;color:#2a1a0e;background:transparent;
+      cursor:pointer;text-align:left;
+      transition:background 0.22s,border-color 0.22s;
+    }
+    .quiz-opt:hover{background:rgba(200,182,166,0.14);border-color:#c8b6a6;}
+    .quiz-opt.selected{background:rgba(42,26,14,0.08);border-color:#2a1a0e;}
+
+    .quiz-result{display:none;text-align:center;}
+    .quiz-result.show{display:block;}
+
+    .res-icon{font-size:52px;margin-bottom:18px;}
+    .res-title{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:#2a1a0e;margin-bottom:14px;}
+    .res-text{font-size:19px;color:#6b4f35;line-height:1.72;margin-bottom:28px;}
+
+    .quiz-restart{
+      border:2px solid #2a1a0e;border-radius:999px;
+      padding:11px 30px;font-family:'Cormorant Garamond',serif;
+      font-size:15px;letter-spacing:1.5px;text-transform:uppercase;
+      color:#2a1a0e;background:transparent;cursor:pointer;
+      transition:background 0.3s,color 0.3s;
+    }
+    .quiz-restart:hover{background:#2a1a0e;color:#fdfaf6;}
+
+    /* cta */
+    .ai-cta{text-align:center;padding:96px 8%;}
+    .ai-cta p{font-size:clamp(17px,2vw,22px);color:#6b4f35;max-width:480px;margin:0 auto 38px;line-height:1.72;}
+    .ai-cta-btn{
+      display:inline-block;padding:15px 46px;
+      border:2px solid #2a1a0e;border-radius:999px;
+      font-family:'Cormorant Garamond',serif;
+      font-size:15px;letter-spacing:2px;text-transform:uppercase;
+      color:#2a1a0e;text-decoration:none;background:transparent;
+      transition:background 0.3s,color 0.3s;
+    }
+    .ai-cta-btn:hover{background:#2a1a0e;color:#fdfaf6;}
+
+    @media(max-width:700px){
+      .ai-hero{flex-direction:column-reverse;padding-top:100px;}
+      .hero-cartoon{width:78%;}
+      .bubble-2{right:0;}
+      .quiz-box{padding:30px 22px;}
+    }
+  </style>
+</head>
+<body class="ai-page">
+
+  <nav class="nav">
+    <a href="index.html" class="logo">WANGESHI</a>
+    <div class="nav-links">
+        <a href="about.html">About Me</a>
+        <a href="gallery.html">Portfolio</a>
+        <a href="ai-buddy.html">AI & ME</a>
+        <a href="contact.html">Contact</a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="about.html">About Me</a>
+    <a href="gallery.html">Portfolio</a>
+    <a href="ai-buddy.html">AI & ME</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="ai-hero">
+    <div class="hero-text">
+      <span class="hero-kicker">A personal story</span>
+      <h1 class="hero-h1">
+        <span class="line"><span class="word" id="hw1">I didn't go</span></span>
+        <span class="line"><span class="word" id="hw2">to a bootcamp.</span></span>
+        <span class="line"><span class="word" id="hw3"><em>I opened an AI</em></span></span>
+        <span class="line"><span class="word" id="hw4">and started</span></span>
+        <span class="line"><span class="word" id="hw5">asking questions.</span></span>
+      </h1>
+      <p class="hero-sub">This is how I used AI to teach myself web design, content creation, and branding — and how you can too.</p>
+      <a class="hero-cta" href="#journey">See My Journey ↓</a>
+    </div>
+
+    <!-- CARTOON + WORD BUBBLES -->
+    <div class="hero-cartoon">
+      <div class="bubble bubble-1" id="b1">Design ✦</div>
+      <div class="bubble bubble-2" id="b2">Build 💻</div>
+      <div class="bubble bubble-3" id="b3">Create 🎨</div>
+
+      <svg viewBox="0 0 320 420" xmlns="http://www.w3.org/2000/svg">
+        <!-- desk -->
+        <rect x="10" y="320" width="300" height="14" rx="4" fill="#d9c9b8"/>
+        <rect x="50" y="334" width="10" height="70" rx="3" fill="#c8b6a6"/>
+        <rect x="260" y="334" width="10" height="70" rx="3" fill="#c8b6a6"/>
+
+        <!-- laptop base -->
+        <rect x="60" y="278" width="200" height="46" rx="6" fill="#3e2f23"/>
+        <!-- laptop hinge -->
+        <rect x="58" y="276" width="204" height="6" rx="3" fill="#2a1a0e"/>
+        <!-- laptop screen outer -->
+        <rect x="68" y="172" width="184" height="110" rx="10" fill="#3e2f23"/>
+        <!-- laptop screen inner -->
+        <rect x="76" y="180" width="168" height="96" rx="6" fill="#f0e8df"/>
+
+        <!-- code lines on screen -->
+        <rect x="88" y="192" width="90" height="5" rx="2" fill="#c8b6a6" opacity="0.7"/>
+        <rect x="88" y="203" width="120" height="5" rx="2" fill="#8b5e3c" opacity="0.6"/>
+        <rect x="88" y="214" width="65" height="5" rx="2" fill="#c8b6a6" opacity="0.7"/>
+        <rect x="88" y="225" width="100" height="5" rx="2" fill="#3e2f23" opacity="0.35"/>
+        <rect x="88" y="236" width="75" height="5" rx="2" fill="#8b5e3c" opacity="0.6"/>
+        <rect x="88" y="247" width="110" height="5" rx="2" fill="#c8b6a6" opacity="0.5"/>
+        <!-- blinking cursor -->
+        <rect x="190" y="192" width="3" height="14" rx="1" fill="#3e2f23">
+          <animate attributeName="opacity" values="1;0;1" dur="1s" repeatCount="indefinite"/>
+        </rect>
+
+        <!-- body / torso -->
+        <ellipse cx="160" cy="258" rx="46" ry="38" fill="#8b5e3c"/>
+        <!-- collar detail -->
+        <path d="M160 232 L148 248 L160 243 L172 248 Z" fill="#fdfaf6" opacity="0.6"/>
+
+        <!-- left arm -->
+        <path d="M116 262 Q84 278 96 300" stroke="#f5c5a3" stroke-width="20" fill="none" stroke-linecap="round"/>
+        <!-- right arm -->
+        <path d="M204 262 Q236 278 224 300" stroke="#f5c5a3" stroke-width="20" fill="none" stroke-linecap="round"/>
+        <!-- hands -->
+        <ellipse cx="100" cy="302" rx="15" ry="10" fill="#f5c5a3"/>
+        <ellipse cx="220" cy="302" rx="15" ry="10" fill="#f5c5a3"/>
+
+        <!-- neck -->
+        <rect x="152" y="210" width="16" height="26" rx="7" fill="#f5c5a3"/>
+
+        <!-- head -->
+        <ellipse cx="160" cy="188" rx="46" ry="44" fill="#f5c5a3"/>
+
+        <!-- hair -->
+        <path d="M114 175 Q116 124 160 120 Q204 124 206 175 Q192 138 160 134 Q128 138 114 175Z" fill="#2a1a0e"/>
+        <ellipse cx="160" cy="120" rx="24" ry="16" fill="#2a1a0e"/>
+        <!-- braids -->
+        <path d="M136 120 Q126 94 140 84" stroke="#2a1a0e" stroke-width="9" fill="none" stroke-linecap="round"/>
+        <path d="M160 116 Q160 92 166 82" stroke="#2a1a0e" stroke-width="9" fill="none" stroke-linecap="round"/>
+        <path d="M184 120 Q194 94 180 84" stroke="#2a1a0e" stroke-width="9" fill="none" stroke-linecap="round"/>
+        <!-- bun -->
+        <circle cx="160" cy="80" r="16" fill="#2a1a0e"/>
+        <circle cx="146" cy="82" r="9" fill="#2a1a0e"/>
+        <circle cx="174" cy="82" r="9" fill="#2a1a0e"/>
+
+        <!-- face -->
+        <!-- eyes -->
+        <ellipse cx="146" cy="186" rx="7" ry="8" fill="#2a1a0e"/>
+        <ellipse cx="174" cy="186" rx="7" ry="8" fill="#2a1a0e"/>
+        <circle cx="148" cy="184" r="2.5" fill="white"/>
+        <circle cx="176" cy="184" r="2.5" fill="white"/>
+        <!-- eyebrows -->
+        <path d="M139 176 Q146 172 153 176" stroke="#2a1a0e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M167 176 Q174 172 181 176" stroke="#2a1a0e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <!-- smile -->
+        <path d="M148 202 Q160 213 172 202" stroke="#2a1a0e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <!-- cheeks -->
+        <ellipse cx="134" cy="197" rx="9" ry="6" fill="#f5a07a" opacity="0.38"/>
+        <ellipse cx="186" cy="197" rx="9" ry="6" fill="#f5a07a" opacity="0.38"/>
+        <!-- earrings -->
+        <circle cx="114" cy="192" r="5" fill="#c8b6a6"/>
+        <circle cx="206" cy="192" r="5" fill="#c8b6a6"/>
+
+        <!-- sparkles -->
+        <text x="46" y="162" font-size="16" fill="#8b5e3c" opacity="0">✦
+          <animate attributeName="opacity" values="0;1;0" dur="2.4s" begin="0.5s" repeatCount="indefinite"/>
+        </text>
+        <text x="262" y="148" font-size="13" fill="#c8b6a6" opacity="0">✦
+          <animate attributeName="opacity" values="0;1;0" dur="2.4s" begin="1.2s" repeatCount="indefinite"/>
+        </text>
+        <text x="38" y="230" font-size="11" fill="#c8b6a6" opacity="0">✦
+          <animate attributeName="opacity" values="0;1;0" dur="2.4s" begin="0.9s" repeatCount="indefinite"/>
+        </text>
+      </svg>
+    </div>
+  </section>
+
+  <!-- TIMELINE -->
+  <section class="ai-section tl-bg" id="journey">
+    <div style="max-width:800px;">
+      <span class="ai-kicker">The story</span>
+      <h2 class="ai-h2">How it happened</h2>
+      <p class="ai-intro">It wasn't planned. It started with curiosity and a lot of late nights.</p>
+      <div class="section-rule"></div>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-dot">🌱</div>
+          <div><p class="tl-year">The beginning</p><p class="tl-title">I was bored and curious</p><p class="tl-text">I stumbled onto ChatGPT and started asking random questions. I didn't know it would change everything. I just wanted to see what it could do.</p></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot">💻</div>
+          <div><p class="tl-year">First experiment</p><p class="tl-title">I asked it to teach me HTML</p><p class="tl-text">I typed "teach me how to build a website from scratch" and it actually did. Step by step. I built my first page that same week. It was ugly — but it worked.</p></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot">🎨</div>
+          <div><p class="tl-year">Getting creative</p><p class="tl-title">Design, logos, graphics</p><p class="tl-text">I found Canva AI and Deep AI for visuals. I started designing brand assets, social media content, even logos — all with AI as my creative partner.</p></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot">⚡</div>
+          <div><p class="tl-year">Level up</p><p class="tl-title">Cursor changed how I code</p><p class="tl-text">Cursor lets me write real code with AI inside the editor. I could build things I didn't fully understand yet — and learn by watching it happen in real time.</p></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot">🌍</div>
+          <div><p class="tl-year">Today</p><p class="tl-title">Real work, real results</p><p class="tl-text">I've built websites for organisations, managed social media for brands, and created content that performs. AI didn't do it for me — it helped me do it better.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOOLS -->
+  <section class="ai-section">
+    <span class="ai-kicker">The toolkit</span>
+    <h2 class="ai-h2">Tools I actually used</h2>
+    <p class="ai-intro">Not a sponsored list. These are the tools that genuinely changed how I work and learn.</p>
+    <div class="section-rule"></div>
+    <div class="tools-grid">
+      <div class="tool-card"><span class="tool-icon">🤖</span><p class="tool-name">ChatGPT</p><p class="tool-use">My first AI tutor. I used it to learn HTML, CSS, writing, strategy, and to explain anything I didn't understand.</p><span class="tool-tag">Learning</span></div>
+      <div class="tool-card"><span class="tool-icon">✦</span><p class="tool-name">Claude</p><p class="tool-use">For longer thinking — writing, editing, planning strategies, and building this very website.</p><span class="tool-tag">Writing & Code</span></div>
+      <div class="tool-card"><span class="tool-icon">🎨</span><p class="tool-name">Canva AI</p><p class="tool-use">Graphics, social posts, brand kits, presentations. The AI features make design feel effortless.</p><span class="tool-tag">Design</span></div>
+      <div class="tool-card"><span class="tool-icon">⚡</span><p class="tool-name">Cursor</p><p class="tool-use">An AI-powered code editor. It writes, fixes, and explains code as you build — like having a developer beside you.</p><span class="tool-tag">Development</span></div>
+      <div class="tool-card"><span class="tool-icon">🖼️</span><p class="tool-name">Deep AI</p><p class="tool-use">For generating images and visual concepts when I needed something that didn't exist yet.</p><span class="tool-tag">Visuals</span></div>
+    </div>
+  </section>
+
+  <!-- QUIZ -->
+  <section class="ai-section quiz-bg">
+    <div style="max-width:800px;">
+      <span class="ai-kicker">Find your path</span>
+      <h2 class="ai-h2">Where should you start?</h2>
+      <p class="ai-intro">Answer 3 quick questions and I'll point you to the right tool.</p>
+      <div class="section-rule"></div>
+      <div class="quiz-box">
+        <div id="quiz-main">
+          <p class="quiz-progress-label" id="qprog">Question 1 of 3</p>
+          <div class="quiz-bar"><div class="quiz-bar-fill" id="qbar" style="width:33%"></div></div>
+          <p class="quiz-q" id="qq"></p>
+          <div class="quiz-opts" id="qopts"></div>
+        </div>
+        <div class="quiz-result" id="qresult">
+          <div class="res-icon" id="ricon"></div>
+          <p class="res-title" id="rtitle"></p>
+          <p class="res-text" id="rtext"></p>
+          <button class="quiz-restart" onclick="restartQuiz()">Try Again</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="ai-cta">
+    <span class="ai-kicker">Let me help</span>
+    <h2 class="ai-h2">Want to learn this too?</h2>
+    <p>If you want to use AI to build real skills — web design, content, branding — I can guide you. Let's talk.</p>
+    <a class="ai-cta-btn" href="mailto:gwangeshi9@gmail.com">Get In Touch →</a>
+  </section>
+
+  <script>
+    const delay = ms => new Promise(r => setTimeout(r, ms));
+
+    /* hero words */
+    (async () => {
+      await delay(300);
+      for (let i = 1; i <= 5; i++) {
+        document.getElementById('hw'+i).classList.add('up');
+        await delay(130);
+      }
+      await delay(600);
+      for (const id of ['b1','b2','b3']) {
+        document.getElementById(id).classList.add('show');
+        await delay(420);
+      }
+    })();
+
+    /* scroll reveal */
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('in'), i * 90);
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.tl-item, .tool-card').forEach(el => obs.observe(el));
+
+    /* quiz */
+    const questions = [
+      { q:"What do you most want to learn?", opts:["Web design & building websites","Writing & content creation","Graphic design & visuals","Strategy & brand planning"] },
+      { q:"How would you describe your skill level right now?", opts:["Complete beginner — zero experience","I know a little, want to go further","Intermediate, want to level up","I just want to work faster with AI"] },
+      { q:"How do you learn best?", opts:["Step-by-step with lots of examples","Diving in and figuring it out","Watching, then copying","Asking questions as I go"] }
+    ];
+
+    const results = [
+      { icon:"💻", title:"Start with Cursor + ChatGPT", text:"You're built for building. Open Cursor, ask ChatGPT to teach you HTML basics, and start with a simple one-page site. You'll have something real within a week." },
+      { icon:"✍️", title:"Start with Claude or ChatGPT", text:"Claude is incredible for writing and content strategy. Start by asking it to help you write one thing — a caption, a bio, a post — then keep going from there." },
+      { icon:"🎨", title:"Start with Canva AI + Deep AI", text:"Canva AI's Magic Studio will feel like a superpower. Pair it with Deep AI for image generation and you'll be creating beautiful visuals faster than you imagined." },
+      { icon:"🤖", title:"Start with ChatGPT", text:"ChatGPT is the best all-round starting point. It will explain, teach, plan, and help with almost anything. Begin by asking it one real question you've been wondering about." }
+    ];
+
+    let cur = 0, answers = [];
+
+    function renderQ() {
+      const q = questions[cur];
+      document.getElementById('qq').textContent = q.q;
+      document.getElementById('qprog').textContent = `Question ${cur+1} of ${questions.length}`;
+      document.getElementById('qbar').style.width = `${((cur+1)/questions.length)*100}%`;
+      const opts = document.getElementById('qopts');
+      opts.innerHTML = '';
+      q.opts.forEach((o, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'quiz-opt';
+        btn.textContent = o;
+        btn.onclick = () => pick(i);
+        opts.appendChild(btn);
+      });
+    }
+
+    function pick(i) {
+      document.querySelectorAll('.quiz-opt').forEach(b => b.classList.remove('selected'));
+      document.querySelectorAll('.quiz-opt')[i].classList.add('selected');
+      answers.push(i);
+      setTimeout(() => { cur++; cur < questions.length ? renderQ() : showResult(); }, 380);
+    }
+
+    function showResult() {
+      document.getElementById('quiz-main').style.display = 'none';
+      const r = results[answers[0]] || results[0];
+      document.getElementById('ricon').textContent = r.icon;
+      document.getElementById('rtitle').textContent = r.title;
+      document.getElementById('rtext').textContent = r.text;
+      document.getElementById('qresult').classList.add('show');
+    }
+
+    function restartQuiz() {
+      cur = 0; answers = [];
+      document.getElementById('quiz-main').style.display = 'block';
+      document.getElementById('qresult').classList.remove('show');
+      renderQ();
+    }
+
+    renderQ();
+  </script>
+</body>
+</html>

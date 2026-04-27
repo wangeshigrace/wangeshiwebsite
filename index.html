@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WANGESHI</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Swiper CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+<!-- Page fonts for the intro section -->
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Playfair+Display:wght@500&display=swap" rel="stylesheet" />
+<style>
+  body {
+    margin: 0;
+  }
+  /* Header styling */
+  header { display: none; }
+  header a {
+    text-decoration: none;
+    color: #555;
+    transition: color 0.3s;
+  }
+  header a:hover {
+    color: #ffc86fc7; /* Pinkish hover color */
+  }
+
+  /* Main content layout */
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 40px 20px;
+  }
+
+  .intro-container {
+    padding: 0;
+    margin-top: 0;
+    background: #fdfaf6;
+    align-items: stretch;
+    min-height: 620px;
+    border-bottom: 5px solid #3e2f23;
+  }
+
+  .text-section {
+    flex: 1;
+    min-width: 300px;
+    padding: clamp(42px, 7vw, 88px) clamp(26px, 6vw, 78px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-right: 3px solid #3e2f23;
+  }
+
+  .title {
+    font-family: 'Playfair Display', serif;
+    font-size: 3em;
+    margin-bottom: 20px;
+    color: #3e2f23;
+  }
+
+  p {
+    font-size: 1.1em;
+    line-height: 1.6;
+    color: #7a6a58;
+  }
+
+  .btn {
+    display: inline-block;
+    width: fit-content;
+    align-self: flex-start;
+    margin-top: 30px;
+    padding: 6px 13px;
+    border: 1px solid #c8b6a6;
+    border-radius: 13px;
+    background-color: rgba(200, 182, 166, 0.08);
+    color: #3e2f23;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.82em;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+  .btn:hover {
+    background-color: #c8b6a6;
+    color: #ffffff;
+  }
+
+  .image-section {
+    flex: 1;
+    min-width: 300px;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .profile-img {
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    min-height: 620px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 0;
+    display: block;
+  }
+
+  /* Intro reveal animation */
+  .intro-container .title,
+  .intro-container p,
+  .intro-container .btn {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .intro-container .title { transition-delay: 0.1s; }
+  .intro-container p { transition-delay: 0.22s; }
+  .intro-container .btn { transition-delay: 0.34s; }
+
+  .intro-container .image-section {
+    opacity: 0;
+    transform: translateX(36px) scale(1.02);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+    transition-delay: 0.28s;
+  }
+
+  .intro-container.active .title,
+  .intro-container.active p,
+  .intro-container.active .btn,
+  .intro-container.active .image-section {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Responsive adjustments */
+  @media(max-width: 768px) {
+    .container {
+      flex-direction: column;
+    }
+
+    .intro-container {
+      min-height: auto;
+    }
+
+    .text-section {
+      border-right: none;
+      border-bottom: 3px solid #3e2f23;
+    }
+
+    .profile-img {
+      min-height: 420px;
+      max-height: 62vh;
+    }
+  }
+</style>
+
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+    
+</head>
+<body class="home-page">
+<!-- HIRE BUTTON -->
+<a href="mailto:gwangeshi9@gmail.com" class="hire-btn">Hire Me</a>
+
+<!-- NAVBAR -->
+<nav class="nav">
+    <a href="about.html">About Me</a>
+    <a href="gallery.html">Portfolio</a>
+    <a href="index.html" class="logo">WANGESHI</a>
+    <a href="ai-buddy.html">AI & ME</a>
+    <a href="contact.html">Contact</a>
+</nav>
+
+<!-- VIDEO HERO -->
+<div class="hero-video">
+    <video autoplay muted loop playsinline>
+        <source src="video.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <div class="overlay"></div>
+    <div class="hero-content">
+        <h1><span id="typed-text"></span></h1>
+        <p>Social Media Manager | Web Designer | IBM Student in Kenya</p>
+    </div>
+</div>
+
+<!-- NAVBAR -->
+<div class="container intro-container reveal">
+  <div class="text-section">
+    <div class="title">Who Is Wangeshi?</div>
+    <p>Hi, I’m Wangeshi. I’m building a life centered around growth, independence, and purpose. As a student, social media manager, and future founder, I’m turning ideas into real opportunities and learning how to move with intention. This space reflects the journey—elevating, evolving, and becoming.</p>
+    <a class="btn" href="about.html">READ MY STORY</a>
+  </div>
+  <div class="image-section">
+  <img src="12.png" class="profile-img" alt="Profile Photo" />
+</div>
+</div>
+
+
+<section class="story-section">
+
+    <div class="story-container">
+
+        <!-- LEFT SIDE (TEXT CHANGES) -->
+        <div class="story-text">
+
+            <div class="story-step active">
+                <h2>Understanding your brand</h2>
+                <p>I start by learning your voice, audience, and vision deeply.</p>
+            </div>
+
+            <div class="story-step">
+                <h2>Crafting strategy</h2>
+                <p>I design a clear direction that aligns with your goals.</p>
+            </div>
+
+            <div class="story-step">
+                <h2>Creating content</h2>
+                <p>Every visual and caption is intentional and engaging.</p>
+            </div>
+
+            <div class="story-step">
+                <h2>Scaling growth</h2>
+                <p>I analyze, refine, and grow what works consistently.</p>
+            </div>
+
+        </div>
+
+        <!-- RIGHT SIDE (IMAGE CHANGES) -->
+        <div class="story-visual">
+
+            <img src="1.png" class="story-img active" alt="Brand story step 1">
+            <img src="photo1.png" class="story-img" alt="Brand story step 2">
+            <img src="1.png" class="story-img" alt="Brand story step 3">
+            <img src="photo1.png" class="story-img" alt="Brand story step 4">
+
+        </div>
+
+    </div>
+
+</section>
+<!-- Slider Section -->
+<div style="margin-top:-40px; padding:20px; background:#fdfaf6;">
+  <h2 style="text-align:center; margin-bottom:20px;">My Gallery / Reels</h2>
+  <div class="slider-container" style="overflow:hidden; position:relative; width:100%; max-width:1200px; margin:auto;">
+    <div class="slide-track" style="display:flex; transition:transform 0.5s ease;">
+      <!-- Repeat these items for each slide -->
+      <div class="slide" style="min-width:300px; margin-right:10px; position:relative;">
+        <img src="1.png" style="width:100%; border-radius:8px;" />
+      </div>
+      <div class="slide" style="min-width:300px; margin-right:10px;">
+        <img src="photo1.png" style="width:100%; border-radius:8px;" />
+      </div>
+      <div class="slide" style="min-width:300px; margin-right:10px;">
+        <img src="1.png" style="width:100%; border-radius:8px;" />
+      </div>
+      <div class="slide" style="min-width:300px; margin-right:10px;">
+        <img src="photo1.png" style="width:100%; border-radius:8px;" />
+      </div>
+      <div class="slide" style="min-width:300px; margin-right:10px;">
+        <img src="1.png" style="width:100%; border-radius:8px;" />
+      </div>
+      <div class="slide" style="min-width:300px; margin-right:10px;">
+        <img src="1.png" style="width:100%; border-radius:8px;" />
+      </div>
+      <div class="slide" style="min-width:300px; margin-right:10px;">
+        <img src="photo1.png" style="width:100%; border-radius:8px;" />
+      </div>
+      <div class="slide" style="min-width:300px; margin-right:10px;">
+        <img src="photo1.png" style="width:100%; border-radius:8px;" />
+      </div>
+      <div class="slide" style="min-width:300px; margin-right:10px;">
+        <img src="photo1.png" style="width:100%; border-radius:8px;" />
+      </div>
+      <div class="slide" style="min-width:300px; margin-right:10px;">
+        <img src="photo1.png" style="width:100%; border-radius:8px;" />
+      </div>
+
+      <!-- Add more slides as needed -->
+    </div>
+  </div>
+</div>
+
+<section class="brands-section reveal">
+
+    <div class="brands-header">
+        <h2>What I’m building</h2>
+        <p>
+            Two ideas I’ve brought to life—each one teaching me, shaping me,
+            and pushing me to think beyond just creating.
+        </p>
+    </div>
+
+    <!-- NGOBO -->
+    <div class="brand-row">
+
+        <div class="brand-image">
+            <img src="1.png" alt="Ngobo">
+        </div>
+
+        <div class="brand-text">
+            <h3>Ngobo</h3>
+            <p>
+                A creative brand centered around identity, expression, and storytelling—
+                built to feel, not just be seen.
+            </p>
+
+            <div class="brand-gallery">
+                <img src="1.png">
+                <img src="1.png">
+            </div>
+
+            <a href="https://instagram.com/" target="_blank" rel="noopener noreferrer" class="brand-btn">
+                Explore Brand
+            </a>
+        </div>
+
+    </div>
+
+    <!-- ERRUN -->
+    <div class="brand-row reverse">
+
+        <div class="brand-image">
+            <img src="1.png" alt="Errun">
+        </div>
+
+        <div class="brand-text">
+            <h3>Errun</h3>
+            <p>
+                A startup focused on simplifying everyday experiences—
+                built from curiosity, problem-solving, and real-world thinking.
+            </p>
+
+            <div class="brand-gallery">
+                <img src="1.png">
+                <img src="1.png">
+            </div>
+
+            <a href="https://example.com" target="_blank" rel="noopener noreferrer" class="brand-btn">
+                View Startup
+            </a>
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="identity-section">
+
+    <h2 class="identity-title">I wear many hats</h2>
+
+    <div class="identity-grid">
+
+        <!-- CARD 1 -->
+        <div class="identity-card" data-title="Student" data-desc="Currently pursuing my Bachelor's in IBM in Kenya, building both technical and creative skills.">
+            <div class="card-inner">
+                <div class="card-front">🎓 Student</div>
+                <div class="card-back">Click to learn more</div>
+            </div>
+        </div>
+
+        <!-- CARD 2 -->
+        <div class="identity-card" data-title="Social Media Manager" data-desc="Helping brands grow through strategy, content creation, and consistency that actually converts.">
+            <div class="card-inner">
+                <div class="card-front">📱 SMM & VA</div>
+                <div class="card-back">Click to learn more</div>
+            </div>
+        </div>
+
+        <!-- CARD 3 -->
+        <div class="identity-card" data-title="Climate Action Officer" data-desc="Working with WSPU Kenya to drive sustainability and meaningful environmental change.">
+            <div class="card-inner">
+                <div class="card-front">🌍 Climate Officer</div>
+                <div class="card-back">Click to learn more</div>
+            </div>
+        </div>
+
+        <!-- CARD 4 -->
+        <div class="identity-card" data-title="Web Developer" data-desc="Designing and building aesthetic, modern websites with real user experience in mind.">
+            <div class="card-inner">
+                <div class="card-front">💻 Developer</div>
+                <div class="card-back">Click to learn more</div>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- MODAL -->
+<div class="card-modal" id="cardModal">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h3 id="modalTitle"></h3>
+        <p id="modalDesc"></p>
+    </div>
+</div>
+
+
+<!-- CTA -->
+<section class="section reveal">
+    <h2>Let’s Work Together 🤍</h2>
+    <p>I help brands grow online with strategy, creativity, and consistency.</p>
+    <a href="contact.html" class="cta-btn">Get In Touch</a>
+</section>
+
+
+<!-- SCROLL ANIMATION -->
+<script>
+function revealOnScroll() {
+    let elements = document.querySelectorAll(".reveal");
+    for (let i = 0; i < elements.length; i++) {
+        let windowHeight = window.innerHeight;
+        let elementTop = elements[i].getBoundingClientRect().top;
+        let elementVisible = 100;
+
+        if (elementTop < windowHeight - elementVisible) {
+            elements[i].classList.add("active");
+        }
+    }
+}
+window.addEventListener("scroll", revealOnScroll);
+revealOnScroll();
+</script>
+
+<!-- STORY SCROLL SWITCH -->
+<script>
+const steps = document.querySelectorAll(".story-step");
+const images = document.querySelectorAll(".story-img");
+
+window.addEventListener("scroll", () => {
+    const section = document.querySelector(".story-section");
+    if (!section) return;
+    const scrollY = window.scrollY;
+    const sectionTop = section.offsetTop;
+    const sectionHeight = section.offsetHeight;
+
+    const progress = (scrollY - sectionTop) / sectionHeight;
+
+    let index = Math.floor(progress * steps.length);
+
+    if (index < 0) index = 0;
+    if (index >= steps.length) index = steps.length - 1;
+
+    steps.forEach((step, i) => {
+        step.classList.toggle("active", i === index);
+    });
+
+    images.forEach((img, i) => {
+        img.classList.toggle("active", i === index);
+    });
+});
+</script>
+
+<!-- TYPING EFFECT -->
+<script>
+const text = "Hey, I’m Wangeshi ";
+let i = 0;
+function typeWriter() {
+    const typedTextSpan = document.getElementById("typed-text");
+    if (typedTextSpan) {
+        typedTextSpan.innerHTML = ""; // Clear before typing
+        i = 0; // Reset index for retyping if needed
+        function typing() {
+            if (i < text.length) {
+                typedTextSpan.innerHTML += text.charAt(i);
+                i++;
+                setTimeout(typing, 100);
+            }
+        }
+        typing();
+    }
+}
+window.onload = typeWriter;
+</script>
+
+<!-- NAVBAR SCROLL -->
+<script>
+window.addEventListener("scroll", function() {
+    let nav = document.querySelector("nav");
+    if (window.scrollY > 50) {
+        nav.classList.add("scrolled");
+    } else {
+        nav.classList.remove("scrolled");
+    }
+});
+</script>
+<script>
+  let currentIndex = 0;
+  const slides = document.querySelector('.slide-track');
+  const totalSlides = document.querySelectorAll('.slide').length;
+
+  function slideNext() {
+    currentIndex++;
+    if (currentIndex >= totalSlides) {
+      currentIndex = 0;
+    }
+    const offset = -currentIndex * (300 + 10); // width + margin
+    slides.style.transform = `translateX(${offset}px)`;
+  }
+
+  // Auto-slide every 8 seconds
+  setInterval(slideNext, 3000);
+</script>
+</body>
+</html>

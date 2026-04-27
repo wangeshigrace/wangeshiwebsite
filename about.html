@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WANGESHI</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=DM+Serif+Display&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+</head>
+
+<body class="about-page">
+<nav class="nav">
+    <a href="about.html">About Me</a>
+    <a href="gallery.html">Portfolio</a>
+    <a href="index.html" class="logo">WANNGESHI</a>
+    <a href="ai-buddy.html">AI & ME</a>
+    <a href="contact.html">Contact</a>
+</nav>
+
+<!-- MERGED MY STORY -->
+<section class="about-story reveal">
+    <div class="about-story-glass">
+        <h1>All About Me</h1>
+        <p class="story-writing">My name is Grace Wangechi. I was born in 2004, and my journey has been one of growth, curiosity, and becoming.
+
+I spent my early years at Little Wonder School, before moving to boarding school at Sacred Heart Primary in Class Five. After completing my KCPE, I joined Chinga Girls High School.
+
+I later pursued a Diploma in Business Information Technology at KCA University, graduating in 2025 with a credit. Currently, I’m continuing my studies, working towards my Bachelor’s in International Business Management.
+
+My professional journey began at the World Scout Parliamentary Union-Kenya, where I serve as the Climate Action Officer. That experience has exposed me to so much-different people, new environments, and opportunities to travel across Kenya. Truly, once a scout, always a scout.
+
+Alongside this, I’ve been building skills in virtual assistance and social media management — learning how to help brands communicate, grow, and connect in meaningful ways.
+
+I have a strong desire to become an entrepreneur and businesswoman. I dream of building and growing my own brand, Ngobo and developing my service-based platform, Errun .
+
+Beyond everything I do, I’m also a sister, a friend, and someone who deeply values connection and quality time. I’m naturally curious, always wanting to learn more, try new things, and grow into better versions of myself. At times, I feel the fear of failing or missing out — but that’s also what pushes me to keep going.
+
+I also love to cook. At one point, I dreamed of becoming a chef — and even though life took a different direction, that passion for creating hasn’t left me. It simply shows up in different ways now.
+
+This is still just the beginning for me.</p>
+    </div>
+</section>
+
+<!-- DREAMS -->
+<section class="dreams-image-section reveal">
+    <div class="dreams-image">
+        <img src="2.png" alt="MY GOALS">
+    </div>
+</section>
+
+<!-- BEYOND WORK / TRAVEL SPIRAL -->
+<section class="travel-section reveal">
+    <div class="travel-header">
+        <span class="travel-kicker">Life Beyond the Screen</span>
+        <h2>Beyond Work</h2>
+        <p>Places I have explored.</p>
+    </div>
+
+    <div class="travel-spiral" id="travel-spiral">
+        <article class="travel-card" data-county="Nairobi">
+            <img src="4.png" alt="Nairobi travel memory">
+            <h3>Siaya</h3>
+        </article>
+        <article class="travel-card" data-county="Mombasa">
+            <img src="7.png" alt="Mombasa travel memory">
+            <h3>Samburu</h3>
+        </article>
+        <article class="travel-card" data-county="Nakuru">
+            <img src="6.png" alt="Nakuru travel memory">
+            <h3>Mt.Ololokwe, Samburu</h3>
+        </article>
+        <article class="travel-card" data-county="Kisumu">
+            <img src="5.png" alt="Kisumu travel memory">
+            <h3>South Horr</h3>
+        </article>
+        <article class="travel-card" data-county="Nyeri">
+            <img src="3.png" alt="Nyeri travel memory">
+            <h3>11TH GA Kenya</h3>
+        </article>
+        <article class="travel-card" data-county="Meru">
+            <img src="8.png" alt="Meru travel memory">
+            <h3>National Park</h3>
+        </article>
+    </div>
+
+</section>
+
+<!-- SMM PASSION -->
+<section class="smm-section">
+    <h2>I Help Brands Feel Alive</h2>
+    <p class="smm-intro">Social media isn’t just posting; it’s storytelling, strategy, and connection.</p>
+
+    <div class="smm-grid">
+        <div class="smm-card">
+            <h3>STRATEGY</h3>
+            <p>I build clear direction so your brand shows up with purpose.</p>
+        </div>
+        <div class="smm-card">
+            <h3> CONTENT</h3>
+            <p>Visual storytelling that feels authentic and engaging.</p>
+        </div>
+      <div class="smm-card">
+            <h3>LEAD GENERATION</h3>
+            <p>Researching and identifying potential clients or audiences.</p>
+        </div>
+        <div class="smm-card">
+            <h3>VIRTUAL ASSISTANCE</h3>
+            <p>Supporting daily tasks, organization, and admin work.</p>
+        </div>
+        <div class="smm-card">
+            <h3>DATA ENTRY</h3>
+            <p>Accurate and structured digital data management.</p>
+        </div>  
+    
+        
+    </div>
+
+    <div class="portfolio-cta">
+        <p>Want to see my work?</p>
+        <a href="gallery.html" class="portfolio-btn">View My Work →</a>
+    </div>
+</section>
+<script>
+(() => {
+    const spiral = document.getElementById("travel-spiral");
+    const cards = spiral ? Array.from(spiral.querySelectorAll(".travel-card")) : [];
+    if (!spiral || !cards.length) return;
+
+    let offset = 0;
+    const cardCount = cards.length;
+    let rafId;
+    let lastTs = 0;
+
+    function positionCards() {
+        const isMobile = window.innerWidth <= 768;
+        const rect = spiral.getBoundingClientRect();
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+
+        const baseRadiusX = isMobile ? 150 : 240;
+        const baseRadiusY = isMobile ? 95 : 155;
+        const t = Date.now() / 1000;
+        const breath = (Math.sin(t * 0.9) + 1) / 2; // 0..1
+        const radiusX = baseRadiusX + breath * (isMobile ? 14 : 22);
+        const radiusY = baseRadiusY + breath * (isMobile ? 10 : 16);
+        const step = (2 * Math.PI) / cardCount;
+
+        cards.forEach((card, index) => {
+            const angle = index * step + offset;
+            const x = Math.cos(angle) * radiusX;
+            const y = Math.sin(angle) * radiusY;
+            const depth = (Math.sin(angle) + 1) / 2;
+            const scale = 0.84 + depth * 0.22;
+            const z = Math.round(depth * 100);
+            card.style.left = `${centerX + x}px`;
+            card.style.top = `${centerY + y}px`;
+            card.style.transform = `translate(-50%, -50%) scale(${scale})`;
+            card.style.zIndex = String(z);
+            card.style.opacity = String(0.48 + depth * 0.52);
+            card.classList.toggle("is-front", depth > 0.92);
+        });
+    }
+
+    function animate(ts) {
+        if (!lastTs) lastTs = ts;
+        const dt = Math.min((ts - lastTs) / 1000, 0.05);
+        lastTs = ts;
+
+        // Smooth continuous rotation
+        offset -= dt * 0.55; // radians per second
+        positionCards();
+        rafId = window.requestAnimationFrame(animate);
+    }
+
+    window.addEventListener("resize", positionCards);
+    window.addEventListener("visibilitychange", () => {
+        if (document.hidden) {
+            window.cancelAnimationFrame(rafId);
+            rafId = undefined;
+            lastTs = 0;
+        } else if (!rafId) {
+            rafId = window.requestAnimationFrame(animate);
+        }
+    });
+
+    positionCards();
+    rafId = window.requestAnimationFrame(animate);
+})();
+</script>
+</body>
+</html>

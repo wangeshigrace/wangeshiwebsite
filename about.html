@@ -3,14 +3,347 @@
 <head>
     <title>WANGESHI</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=DM+Serif+Display&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
-</head>
+    <link href="https://fonts.googleapis.com/css2?family=Alice:wght@400;500&family=Romantic+Couple:wght@400&family=Cormorant+Garamond:wght@300;400;500;600;700&family=Playfair+Display:wght@500&family=DM+Serif+Display&family=Poppins:wght@300;400&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+    /* GLOBAL RESET */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    html, body {
+        overflow-x: hidden;
+        width: 100%;
+    }
+    
+    /* LUXURY COLOR PALETTE */
+    :root {
+        --bg-main: #170d00;
+        --text-main: #3B2B2B;
+        --accent-burgundy: #6E3B3B;
+        --soft-rose: #D8B7A6;
+        --warm-cream: #f1bf8a;
+        --cream: #EFE3D6;
+        --ink: #3B2B2B;
+        --mink: #6E3B3B;
+        --gold: #D8B7A6;
+        --sand: rgb(237, 200, 155);
+    }
+    
+    /* PREMIUM NAVBAR */
+    .nav {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 48px;
+        padding: 16px 0;
+        background: rgba(247, 243, 238, 0.95);
+        backdrop-filter: blur(20px) saturate(180%);
+        border-bottom: 1px solid rgba(110, 59, 59, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        height: 60px;
+    }
+    
+    .nav a {
+        font-family: 'Alice', serif;
+        font-size: 11px;
+        font-weight: 500;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        text-decoration: none;
+        color: var(--text-main);
+        transition: all 0.3s ease;
+        position: relative;
+    }
+    
+    .nav a::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background: var(--accent-burgundy);
+        transition: width 0.3s ease;
+    }
+    
+    .nav a:hover {
+        color: var(--accent-burgundy);
+    }
+    
+    .nav a:hover::after {
+        width: 100%;
+    }
+    
+    .nav .logo {
+        font-family: 'Romantic Couple', cursive;
+        font-size: 18px;
+        color: var(--accent-burgundy);
+        letter-spacing: 1px;
+    }
+    
+    /* TYPOGRAPHY SYSTEM */
+    h1, h2, h3, h4, h5, h6 {
+        font-family: 'Alice', serif;
+        font-weight: 500;
+        color: var(--text-main);
+        line-height: 1.3;
+    }
+    
+    p, span, div {
+        font-family: 'Cormorant Garamond', serif;
+        color: var(--text-main);
+        line-height: 1.6;
+    }
+    
+    .logo, .signature {
+        font-family: 'Romantic Couple', cursive;
+    }
+    
+    /* LUXURY BUTTONS */
+    .portfolio-btn, .contact-btn {
+        display: inline-block;
+        padding: 14px 32px;
+        border: 1px solid var(--accent-burgundy);
+        border-radius: 50px;
+        font-family: 'Alice', serif;
+        font-size: 14px;
+        font-weight: 500;
+        text-decoration: none;
+        color: var(--accent-burgundy);
+        background: transparent;
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+    
+    .portfolio-btn:hover, .contact-btn:hover {
+        background: var(--accent-burgundy);
+        color: var(--warm-cream);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(110, 59, 59, 0.15);
+    }
+    
+    /* SECTION STYLING */
+    .about-page {
+        background: var(--bg-main);
+        width: 100%;
+        overflow-x: hidden;
+    }
+    
+    .about-story {
+        padding: 80px 6%;
+        max-width: 900px;
+        margin: 0 auto;
+    }
+    
+    .about-story-glass {
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(20px);
+        padding: 60px;
+        border-radius: 20px;
+        border: 1px solid rgba(110, 59, 59, 0.1);
+        box-shadow: 0 20px 40px rgba(110, 59, 59, 0.08);
+    }
+    
+    .dreams-image-section {
+        padding: 0;
+        margin: 0;
+        background: var(--bg-main);
+        width: 100%;
+        overflow: hidden;
+    }
+    
+    .dreams-image {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    
+    .dreams-image img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        border-radius: 0;
+        display: block;
+    }
+    
+    /* TRAVEL SECTION */
+    .travel-section {
+        padding: 80px 6%;
+        background: var(--bg-main);
+        text-align: center;
+        width: 100%;
+    }
+    
+    .travel-header {
+        margin-bottom: 60px;
+    }
+    
+    .travel-kicker {
+        font-family: 'Alice', serif;
+        font-size: 12px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--accent-burgundy);
+        margin-bottom: 16px;
+        display: block;
+    }
+    
+    .travel-header h2 {
+        font-family: 'Alice', serif;
+        font-size: 48px;
+        font-weight: 500;
+        color: var(--text-main);
+        margin-bottom: 12px;
+    }
+    
+    .travel-header p {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 18px;
+        color: var(--text-main);
+        opacity: 0.8;
+    }
+    
+    .travel-spiral {
+        position: relative;
+        width: 100%;
+        max-width: 600px;
+        height: 400px;
+        margin: 0 auto;
+    }
+    
+    .travel-card {
+        position: absolute;
+        width: 200px;
+        text-align: center;
+        transition: all 0.3s ease;
+    }
+    
+    .travel-card img {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 12px;
+        margin-bottom: 16px;
+        border: 1px solid rgba(110, 59, 59, 0.1);
+    }
+    
+    .travel-card h3 {
+        font-family: 'Alice', serif;
+        font-size: 16px;
+        font-weight: 500;
+        color: var(--text-main);
+        margin: 0;
+    }
+    
+    /* SMM SECTION */
+    .smm-section {
+        padding: 80px 6%;
+        background: var(--warm-cream);
+        text-align: center;
+        width: 100%;
+    }
+    
+    .smm-section h2 {
+        font-family: 'Alice', serif;
+        font-size: 42px;
+        font-weight: 500;
+        color: var(--text-main);
+        margin-bottom: 20px;
+    }
+    
+    .smm-intro {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 18px;
+        color: var(--text-main);
+        opacity: 0.8;
+        margin-bottom: 60px;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .smm-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 30px;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+    
+    .smm-card {
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(10px);
+        padding: 40px 30px;
+        border-radius: 16px;
+        border: 1px solid rgba(110, 59, 59, 0.1);
+        transition: all 0.3s ease;
+    }
+    
+    .smm-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(110, 59, 59, 0.15);
+    }
+    
+    .smm-card h3 {
+        font-family: 'Alice', serif;
+        font-size: 20px;
+        font-weight: 500;
+        color: var(--accent-burgundy);
+        margin-bottom: 16px;
+    }
+    
+    .smm-card p {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 16px;
+        color: var(--text-main);
+        line-height: 1.6;
+    }
+    
+    /* MOBILE RESPONSIVE */
+    @media (max-width: 768px) {
+        .nav {
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 15px 0;
+            height: auto;
+        }
+        
+        .about-story {
+            padding: 60px 4%;
+        }
+        
+        .about-story-glass {
+            padding: 40px 30px;
+        }
+        
+        .travel-section {
+            padding: 60px 4%;
+        }
+        
+        .travel-spiral {
+            height: 300px;
+        }
+        
+        .smm-section {
+            padding: 60px 4%;
+        }
+        
+        .smm-grid {
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+    }
+</style>
 
 <body class="about-page">
 <nav class="nav">
     <a href="about.html">About Me</a>
     <a href="gallery.html">Portfolio</a>
-    <a href="index.html" class="logo">WANNGESHI</a>
+    <a href="index.html" class="logo">imwangeshi</a>
     <a href="ai-buddy.html">AI & ME</a>
     <a href="contact.html">Contact</a>
 </nav>
@@ -42,7 +375,7 @@ This is still just the beginning for me.</p>
 <!-- DREAMS -->
 <section class="dreams-image-section reveal">
     <div class="dreams-image">
-        <img src="2.png" alt="MY GOALS">
+        <img src="My Main Goals for the New Year.png" alt="MY GOALS">
     </div>
 </section>
 
@@ -56,32 +389,33 @@ This is still just the beginning for me.</p>
 
     <div class="travel-spiral" id="travel-spiral">
         <article class="travel-card" data-county="Nairobi">
-            <img src="4.png" alt="Nairobi travel memory">
+            <img src="abou images/SIAYA.png" alt="Nairobi travel memory">
             <h3>Siaya</h3>
         </article>
         <article class="travel-card" data-county="Mombasa">
-            <img src="7.png" alt="Mombasa travel memory">
+            <img src="abou images/SAMABURU.png" alt="Mombasa travel memory">
             <h3>Samburu</h3>
         </article>
         <article class="travel-card" data-county="Nakuru">
-            <img src="6.png" alt="Nakuru travel memory">
+            <img src="abou images/OLOLOKWE.png" alt="Nakuru travel memory">
             <h3>Mt.Ololokwe, Samburu</h3>
         </article>
         <article class="travel-card" data-county="Kisumu">
-            <img src="5.png" alt="Kisumu travel memory">
+            <img src="abou images/SOUTH HORR.png" alt="Kisumu travel memory">
             <h3>South Horr</h3>
         </article>
         <article class="travel-card" data-county="Nyeri">
-            <img src="3.png" alt="Nyeri travel memory">
+            <img src="abou images/GA.png" alt="Nyeri travel memory">
             <h3>11TH GA Kenya</h3>
         </article>
         <article class="travel-card" data-county="Meru">
-            <img src="8.png" alt="Meru travel memory">
+            <img src="abou images/8.png" alt="Meru travel memory">
             <h3>National Park</h3>
         </article>
     </div>
 
 </section>
+
 
 <!-- SMM PASSION -->
 <section class="smm-section">
@@ -118,6 +452,7 @@ This is still just the beginning for me.</p>
         <a href="gallery.html" class="portfolio-btn">View My Work →</a>
     </div>
 </section>
+<script src="script.js" defer></script>
 <script>
 (() => {
     const spiral = document.getElementById("travel-spiral");

@@ -13,6 +13,7 @@ function revealOnScroll() {
 }
 
 window.addEventListener("scroll", revealOnScroll);
+window.addEventListener("load", revealOnScroll);
 
 
 // TYPEWRITER
@@ -20,8 +21,11 @@ const text = "Hey, I’m Wangeshi ✨";
 let i = 0;
 
 function typeWriter() {
+    const target = document.getElementById("typed-text");
+    if (!target) return;
+
     if (i < text.length) {
-        document.getElementById("typed-text").innerHTML += text.charAt(i);
+        target.innerHTML += text.charAt(i);
         i++;
         setTimeout(typeWriter, 80);
     }
@@ -29,11 +33,12 @@ function typeWriter() {
 
 window.onload = typeWriter;
 window.addEventListener('scroll', function() {
-  const header = document.querySelector('your-header-selector'); // replace with your header selector, e.g., 'header' or '#header'
-  if (window.scrollY > 50) { // adjust the scroll value as needed
-    header.classList.add('header-transparent');
+  const nav = document.querySelector('.nav');
+  if (!nav) return;
+  if (window.scrollY > 40) {
+    nav.classList.add('scrolled');
   } else {
-    header.classList.remove('header-transparent');
+    nav.classList.remove('scrolled');
   }
 });
 // CURSOR GLOW

@@ -10,8 +10,12 @@
     <!-- Swiper CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
 <!-- Page fonts for the intro section -->
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Playfair+Display:wght@500&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Forum&family=Cutive+Mono&family=Sacramento&family=Cormorant+Garamond:wght@400;600&family=Playfair+Display:wght@500&family=Manrope:wght@300;400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet" />
 <style>
+  html, body {
+    overflow-x: hidden;
+    max-width: 100%;
+  }
   body {
     margin: 0;
   }
@@ -38,13 +42,13 @@
     margin-top: 0;
     background: #fdfaf6;
     align-items: stretch;
-    min-height: 620px;
+    min-height: 480px;
     border-bottom: 5px solid #3e2f23;
   }
 
   .text-section {
     flex: 1;
-    min-width: 300px;
+    min-width: 0;
     padding: clamp(42px, 7vw, 88px) clamp(26px, 6vw, 78px);
     display: flex;
     flex-direction: column;
@@ -53,7 +57,7 @@
   }
 
   .title {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Sacramento', cursive;
     font-size: 3em;
     margin-bottom: 20px;
     color: #3e2f23;
@@ -90,7 +94,7 @@
 
   .image-section {
     flex: 1;
-    min-width: 300px;
+    min-width: 0;
     padding: 0;
     display: flex;
     justify-content: center;
@@ -102,7 +106,7 @@
     width: 100%;
     max-width: none;
     height: 100%;
-    min-height: 620px;
+    min-height: 480px;
     object-fit: cover;
     object-position: center;
     border-radius: 0;
@@ -137,25 +141,263 @@
     transform: none;
   }
 
-  /* Responsive adjustments */
+    
+  /* ===== REEL STRIP ===== */
+  .reel-strip {
+    background: linear-gradient(135deg, #f5f0e8 0%, #e8dbd0 100%);
+    padding: 40px 0;
+    overflow: hidden;
+    position: relative;
+    border-top: 1px solid rgba(200, 168, 130, 0.3);
+    border-bottom: 1px solid rgba(200, 168, 130, 0.3);
+    max-height: 620px;
+  }
+
+  /* edge fade */
+  .reel-strip__track-wrap {
+    overflow: hidden;
+    height: 560px;
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+  }
+
+  .marquee-track {
+    display: flex;
+    gap: 14px;
+    width: max-content;
+    height: 100%;
+    animation: marqueeScroll 60s linear infinite !important;
+    animation-play-state: running !important;
+    will-change: transform;
+    align-items: center;
+  }
+
+  .marquee-track:hover {
+    animation-play-state: running !important;
+  }
+
+  .reel-card {
+    pointer-events: none;
+  }
+
+  .reel-card__btn {
+    pointer-events: auto;
+  }
+
+  /* scaled-down reel card - Instagram reel dimensions (9:16 ratio) */
+  .reel-card {
+    flex: 0 0 auto;
+    width: 300px;
+    height: 534px;
+    background: linear-gradient(135deg, rgba(245, 240, 232, 0.9) 0%, rgba(232, 219, 208, 0.8) 100%);
+    border: 1px solid rgba(200, 168, 130, 0.4);
+    border-radius: 24px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94);
+    backdrop-filter: blur(15px) saturate(120%);
+    -webkit-backdrop-filter: blur(15px) saturate(120%);
+    box-shadow:
+        0 8px 32px rgba(160, 130, 90, 0.15),
+        0 2px 8px rgba(160, 130, 90, 0.1),
+        0 1px 0 rgba(255,255,255,0.4) inset;
+  }
+
+  .reel-card video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 24px;
+  }
+
+  
+  /* photo */
+  .reel-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  /* video sizing for reel cards */
+  .reel-card video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    display: block;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    will-change: transform;
+    /* Luxury rendering */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* Natural framing without excessive zoom */
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  
+  /* always-on bottom gradient so text is readable */
+  .reel-card__gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(0,0,0,0.0) 30%,
+      rgba(30,18,10,0.82) 100%
+    );
+    pointer-events: none;
+    border-radius: 24px;
+  }
+
+  /* top caption tag */
+  .reel-card__tag {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    font-family: 'Cutive Mono', monospace;
+    font-size: 12px;
+    font-weight: 300;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.82);
+    pointer-events: none;
+  }
+
+  /* bottom cursive title */
+  .reel-card__title {
+    position: absolute;
+    bottom: 16px;
+    left: 18px;
+    right: 18px;
+    font-family: 'Great Vibes', cursive;
+    font-size: 32px;
+    font-weight: 300;
+    letter-spacing: 1px;
+    color: #fff;
+    line-height: 1.2;
+    pointer-events: none;
+  }
+
+  /* watch reel button */
+  .reel-card__btn {
+    position: absolute;
+    bottom: 16px;
+    left: 18px;
+    background: linear-gradient(135deg, rgba(245, 240, 232, 0.85) 0%, rgba(232, 219, 208, 0.75) 100%);
+    backdrop-filter: blur(15px) saturate(140%);
+    -webkit-backdrop-filter: blur(15px) saturate(140%);
+    border: 1px solid rgba(200, 168, 130, 0.4);
+    border-radius: 12px;
+    padding: 8px 16px;
+    color: #3d2b1a;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+    box-shadow:
+        0 4px 16px rgba(160, 130, 90, 0.12),
+        0 1px 0 rgba(255,255,255,0.4) inset;
+  }
+
+  .reel-card__btn svg {
+    width: 10px;
+    height: 10px;
+  }
+
+  
+  /* ===== WHO IS WANGESHI — TEXT CURTAIN REVEAL ===== */
+
+  .who-section {
+    display: flex;
+    align-items: stretch;
+    background: #fdfaf6;
+    min-height: 480px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* TEXT starts FULL WIDTH, shrinks to 50% after delay */
+  .who-text {
+    width: 100%;
+    flex-shrink: 0;
+    padding: clamp(42px, 7vw, 88px) clamp(26px, 6vw, 78px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 2;
+    background: #fdfaf6;
+    transition: width 1.1s cubic-bezier(0.76, 0, 0.24, 1);
+  }
+
+  .who-text.revealed {
+    width: 50%;
+  }
+
+  /* IMAGE starts at 0 width — expands in as text shrinks */
+  .who-image {
+    width: 0;
+    flex-shrink: 0;
+    overflow: hidden;
+    background: #fdfaf6;
+    transition: width 1.1s cubic-bezier(0.76, 0, 0.24, 1);
+  }
+
+  .who-image.revealed {
+    width: 50%;
+  }
+
+  .who-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+  }
+
+  /* Mobile — skip animation, stack vertically */
   @media(max-width: 768px) {
-    .container {
-      flex-direction: column;
-    }
+    .who-section { flex-direction: column; }
 
-    .intro-container {
-      min-height: auto;
-    }
-
-    .text-section {
+    .who-text,
+    .who-text.revealed {
+      width: 100% !important;
       border-right: none;
-      border-bottom: 3px solid #3e2f23;
+      border-bottom: none;
+      transition: none;
     }
 
-    .profile-img {
-      min-height: 420px;
-      max-height: 62vh;
+    .who-image,
+    .who-image.revealed {
+      width: 100% !important;
+      min-height: 360px;
+      transition: none;
     }
+
+    .who-image img {
+      min-width: unset;
+      height: 360px;
+    }
+  }
+}
+</style>
+
+<style>
+  @keyframes marqueeScroll {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
   }
 </style>
 
@@ -164,127 +406,363 @@
     
 </head>
 <body class="home-page">
+
 <!-- HIRE BUTTON -->
+<style>
+  .hire-btn {
+    position: fixed !important;
+    bottom: 24px !important;
+    right: 24px !important;
+    top: auto !important;
+    left: auto !important;
+    z-index: 1100;
+    padding: 9px 22px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: #3d2b1a;
+
+    /* Creme glass effect matching Get in Touch button */
+    background: linear-gradient(135deg, #f5f0e8 0%, #e8dbd0 100%);
+    border: 1px solid rgba(200, 168, 130, 0.4);
+    backdrop-filter: blur(20px) saturate(140%);
+    box-shadow:
+        0 8px 32px rgba(160, 130, 90, 0.15),
+        0 2px 8px rgba(160, 130, 90, 0.1),
+        0 1px 0 rgba(255,255,255,0.6) inset;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .hire-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    animation: titleFadeIn 2.5s ease-out;
+  }
+
+  @keyframes titleFadeIn {
+    0% { 
+      opacity: 0;
+      transform: translateY(25px) scale(0.95);
+    }
+    100% { 
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  .hire-btn:hover::before {
+    left: 100%;
+  }
+
+  .hire-btn:hover {
+    background: linear-gradient(135deg, #f5f0e8 0%, #d4c4b0 100%);
+    color: #3d2b1a;
+    transform: translateY(-4px) scale(1.02);
+    box-shadow:
+        0 16px 48px rgba(160, 130, 90, 0.25),
+        0 4px 16px rgba(160, 130, 90, 0.15),
+        0 1px 0 rgba(255,255,255,0.8) inset,
+        0 -1px 0 rgba(200, 168, 130, 0.3) inset;
+  }
+</style>
+
 <a href="mailto:gwangeshi9@gmail.com" class="hire-btn">Hire Me</a>
+
+<style>
+/* HERO VIDEO SECTION STYLING */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: "Inter", system-ui, sans-serif;
+  background: #000;
+  color: #fff;
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* HERO */
+.hero {
+  position: relative;
+  width: 100%;
+  min-height: 100svh;
+  overflow: hidden;
+}
+
+.hero__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+/* HEADER */
+.hero__header {
+  position: relative;
+  z-index: 10;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 1.25rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.hero__logo {
+  font-family: "Dancing Script", cursive;
+  font-size: 2.25rem;
+  white-space: nowrap;
+}
+
+.hero__nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem 1.25rem;
+  font-size: 9px;
+  letter-spacing: 0.3em;
+}
+
+.hero__nav a { transition: opacity 0.2s; }
+.hero__nav a:hover { opacity: 0.7; }
+
+@media (min-width: 768px) {
+  .hero__header {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 2rem 2.5rem;
+    gap: 1.5rem;
+  }
+  .hero__logo { font-size: 2.25rem; order: 2; }
+  .hero__nav {
+    flex: 1;
+    flex-wrap: nowrap;
+    gap: 2.5rem;
+    font-size: 11px;
+    letter-spacing: 0.35em;
+  }
+  .hero__nav a:nth-child(1),
+  .hero__nav a:nth-child(2) { order: 1; }
+  .hero__nav a:nth-child(3),
+  .hero__nav a:nth-child(4) { order: 3; }
+  .hero__nav { justify-content: space-between; order: 1; }
+}
+
+/* MAIN */
+.hero__main {
+  position: relative;
+  z-index: 10;
+  min-height: calc(100svh - 160px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0 1rem;
+}
+
+.hero__title {
+  font-family: "Anton", sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+  font-size: clamp(5rem, 20vw, 18rem);
+}
+
+.hero__title .reveal { display: block; }
+
+.hero__sub {
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: baseline;
+  gap: 0.25rem 0.5rem;
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: clamp(1.4rem, 5.5vw, 3.5rem);
+}
+
+@media (min-width: 640px) {
+  .hero__sub { margin-top: 1.5rem; gap: 0.25rem 0.75rem; letter-spacing: 0.2em; }
+}
+
+.hero__sub .script {
+  font-family: "Dancing Script", cursive;
+  text-transform: none;
+  letter-spacing: normal;
+  font-size: 1.4em;
+  display: inline-block;
+  margin-top: -0.25rem;
+}
+
+/* SCROLL HINT */
+.hero__scroll {
+  position: absolute;
+  bottom: 1.25rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  font-family: "Dancing Script", cursive;
+  font-size: 1rem;
+  opacity: 0.8;
+}
+
+/* REVEAL ANIMATION */
+.reveal {
+  display: block;
+  overflow: hidden;
+}
+.reveal--inline { display: inline-block; }
+
+.reveal > span {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(40px);
+  filter: blur(12px);
+  clip-path: inset(0 0 100% 0);
+  transition:
+    clip-path 1100ms cubic-bezier(.2,.7,.1,1),
+    transform 900ms cubic-bezier(.2,.7,.1,1),
+    filter 700ms ease-out,
+    opacity 700ms ease-out;
+}
+
+.reveal.is-visible > span {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+  clip-path: inset(0 0 0 0);
+}
+</style>
 
 <!-- NAVBAR -->
 <nav class="nav">
     <a href="about.html">About Me</a>
     <a href="gallery.html">Portfolio</a>
-    <a href="index.html" class="logo">WANGESHI</a>
+    <a href="index.html" class="logo">imwangeshi</a>
     <a href="ai-buddy.html">AI & ME</a>
     <a href="contact.html">Contact</a>
 </nav>
 
 <!-- VIDEO HERO -->
-<div class="hero-video">
-    <video autoplay muted loop playsinline>
-        <source src="video.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
-    <div class="overlay"></div>
-    <div class="hero-content">
-        <h1><span id="typed-text"></span></h1>
-        <p>Social Media Manager | Web Designer | IBM Student in Kenya</p>
-    </div>
-</div>
+<div class="hero">
+    <video
+        id="introVideo"
+        class="hero__video"
+        src="New folder/WhatsApp Video 2026-05-09 at 10.49.39 PM.mp4"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="auto"
+      ></video>
+    <div class="hero__overlay"></div>
 
-<!-- NAVBAR -->
-<div class="container intro-container reveal">
-  <div class="text-section">
+    <header class="hero__header">
+    </header>
+
+    <main class="hero__main">
+        <h1 class="hero__title">
+          <span class="reveal" data-at="0.2"><span style="color: white;">Curating an</span></span>
+          <span class="reveal" data-at="1.4"><span style="color: white;">Aesthetic Life</span></span>
+        </h1>
+        <p class="hero__sub">
+          <span class="reveal reveal--inline" data-at="3.0"><span style="color: white;">One Routine At A</span></span>
+          <span class="reveal reveal--inline" data-at="4.0"><span class="script" style="color: white;">Time</span></span>
+        </p>
+    </main>
+
+    </div>
+
+<script>
+    const video = document.getElementById("introVideo");
+    const reveals = document.querySelectorAll(".reveal");
+    video.addEventListener("timeupdate", () => {
+        const t = video.currentTime;
+        reveals.forEach((el) => {
+            if (t >= parseFloat(el.dataset.at)) el.classList.add("is-visible");
+        });
+    });
+    video.play().catch(() => {});
+</script>
+
+<!-- WHO IS WANGESHI — TEXT SLIDES TO REVEAL IMAGE -->
+<div class="who-section" id="whoSection">
+
+  <div class="who-text" id="whoText">
     <div class="title">Who Is Wangeshi?</div>
     <p>Hi, I’m Wangeshi. I’m building a life centered around growth, independence, and purpose. As a student, social media manager, and future founder, I’m turning ideas into real opportunities and learning how to move with intention. This space reflects the journey—elevating, evolving, and becoming.</p>
     <a class="btn" href="about.html">READ MY STORY</a>
   </div>
-  <div class="image-section">
-  <img src="12.png" class="profile-img" alt="Profile Photo" />
+
+  <div class="who-image" id="whoImage">
+    <img src="1.png" alt="Wangeshi" />
+  </div>
+
 </div>
-</div>
 
 
-<section class="story-section">
+<section class="identity-section">
 
-    <div class="story-container">
+    <h2 class="identity-title">I wear many hats</h2>
 
-        <!-- LEFT SIDE (TEXT CHANGES) -->
-        <div class="story-text">
+    <div class="identity-grid">
 
-            <div class="story-step active">
-                <h2>Understanding your brand</h2>
-                <p>I start by learning your voice, audience, and vision deeply.</p>
+        <!-- CARD 1 -->
+        <div class="identity-card" data-title="Student" data-desc="Currently pursuing my Bachelor's in IBM in Kenya, building both technical and creative skills.">
+            <div class="card-inner">
+                <div class="card-front">🎓 Student</div>
+                <div class="card-back">Currently pursuing my Bachelor's in IBM in Kenya, building both technical and creative skills.</div>
             </div>
-
-            <div class="story-step">
-                <h2>Crafting strategy</h2>
-                <p>I design a clear direction that aligns with your goals.</p>
-            </div>
-
-            <div class="story-step">
-                <h2>Creating content</h2>
-                <p>Every visual and caption is intentional and engaging.</p>
-            </div>
-
-            <div class="story-step">
-                <h2>Scaling growth</h2>
-                <p>I analyze, refine, and grow what works consistently.</p>
-            </div>
-
         </div>
 
-        <!-- RIGHT SIDE (IMAGE CHANGES) -->
-        <div class="story-visual">
+        <!-- CARD 2 -->
+        <div class="identity-card" data-title="Social Media Manager" data-desc="Helping brands grow through strategy, content creation, and consistency that actually converts.">
+            <div class="card-inner">
+                <div class="card-front">📱 SMM & VA</div>
+                <div class="card-back">Helping brands grow through strategy, content creation, and consistency that actually converts.</div>
+            </div>
+        </div>
 
-            <img src="1.png" class="story-img active" alt="Brand story step 1">
-            <img src="photo1.png" class="story-img" alt="Brand story step 2">
-            <img src="1.png" class="story-img" alt="Brand story step 3">
-            <img src="photo1.png" class="story-img" alt="Brand story step 4">
+        <!-- CARD 3 -->
+        <div class="identity-card" data-title="Climate Action Officer" data-desc="Working with WSPU Kenya to drive sustainability and meaningful environmental change.">
+            <div class="card-inner">
+                <div class="card-front">🌍 Climate Officer</div>
+                <div class="card-back">Working with WSPU Kenya to drive sustainability and meaningful environmental change.</div>
+            </div>
+        </div>
 
+        <!-- CARD 4 -->
+        <div class="identity-card" data-title="Web Developer" data-desc="Designing and building aesthetic, modern websites with real user experience in mind.">
+            <div class="card-inner">
+                <div class="card-front">💻 Developer</div>
+                <div class="card-back">Designing and building aesthetic, modern websites with real user experience in mind.</div>
+            </div>
         </div>
 
     </div>
 
 </section>
-<!-- Slider Section -->
-<div style="margin-top:-40px; padding:20px; background:#fdfaf6;">
-  <h2 style="text-align:center; margin-bottom:20px;">My Gallery / Reels</h2>
-  <div class="slider-container" style="overflow:hidden; position:relative; width:100%; max-width:1200px; margin:auto;">
-    <div class="slide-track" style="display:flex; transition:transform 0.5s ease;">
-      <!-- Repeat these items for each slide -->
-      <div class="slide" style="min-width:300px; margin-right:10px; position:relative;">
-        <img src="1.png" style="width:100%; border-radius:8px;" />
-      </div>
-      <div class="slide" style="min-width:300px; margin-right:10px;">
-        <img src="photo1.png" style="width:100%; border-radius:8px;" />
-      </div>
-      <div class="slide" style="min-width:300px; margin-right:10px;">
-        <img src="1.png" style="width:100%; border-radius:8px;" />
-      </div>
-      <div class="slide" style="min-width:300px; margin-right:10px;">
-        <img src="photo1.png" style="width:100%; border-radius:8px;" />
-      </div>
-      <div class="slide" style="min-width:300px; margin-right:10px;">
-        <img src="1.png" style="width:100%; border-radius:8px;" />
-      </div>
-      <div class="slide" style="min-width:300px; margin-right:10px;">
-        <img src="1.png" style="width:100%; border-radius:8px;" />
-      </div>
-      <div class="slide" style="min-width:300px; margin-right:10px;">
-        <img src="photo1.png" style="width:100%; border-radius:8px;" />
-      </div>
-      <div class="slide" style="min-width:300px; margin-right:10px;">
-        <img src="photo1.png" style="width:100%; border-radius:8px;" />
-      </div>
-      <div class="slide" style="min-width:300px; margin-right:10px;">
-        <img src="photo1.png" style="width:100%; border-radius:8px;" />
-      </div>
-      <div class="slide" style="min-width:300px; margin-right:10px;">
-        <img src="photo1.png" style="width:100%; border-radius:8px;" />
-      </div>
 
-      <!-- Add more slides as needed -->
-    </div>
-  </div>
-</div>
 
 <section class="brands-section reveal">
 
@@ -300,7 +778,7 @@
     <div class="brand-row">
 
         <div class="brand-image">
-            <img src="1.png" alt="Ngobo">
+            <img src="ChatGPT Image Jan 4, 2026, 12_35_26 PM.png" alt="Ngobo">
         </div>
 
         <div class="brand-text">
@@ -311,14 +789,16 @@
             </p>
 
             <div class="brand-gallery">
-                <img src="1.png">
-                <img src="1.png">
+                <img src="Gemini_Generated_Image_tp2z66tp2z66tp2z.png">
+                <img src="ngobo.PNG">
             </div>
 
-            <a href="https://instagram.com/" target="_blank" rel="noopener noreferrer" class="brand-btn">
-                Explore Brand
-            </a>
-        </div>
+            <div class="brand-buttons">
+                <a href="https://www.instagram.com/byngobo?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" class="brand-btn">
+                    Explore Brand
+                </a>
+                <div>
+            </div>
 
     </div>
 
@@ -326,7 +806,7 @@
     <div class="brand-row reverse">
 
         <div class="brand-image">
-            <img src="1.png" alt="Errun">
+            <img src="ERRUNSCREENSHOT-removebg-preview.png" alt="Errun">
         </div>
 
         <div class="brand-text">
@@ -337,61 +817,141 @@
             </p>
 
             <div class="brand-gallery">
-                <img src="1.png">
-                <img src="1.png">
+                <img src="work images/poster.png">
+                <img src="work images/poster.png">
             </div>
 
-            <a href="https://example.com" target="_blank" rel="noopener noreferrer" class="brand-btn">
-                View Startup
-            </a>
-        </div>
+            <div class="brand-buttons">
+                <a href="https://www.instagram.com/errun.ke?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" class="brand-btn">
+                    View Startup
+                </a>
+                <div>
+            </div>
 
     </div>
 
 </section>
 
-
-<section class="identity-section">
-
-    <h2 class="identity-title">I wear many hats</h2>
-
-    <div class="identity-grid">
-
-        <!-- CARD 1 -->
-        <div class="identity-card" data-title="Student" data-desc="Currently pursuing my Bachelor's in IBM in Kenya, building both technical and creative skills.">
-            <div class="card-inner">
-                <div class="card-front">🎓 Student</div>
-                <div class="card-back">Click to learn more</div>
-            </div>
+<div class="reel-strip">
+  <div class="reel-strip__track-wrap">
+    <div class="marquee-track">
+        <div class="reel-card">
+          <video autoplay muted loop playsinline >
+            <source src="New folder/WhatsApp Video 2026-05-09 at 10.49.44 PM.mp4" type="video/mp4">
+            Your browser does not support video tag.
+          </video>
+          <div class="reel-card__gradient"></div>
+          <span class="reel-card__tag">Influencer</span>
+          <div class="reel-card__title">Life Journal</div>
         </div>
-
-        <!-- CARD 2 -->
-        <div class="identity-card" data-title="Social Media Manager" data-desc="Helping brands grow through strategy, content creation, and consistency that actually converts.">
-            <div class="card-inner">
-                <div class="card-front">📱 SMM & VA</div>
-                <div class="card-back">Click to learn more</div>
-            </div>
+        <div class="reel-card">
+          <video autoplay muted loop playsinline >
+            <source src="New folder/WhatsApp Video 2026-05-09 at 10.49.39 PM.mp4" type="video/mp4">
+            Your browser does not support video tag.
+          </video>
+          <div class="reel-card__gradient"></div>
+          <span class="reel-card__tag">Social Media</span>
+          <div class="reel-card__title">Sunshine</div>
         </div>
-
-        <!-- CARD 3 -->
-        <div class="identity-card" data-title="Climate Action Officer" data-desc="Working with WSPU Kenya to drive sustainability and meaningful environmental change.">
-            <div class="card-inner">
-                <div class="card-front">🌍 Climate Officer</div>
-                <div class="card-back">Click to learn more</div>
-            </div>
-        </div>
-
-        <!-- CARD 4 -->
-        <div class="identity-card" data-title="Web Developer" data-desc="Designing and building aesthetic, modern websites with real user experience in mind.">
-            <div class="card-inner">
-                <div class="card-front">💻 Developer</div>
-                <div class="card-back">Click to learn more</div>
-            </div>
-        </div>
-
+        <div class="reel-card">
+          <video autoplay muted loop playsinline >
+            <source src="New folder/WhatsApp Video 2026-05-09 at 10.49.36 PM.mp4" type="video/mp4">
+            Your browser does not support video tag.
+          </video>
+          <div class="reel-card__gradient"></div>
+          <span class="reel-card__tag">Lifestyle</span>
+          <div class="reel-card__title">22/01/25</div>
+                  </div>
+        
+        
+         
+         <div class="reel-card">
+          <video autoplay muted loop playsinline >
+            <source src="New folder/WhatsApp Video 2026-05-09 at 10.49.46 PM.mp4" type="video/mp4">
+            Your browser does not support video tag.
+          </video>
+          <div class="reel-card__gradient"></div>
+          <span class="reel-card__tag">Lifestyle</span>
+          <div class="reel-card__title">Vibes</div>
+                  </div>
+         <div class="reel-card">
+          <video autoplay muted loop playsinline >
+            <source src="New folder/WhatsApp Video 2026-05-09 at 10.49.47 PM.mp4" type="video/mp4">
+            Your browser does not support video tag.
+          </video>
+          <div class="reel-card__gradient"></div>
+          <span class="reel-card__tag">Lifestyle</span>
+          <div class="reel-card__title">Ray of Sunshine</div>
+                  </div>
+         <div class="reel-card">
+          <video autoplay muted loop playsinline >
+            <source src="New folder/WhatsApp Video 2026-05-09 at 10.49.49 PM.mp4" type="video/mp4">
+            Your browser does not support video tag.
+          </video>
+          <div class="reel-card__gradient"></div>
+          <span class="reel-card__tag">Lifestyle</span>
+          <div class="reel-card__title">Miss Universe</div>
+                  </div>
+         <div class="reel-card">
+          <video autoplay muted loop playsinline >
+            <source src="New folder/WhatsApp Video 2026-05-09 at 10.49.50 PM.mp4" type="video/mp4">
+            Your browser does not support video tag.
+          </video>
+          <div class="reel-card__gradient"></div>
+          <span class="reel-card__tag">Lifestyle</span>
+          <div class="reel-card__title">Glow and Radiance</div>
+                  </div>
+         <div class="reel-card">
+          <video autoplay muted loop playsinline >
+            <source src="New folder/WhatsApp Video 2026-05-09 at 10.49.52 PM.mp4" type="video/mp4">
+            Your browser does not support video tag.
+          </video>
+          <div class="reel-card__gradient"></div>
+          <span class="reel-card__tag">Lifestyle</span>
+          <div class="reel-card__title">Culture</div>
+                  </div>
+         <div class="reel-card">
+          <video autoplay muted loop playsinline >
+            <source src="New folder/WhatsApp Video 2026-05-09 at 10.49.55 PM.mp4" type="video/mp4">
+            Your browser does not support video tag.
+          </video>
+          <div class="reel-card__gradient"></div>
+          <span class="reel-card__tag">Lifestyle</span>
+          <div class="reel-card__title">Don't be boring</div>
+                  </div>
+         <div class="reel-card">
+          <video autoplay muted loop playsinline >
+            <source src="New folder/WhatsApp Video 2026-05-09 at 10.49.57 PM.mp4" type="video/mp4">
+            Your browser does not support video tag.
+          </video>
+          <div class="reel-card__gradient"></div>
+          <span class="reel-card__tag">Lifestyle</span>
+          <div class="reel-card__title">A day at a time</div>
+                  </div>
     </div>
+  </div>
+</div>
 
-</section>
+<script>
+  // Seamless marquee — clone all cards inside the same track after layout
+  window.addEventListener('load', function() {
+    const track = document.querySelector('.marquee-track');
+    if (!track) return;
+    const origCards = Array.from(track.children);
+    origCards.forEach(function(card) {
+      const clone = card.cloneNode(true);
+      clone.querySelectorAll('video').forEach(function(v) {
+        v.muted = true;
+        v.play().catch(function(){});
+      });
+      track.appendChild(clone);
+    });
+    // Force animation restart so it uses the new full width
+    track.style.animation = 'none';
+    track.offsetHeight; // reflow
+    track.style.animation = '';
+  });
+</script>
 
 <!-- MODAL -->
 <div class="card-modal" id="cardModal">
@@ -410,6 +970,30 @@
     <a href="contact.html" class="cta-btn">Get In Touch</a>
 </section>
 
+
+<!-- WHO SECTION — text slides left to reveal image -->
+<script>
+(function () {
+  const section = document.getElementById('whoSection');
+  const text    = document.getElementById('whoText');
+  const image   = document.getElementById('whoImage');
+  if (!section || !text || !image) return;
+
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (!entry.isIntersecting) return;
+      observer.disconnect();
+
+      setTimeout(function() {
+        text.classList.add('revealed');
+        image.classList.add('revealed');
+      }, 1800);
+    });
+  }, { threshold: 0.35 });
+
+  observer.observe(section);
+})();
+</script>
 
 <!-- SCROLL ANIMATION -->
 <script>
@@ -461,6 +1045,7 @@ window.addEventListener("scroll", () => {
 <!-- TYPING EFFECT -->
 <script>
 const text = "Hey, I’m Wangeshi ";
+
 let i = 0;
 function typeWriter() {
     const typedTextSpan = document.getElementById("typed-text");
@@ -491,22 +1076,7 @@ window.addEventListener("scroll", function() {
     }
 });
 </script>
-<script>
-  let currentIndex = 0;
-  const slides = document.querySelector('.slide-track');
-  const totalSlides = document.querySelectorAll('.slide').length;
 
-  function slideNext() {
-    currentIndex++;
-    if (currentIndex >= totalSlides) {
-      currentIndex = 0;
-    }
-    const offset = -currentIndex * (300 + 10); // width + margin
-    slides.style.transform = `translateX(${offset}px)`;
-  }
 
-  // Auto-slide every 8 seconds
-  setInterval(slideNext, 3000);
-</script>
 </body>
 </html>

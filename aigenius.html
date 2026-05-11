@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI & Me · Wangeshi</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Cormorant+Infant:ital,wght@0,300;1,300;1,600&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+  <style>
+    :root{--ink:#1a0f08;--mink:#3e2314;--warm:#8b5e3c;--cream:#faf7f2;--gold:#c9a96e;--light:#f5f0e8;--dark:#0e0905;}
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
+    body.ai-page{background:var(--cream);color:var(--ink);font-family:'Jost',sans-serif;font-weight:300;overflow-x:hidden;cursor:none;}
+
+    /* CURSOR */
+    .cursor{width:10px;height:10px;background:var(--ink);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .3s,height .3s;}
+    .cursor-ring{width:36px;height:36px;border:1px solid var(--ink);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s;opacity:.5;}
+
+    /* NAV */
+    .nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:22px 6%;background:transparent;transition:background .4s;}
+    .nav.scrolled{background:rgba(250,247,242,.92);backdrop-filter:blur(12px);}
+    .nav a{font-family:'Jost',sans-serif;font-size:11px;font-weight:300;letter-spacing:3px;text-transform:uppercase;color:var(--ink);text-decoration:none;transition:color .3s;}
+    .nav a:hover{color:var(--warm);}
+    .nav .logo{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;letter-spacing:2px;font-style:italic;}
+
+    /* HERO */
+    #hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;overflow:hidden;}
+    .hero-img-side{position:relative;overflow:hidden;background:var(--dark);}
+    .hero-img-side img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;opacity:.7;transform:scale(1.04);transition:transform 8s ease,opacity .6s;}
+    .hero-img-side:hover img{transform:scale(1);opacity:.85;}
+    .hero-img-side::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(14,9,5,.6) 0%,transparent 70%);pointer-events:none;}
+    /* big italic word on image */
+    .hero-img-word{position:absolute;bottom:8%;left:6%;font-family:'Cormorant Infant',serif;font-style:italic;font-size:clamp(52px,8vw,108px);font-weight:300;color:rgba(250,247,242,.12);line-height:1;letter-spacing:-2px;pointer-events:none;z-index:2;}
+
+    .hero-text-side{background:var(--cream);display:flex;flex-direction:column;justify-content:center;padding:110px 8% 80px 7%;position:relative;}
+    .hero-eyebrow{font-size:10px;font-weight:300;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:28px;display:block;opacity:0;animation:fadeUp .8s ease .3s forwards;}
+    .hero-h1{font-family:'Cormorant Infant',serif;font-weight:300;font-style:italic;font-size:clamp(44px,6vw,82px);line-height:.95;letter-spacing:-1px;color:var(--ink);margin-bottom:32px;opacity:0;animation:fadeUp .9s ease .5s forwards;}
+    .hero-h1 em{font-style:normal;color:var(--warm);}
+    .hero-rule{width:0;height:1px;background:var(--gold);margin-bottom:28px;animation:expandRule .8s ease .9s forwards;}
+    @keyframes expandRule{to{width:56px;}}
+    .hero-sub{font-family:'Cormorant Garamond',serif;font-size:clamp(17px,1.6vw,21px);font-weight:300;line-height:1.82;color:var(--mink);max-width:400px;opacity:0;animation:fadeUp .8s ease .8s forwards;}
+    .hero-sub strong{font-weight:600;color:var(--ink);font-style:italic;}
+    .hero-cta{display:inline-block;margin-top:40px;padding:14px 40px;border:1px solid var(--ink);font-family:'Jost',sans-serif;font-size:11px;font-weight:300;letter-spacing:3px;text-transform:uppercase;color:var(--ink);text-decoration:none;transition:background .3s,color .3s;opacity:0;animation:fadeUp .8s ease 1s forwards;}
+    .hero-cta:hover{background:var(--ink);color:var(--cream);}
+
+    /* SHARED */
+    @keyframes fadeUp{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);}}
+    .reveal{opacity:0;transform:translateY(32px);transition:opacity .8s ease,transform .8s ease;}
+    .reveal.in{opacity:1;transform:translateY(0);}
+    .eyebrow{font-size:10px;font-weight:300;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;display:block;}
+    .section-h2{font-family:'Cormorant Infant',serif;font-style:italic;font-size:clamp(38px,5vw,68px);font-weight:300;color:var(--ink);line-height:1.05;letter-spacing:-.5px;}
+    .section-rule{width:48px;height:1px;background:var(--gold);margin:20px 0 40px;}
+
+    /* TIMELINE — dark bg */
+    #journey{background:var(--dark);padding:110px 6%;position:relative;overflow:hidden;}
+    #journey::before{content:'STORY';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Cormorant Infant',serif;font-size:clamp(120px,22vw,260px);font-style:italic;color:rgba(255,255,255,.018);white-space:nowrap;pointer-events:none;}
+    #journey .section-h2{color:var(--cream);}
+    #journey .eyebrow{color:var(--gold);}
+    #journey .section-rule{background:var(--gold);}
+
+    .tl-wrap{position:relative;max-width:760px;margin-top:16px;}
+    .tl-wrap::before{content:'';position:absolute;left:22px;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,transparent,rgba(201,169,110,.4) 8%,rgba(201,169,110,.4) 92%,transparent);}
+
+    .tl-item{display:flex;gap:28px;margin-bottom:52px;opacity:0;transform:translateX(-24px);transition:opacity .6s ease,transform .6s ease;}
+    .tl-item.in{opacity:1;transform:translateX(0);}
+    .tl-dot{flex-shrink:0;width:44px;height:44px;border-radius:50%;background:rgba(201,169,110,.1);border:1px solid rgba(201,169,110,.3);display:flex;align-items:center;justify-content:center;font-size:17px;position:relative;z-index:1;}
+    .tl-year{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:6px;}
+    .tl-title{font-family:'Cormorant Infant',serif;font-style:italic;font-size:clamp(20px,2vw,26px);font-weight:300;color:var(--cream);margin-bottom:8px;}
+    .tl-text{font-family:'Cormorant Garamond',serif;font-size:18px;color:rgba(250,247,242,.6);line-height:1.75;}
+
+    /* TOOLS — same card style as services in gallery */
+    #tools{background:var(--light);padding:110px 6%;}
+    .tools-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:2px;margin-top:16px;}
+    @media(max-width:900px){.tools-grid{grid-template-columns:repeat(2,1fr);}}
+    @media(max-width:500px){.tools-grid{grid-template-columns:1fr;}}
+
+    .tool-card{position:relative;overflow:hidden;aspect-ratio:2/3;cursor:none;background:var(--ink);}
+    .tool-card-bg{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s cubic-bezier(.16,1,.3,1),filter .6s;filter:brightness(.5) saturate(.6);}
+    .tool-card:hover .tool-card-bg{transform:scale(1.08);filter:brightness(.35) saturate(.4);}
+    .tool-card::before{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(14,9,5,.95) 0%,transparent 55%);z-index:1;transition:background .5s;}
+    .tool-card:hover::before{background:linear-gradient(to top,rgba(14,9,5,1) 0%,rgba(14,9,5,.4) 100%);}
+    .tool-body{position:absolute;bottom:0;left:0;right:0;padding:22px 20px;z-index:2;}
+    .tool-icon{font-size:22px;margin-bottom:8px;display:block;}
+    .tool-num{font-family:'Jost',sans-serif;font-size:10px;letter-spacing:3px;color:var(--gold);margin-bottom:8px;display:block;}
+    .tool-name{font-family:'Cormorant Infant',serif;font-style:italic;font-size:clamp(18px,2vw,24px);font-weight:300;color:var(--cream);margin-bottom:10px;}
+    .tool-desc{font-family:'Jost',sans-serif;font-size:12px;font-weight:300;letter-spacing:.5px;color:rgba(250,247,242,.65);line-height:1.6;max-height:0;overflow:hidden;transition:max-height .6s cubic-bezier(.16,1,.3,1),opacity .5s;opacity:0;}
+    .tool-card:hover .tool-desc{max-height:120px;opacity:1;}
+    .tool-tag{display:inline-block;margin-top:10px;padding:3px 12px;border-radius:999px;background:rgba(201,169,110,.15);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);}
+
+    /* QUIZ */
+    #quiz{background:var(--dark);padding:110px 6%;position:relative;overflow:hidden;}
+    #quiz::before{content:'?';position:absolute;top:50%;right:4%;transform:translateY(-50%);font-family:'Cormorant Infant',serif;font-size:clamp(200px,30vw,380px);font-style:italic;color:rgba(255,255,255,.02);pointer-events:none;line-height:1;}
+    #quiz .section-h2{color:var(--cream);}
+    #quiz .eyebrow{color:var(--gold);}
+    #quiz .section-rule{background:var(--gold);}
+
+    .quiz-box{max-width:620px;background:rgba(250,247,242,.04);border:1px solid rgba(201,169,110,.15);border-radius:2px;padding:52px 44px;}
+    .quiz-prog-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:14px;}
+    .quiz-bar{width:100%;height:1px;background:rgba(201,169,110,.2);margin-bottom:36px;}
+    .quiz-bar-fill{height:100%;background:var(--gold);transition:width .5s ease;}
+    .quiz-q{font-family:'Cormorant Infant',serif;font-style:italic;font-size:clamp(22px,3vw,32px);font-weight:300;color:var(--cream);margin-bottom:32px;min-height:60px;line-height:1.2;}
+    .quiz-opts{display:flex;flex-direction:column;gap:10px;}
+    .quiz-opt{padding:14px 20px;border:1px solid rgba(201,169,110,.2);font-family:'Cormorant Garamond',serif;font-size:19px;color:rgba(250,247,242,.8);background:transparent;cursor:none;text-align:left;transition:background .22s,border-color .22s,color .22s;}
+    .quiz-opt:hover{background:rgba(201,169,110,.08);border-color:rgba(201,169,110,.5);color:var(--cream);}
+    .quiz-opt.selected{background:rgba(201,169,110,.12);border-color:var(--gold);color:var(--cream);}
+    .quiz-result{display:none;text-align:center;}
+    .quiz-result.show{display:block;}
+    .res-icon{font-size:48px;margin-bottom:20px;}
+    .res-title{font-family:'Cormorant Infant',serif;font-style:italic;font-size:clamp(26px,3vw,36px);font-weight:300;color:var(--cream);margin-bottom:14px;}
+    .res-text{font-family:'Cormorant Garamond',serif;font-size:19px;color:rgba(250,247,242,.65);line-height:1.75;margin-bottom:28px;}
+    .quiz-restart{border:1px solid rgba(201,169,110,.4);padding:12px 32px;font-family:'Jost',sans-serif;font-size:11px;font-weight:300;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);background:transparent;cursor:none;transition:background .3s,color .3s;}
+    .quiz-restart:hover{background:var(--gold);color:var(--ink);}
+
+    /* CTA */
+    #cta{background:var(--cream);padding:120px 6%;text-align:center;position:relative;overflow:hidden;}
+    #cta::before{content:'✦';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:500px;color:rgba(201,169,110,.04);pointer-events:none;line-height:1;}
+    .cta-h{font-family:'Cormorant Infant',serif;font-style:italic;font-size:clamp(44px,7vw,96px);font-weight:300;color:var(--ink);line-height:.95;margin-bottom:40px;letter-spacing:-1px;}
+    .cta-btn{display:inline-block;padding:16px 52px;border:1px solid var(--ink);font-family:'Jost',sans-serif;font-size:11px;font-weight:300;letter-spacing:3px;text-transform:uppercase;color:var(--ink);text-decoration:none;transition:background .35s,color .35s;}
+    .cta-btn:hover{background:var(--ink);color:var(--cream);}
+
+    @media(max-width:768px){#hero{grid-template-columns:1fr;}.hero-img-side{height:55vh;}.hero-text-side{padding:64px 7%;}.quiz-box{padding:32px 24px;}}
+  </style>
+</head>
+<body class="ai-page">
+
+  <div class="cursor" id="cur"></div>
+  <div class="cursor-ring" id="curRing"></div>
+
+  <nav class="nav" id="sitenav">
+    <a href="about.html">Journal</a>
+    <a href="gallery.html">Portfolio</a>
+    <a href="index.html" class="logo">imwangeshi</a>
+    <a href="aigenius.html">AI & Me</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-img-side">
+      <img src="1.png" alt="Wangeshi">
+      <div class="hero-img-word">Learn.</div>
+    </div>
+    <div class="hero-text-side">
+      <span class="hero-eyebrow">A personal story</span>
+      <h1 class="hero-h1">I didn't go<br>to a bootcamp.<br><em>I opened an AI.</em></h1>
+      <div class="hero-rule"></div>
+      <p class="hero-sub">This is how I used <strong>artificial intelligence</strong> to teach myself web design, content creation, and branding — and how you can too.</p>
+      <a class="hero-cta" href="#journey">Read My Story ↓</a>
+    </div>
+  </section>
+
+  <!-- TIMELINE -->
+  <section id="journey">
+    <span class="eyebrow reveal">The story</span>
+    <h2 class="section-h2 reveal">How it happened</h2>
+    <div class="section-rule reveal"></div>
+
+    <div class="tl-wrap">
+      <div class="tl-item">
+        <div class="tl-dot">🌱</div>
+        <div><p class="tl-year">The beginning</p><p class="tl-title">I was bored and curious</p><p class="tl-text">I stumbled onto ChatGPT and started asking random questions. I didn't know it would change everything. I just wanted to see what it could do.</p></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">💻</div>
+        <div><p class="tl-year">First experiment</p><p class="tl-title">I asked it to teach me HTML</p><p class="tl-text">I typed "teach me how to build a website from scratch" and it actually did. Step by step. I built my first page that same week. It was ugly — but it worked.</p></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">🎨</div>
+        <div><p class="tl-year">Getting creative</p><p class="tl-title">Design, logos, graphics</p><p class="tl-text">I found Canva AI and Deep AI for visuals. I started designing brand assets, social media content, even logos — all with AI as my creative partner.</p></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">⚡</div>
+        <div><p class="tl-year">Level up</p><p class="tl-title">Cursor changed how I code</p><p class="tl-text">Cursor lets me write real code with AI inside the editor. I could build things I didn't fully understand yet — and learn by watching it happen in real time.</p></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">🌍</div>
+        <div><p class="tl-year">Today</p><p class="tl-title">Real work, real results</p><p class="tl-text">I've built websites for organisations, managed social media for brands, and created content that performs. AI didn't do it for me — it helped me do it better.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOOLS -->
+  <section id="tools">
+    <span class="eyebrow reveal">The toolkit</span>
+    <h2 class="section-h2 reveal">Tools I actually used</h2>
+    <div class="section-rule reveal"></div>
+    <p class="reveal" style="font-family:'Cormorant Garamond',serif;font-size:19px;color:var(--mink);max-width:500px;line-height:1.8;margin-bottom:52px;">Not a sponsored list. These are the tools that genuinely changed how I work — hover each one to learn more.</p>
+
+    <div class="tools-grid">
+      <div class="tool-card reveal">
+        <img class="tool-card-bg" src="Screenshot__80_.png" alt="ChatGPT">
+        <div class="tool-body">
+          <span class="tool-num">01</span>
+          <span class="tool-icon">🤖</span>
+          <p class="tool-name">ChatGPT</p>
+          <p class="tool-desc">My first AI tutor. I used it to learn HTML, CSS, writing, strategy — and to explain anything I didn't understand.</p>
+          <span class="tool-tag">Learning</span>
+        </div>
+      </div>
+      <div class="tool-card reveal">
+        <img class="tool-card-bg" src="1.png" alt="Claude">
+        <div class="tool-body">
+          <span class="tool-num">02</span>
+          <span class="tool-icon">✦</span>
+          <p class="tool-name">Claude</p>
+          <p class="tool-desc">For longer thinking — writing, editing, planning strategies, and building this very website you're looking at.</p>
+          <span class="tool-tag">Writing & Code</span>
+        </div>
+      </div>
+      <div class="tool-card reveal">
+        <img class="tool-card-bg" src="photo1.png" alt="Canva AI">
+        <div class="tool-body">
+          <span class="tool-num">03</span>
+          <span class="tool-icon">🎨</span>
+          <p class="tool-name">Canva AI</p>
+          <p class="tool-desc">Graphics, social posts, brand kits. The AI features make design feel completely effortless.</p>
+          <span class="tool-tag">Design</span>
+        </div>
+      </div>
+      <div class="tool-card reveal">
+        <img class="tool-card-bg" src="Screenshot__98_.png" alt="Cursor">
+        <div class="tool-body">
+          <span class="tool-num">04</span>
+          <span class="tool-icon">⚡</span>
+          <p class="tool-name">Cursor</p>
+          <p class="tool-desc">An AI-powered code editor. It writes, fixes, and explains code as you build — like having a developer beside you.</p>
+          <span class="tool-tag">Development</span>
+        </div>
+      </div>
+      <div class="tool-card reveal">
+        <img class="tool-card-bg" src="Screenshot__100_.png" alt="Deep AI">
+        <div class="tool-body">
+          <span class="tool-num">05</span>
+          <span class="tool-icon">🖼️</span>
+          <p class="tool-name">Deep AI</p>
+          <p class="tool-desc">For generating images and visual concepts when I needed something that didn't exist yet.</p>
+          <span class="tool-tag">Visuals</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUIZ -->
+  <section id="quiz">
+    <span class="eyebrow reveal">Find your path</span>
+    <h2 class="section-h2 reveal">Where should<br>you start?</h2>
+    <div class="section-rule reveal"></div>
+    <p class="reveal" style="font-family:'Cormorant Garamond',serif;font-size:19px;color:rgba(250,247,242,.55);max-width:460px;line-height:1.8;margin-bottom:52px;">Answer 3 questions and I'll tell you exactly which tool to open first.</p>
+
+    <div class="quiz-box">
+      <div id="quiz-main">
+        <p class="quiz-prog-label" id="qprog">Question 1 of 3</p>
+        <div class="quiz-bar"><div class="quiz-bar-fill" id="qbar" style="width:33%"></div></div>
+        <p class="quiz-q" id="qq"></p>
+        <div class="quiz-opts" id="qopts"></div>
+      </div>
+      <div class="quiz-result" id="qresult">
+        <div class="res-icon" id="ricon"></div>
+        <p class="res-title" id="rtitle"></p>
+        <p class="res-text" id="rtext"></p>
+        <button class="quiz-restart" onclick="restartQuiz()">Try Again</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="cta">
+    <span class="eyebrow reveal">Let me help</span>
+    <h2 class="cta-h reveal">Want to learn<br>this too?</h2>
+    <p class="reveal" style="font-family:'Cormorant Garamond',serif;font-size:clamp(17px,2vw,22px);color:var(--mink);max-width:480px;margin:0 auto 40px;line-height:1.8;">If you want to use AI to build real skills — web design, content, branding — I can guide you. Let's talk.</p>
+    <a class="cta-btn reveal" href="mailto:gwangeshi9@gmail.com">Get In Touch →</a>
+  </section>
+
+  <script>
+    /* cursor */
+    const cur=document.getElementById('cur'),curRing=document.getElementById('curRing');
+    let mx=0,my=0,rx=0,ry=0;
+    document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+    (function anim(){rx+=(mx-rx)*.14;ry+=(my-ry)*.14;cur.style.left=mx+'px';cur.style.top=my+'px';curRing.style.left=rx+'px';curRing.style.top=ry+'px';requestAnimationFrame(anim);})();
+    document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>{cur.style.width='6px';cur.style.height='6px';curRing.style.width='52px';curRing.style.height='52px';});el.addEventListener('mouseleave',()=>{cur.style.width='10px';cur.style.height='10px';curRing.style.width='36px';curRing.style.height='36px';});});
+    /* nav */
+    window.addEventListener('scroll',()=>{document.getElementById('sitenav').classList.toggle('scrolled',window.scrollY>60);});
+    /* reveal */
+    const obs=new IntersectionObserver(entries=>{entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('in'),i*80);obs.unobserve(e.target);}});},{threshold:.1});
+    document.querySelectorAll('.reveal,.tl-item').forEach(el=>obs.observe(el));
+    /* quiz */
+    const questions=[
+      {q:"What do you most want to learn?",opts:["Web design & building websites","Writing & content creation","Graphic design & visuals","Strategy & brand planning"]},
+      {q:"How would you describe your skill level?",opts:["Complete beginner — zero experience","I know a little, want to go further","Intermediate, want to level up","I just want to work faster with AI"]},
+      {q:"How do you learn best?",opts:["Step-by-step with lots of examples","Diving in and figuring it out","Watching, then copying","Asking questions as I go"]}
+    ];
+    const results=[
+      {icon:"💻",title:"Start with Cursor + ChatGPT",text:"You're built for building. Open Cursor, ask ChatGPT to teach you HTML basics, and start with a simple one-page site. You'll have something real within a week."},
+      {icon:"✍️",title:"Start with Claude or ChatGPT",text:"Claude is incredible for writing and content strategy. Start by asking it to help you write one thing — a caption, a bio, a post — then keep going."},
+      {icon:"🎨",title:"Start with Canva AI + Deep AI",text:"Canva AI's Magic Studio will feel like a superpower. Pair it with Deep AI for image generation and you'll be creating beautiful visuals faster than you imagined."},
+      {icon:"🤖",title:"Start with ChatGPT",text:"ChatGPT is the best all-round starting point. It will explain, teach, plan, and help with almost anything. Begin by asking it one real question you've been wondering about."}
+    ];
+    let cur2=0,answers=[];
+    function renderQ(){const q=questions[cur2];document.getElementById('qq').textContent=q.q;document.getElementById('qprog').textContent='Question '+(cur2+1)+' of '+questions.length;document.getElementById('qbar').style.width=(((cur2+1)/questions.length)*100)+'%';const opts=document.getElementById('qopts');opts.innerHTML='';q.opts.forEach((o,i)=>{const btn=document.createElement('button');btn.className='quiz-opt';btn.textContent=o;btn.onclick=()=>pick(i);opts.appendChild(btn);});}
+    function pick(i){document.querySelectorAll('.quiz-opt').forEach(b=>b.classList.remove('selected'));document.querySelectorAll('.quiz-opt')[i].classList.add('selected');answers.push(i);setTimeout(()=>{cur2++;cur2<questions.length?renderQ():showResult();},380);}
+    function showResult(){document.getElementById('quiz-main').style.display='none';const r=results[answers[0]]||results[0];document.getElementById('ricon').textContent=r.icon;document.getElementById('rtitle').textContent=r.title;document.getElementById('rtext').textContent=r.text;document.getElementById('qresult').classList.add('show');}
+    function restartQuiz(){cur2=0;answers=[];document.getElementById('quiz-main').style.display='block';document.getElementById('qresult').classList.remove('show');renderQ();}
+    renderQ();
+  </script>
+</body>
+</html>

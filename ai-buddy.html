@@ -1,1476 +1,1116 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-
-  <meta charset="UTF-8" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
-  <title>WANGESHI</title>
-
-  <link rel="stylesheet" href="style.css" />
-
-  <script src="script.js" defer></script>
-
-  <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600;700&display=swap" rel="stylesheet" />
-
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI &amp; Me | Wangeshi</title>
+  <meta name="theme-color" content="#fdfaf6">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="apple-touch-icon" href="favicon.png">
+  <link rel="stylesheet" href="style.css?v=ai-buddy-unified-contact2">
+  <script src="script.js?v=ai-buddy-unified-contact2" defer></script>
+  <link href="https://fonts.googleapis.com/css2?family=Alice:wght@400;500&family=Cormorant+Garamond:wght@300;400;500;600;700&family=DM+Serif+Display&family=Manrope:wght@300;400;500;600;700&family=Sacramento&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --ink: #3b2b2b;
+      --mink: #6b4f38;
+      --warm: #9c7553;
+      --cream: #fdfaf6;
+      --light: #f7efe6;
+      --sand: #efe3d5;
+      --gold: #d8b58d;
+      --berry: #6e3b3b;
+      --line: rgba(200, 168, 130, 0.34);
+      --glass: rgba(255, 255, 255, 0.66);
+    }
 
-    *,*::before,*::after {margin:0;padding:0;box-sizing:border-box;}
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-
+    html {
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
 
     body.ai-page {
-
-      background:#fdfaf6; /* creme background */
-
-      color:#2a1a0e; /* dark text */
-
-      font-family:'Crimson Text',serif;
-
-      overflow-x:hidden;
-
+      background: var(--cream);
+      color: var(--ink);
+      font-family: "Cormorant Garamond", serif;
+      overflow-x: hidden;
     }
 
+    .nav {
+      position: fixed;
+      top: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10030;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: calc(100% - 48px);
+      max-width: 1120px;
+      min-height: 62px;
+      padding: 0 clamp(16px, 3vw, 36px);
+      background: rgba(253, 250, 245, 0.72);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      backdrop-filter: blur(22px) saturate(160%);
+      -webkit-backdrop-filter: blur(22px) saturate(160%);
+      box-shadow: 0 8px 32px rgba(61, 43, 26, 0.09), 0 1px 0 rgba(255, 255, 255, 0.72) inset;
+    }
 
+    .nav-desktop {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(18px, 4vw, 56px);
+      width: 100%;
+    }
 
-    /* ── HERO ── */
+    .nav a {
+      font-family: "Alice", serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      line-height: 1;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: #4a3728;
+      transition: color 0.3s ease;
+    }
+
+    .nav a:hover {
+      color: var(--berry);
+    }
+
+    .nav .logo {
+      font-family: "Sacramento", cursive;
+      font-size: 28px;
+      font-weight: 400;
+      letter-spacing: 0.4px;
+      text-transform: none;
+      color: var(--berry);
+      margin-top: -2px;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 54px;
+      height: 54px;
+      border: 0;
+      border-radius: 999px;
+      background: transparent;
+      cursor: pointer;
+      z-index: 10050;
+      gap: 4px;
+      box-shadow: none;
+    }
+
+    .hamburger-line {
+      width: 22px;
+      height: 2px;
+      margin: 0;
+      border-radius: 999px;
+      background: #3d2b1a;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    .hamburger.open {
+      position: fixed;
+      top: 14px;
+      right: 14px;
+      box-shadow: none;
+    }
+
+    .hamburger.open .hamburger-line:nth-child(1) {
+      transform: rotate(45deg) translate(4px, 4px);
+    }
+
+    .hamburger.open .hamburger-line:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.open .hamburger-line:nth-child(3) {
+      transform: rotate(-45deg) translate(4px, -4px);
+    }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: min(84vw, 340px);
+      max-width: 340px;
+      height: 100vh;
+      padding: 92px 20px 28px;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 8px;
+      background: linear-gradient(180deg, rgba(253, 250, 246, 0.98), rgba(246, 239, 231, 0.98));
+      border-left: 1px solid rgba(200, 168, 130, 0.42);
+      box-shadow: -18px 0 42px rgba(61, 43, 26, 0.18);
+      transform: translateX(calc(100% + 36px));
+      transition: transform 0.3s ease;
+      visibility: hidden;
+      pointer-events: none;
+      z-index: 10030;
+      overflow-y: auto;
+    }
+
+    .mobile-menu.open,
+    .hamburger.open ~ .mobile-menu {
+      transform: translateX(0);
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .mobile-menu a {
+      display: block;
+      width: 100%;
+      padding: 15px 16px;
+      border: 1px solid rgba(200, 168, 130, 0.18);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.34);
+      font-family: "Alice", serif;
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 1.8px;
+      line-height: 1.2;
+      text-align: left;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: #3d2b1a;
+      box-shadow: 0 6px 16px rgba(61, 43, 26, 0.04);
+    }
+
+    .mobile-menu a.logo {
+      order: -1;
+      margin-bottom: 14px;
+      padding: 0 4px 18px;
+      border: 0;
+      border-bottom: 1px solid rgba(200, 168, 130, 0.32);
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+      font-family: "Sacramento", cursive;
+      font-size: 38px;
+      letter-spacing: normal;
+      text-transform: none;
+      color: #6e3b3b;
+    }
+
+    body.ai-page .nav .mobile-menu {
+      width: min(84vw, 340px) !important;
+      max-width: 340px !important;
+      background: linear-gradient(180deg, rgba(253, 250, 246, 0.98), rgba(246, 239, 231, 0.98)) !important;
+    }
+
+    body.ai-page .nav .mobile-menu a {
+      font-family: "Alice", serif !important;
+      color: #3d2b1a !important;
+      font-size: 12px !important;
+      letter-spacing: 1.8px !important;
+      padding: 15px 16px !important;
+    }
+
+    body.ai-page .nav .mobile-menu a.logo {
+      font-family: "Sacramento", cursive !important;
+      font-size: 38px !important;
+      letter-spacing: normal !important;
+      color: #6e3b3b !important;
+    }
 
     .ai-hero {
-
-      min-height:90vh;
-
-      display:flex;
-
-      align-items:center;
-
-      justify-content:space-between;
-
-      padding:80px 8% 60px;
-
-      gap:40px;
-
-      position:relative;
-
-      overflow:hidden;
-
-      background:#fdfaf6;
-
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: minmax(320px, 520px) minmax(340px, 1fr);
+      gap: clamp(32px, 5vw, 72px);
+      align-items: center;
+      padding: 112px 8% 44px;
+      background: var(--cream);
     }
-
-
 
     .hero-text {
-
-      flex:1;
-
-      max-width:560px;
-
+      max-width: 520px;
     }
 
-
-
-    .hero-kicker {
-
-      font-size:11px;
-
-      letter-spacing:2px;
-
-      text-transform:uppercase;
-
-      color:#c8b6a6; /* dusty pink for accents */
-
-      margin-bottom:18px;
-
-      display:block;
-
-      opacity:0;
-
-      animation:up 0.7s ease 0.2s forwards;
-
+    .hero-kicker,
+    .section-kicker {
+      display: block;
+      margin-bottom: 18px;
+      font-family: "Alice", serif;
+      font-size: 11px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
     }
-
-
 
     .hero-h1 {
-
-      font-family:'Ostrich Sans',sans-serif;
-
-      font-size:clamp(36px,5.2vw,66px);
-
-      font-weight:700;
-
-      line-height:1.08;
-
-      letter-spacing:-1px;
-
-      color:#2a1a0e; /* deep dark for headings */
-
-      margin-bottom:26px;
-
+      margin-bottom: 24px;
+      font-family: "DM Serif Display", serif;
+      font-size: clamp(54px, 5.8vw, 78px);
+      font-weight: 400;
+      line-height: 0.96;
+      letter-spacing: 0;
+      color: var(--ink);
     }
 
-
-
-    .hero-h1 .line {display:block;overflow:hidden;}
-
-    .hero-h1 .word {
-
-      display:inline-block;
-
-      transform:translateY(110%);
-
-      transition:transform 0.72s cubic-bezier(0.16,1,0.3,1);
-
+    .hero-h1 em {
+      font-style: italic;
+      color: var(--warm);
     }
-
-    .hero-h1 .word.up {transform:translateY(0);}
-
-    /* Italic emphasis */
-
-    .hero-h1 em {font-style:italic;color:#8b5e3c;}
-
-
 
     .hero-sub {
-
-      font-size:clamp(17px,1.9vw,21px);
-
-      color:#6b4f35; /* warm brownish */
-
-      line-height:1.6;
-
-      max-width:460px;
-
-      opacity:0;
-
-      animation:up 0.7s ease 0.9s forwards;
-
-      margin-bottom:32px;
-
+      max-width: 470px;
+      margin-bottom: 36px;
+      font-size: clamp(17px, 1.8vw, 21px);
+      line-height: 1.55;
+      color: var(--mink);
     }
 
-
-
-    .hero-cta {
-
-      display:inline-block;
-
-      padding:14px 36px;
-
-      border:2px solid #2a1a0e; /* dark border matching palette */
-
-      border-radius:999px;
-
-      font-family:'Ostrich Sans',sans-serif;
-
-      font-size:15px;letter-spacing:1px;text-transform:uppercase;
-
-      color:#2a1a0e; /* dark text */
-
-      text-decoration:none;
-
-      background:transparent;
-
-      cursor:pointer;
-
-      opacity:0;
-
-      animation:up 0.7s ease 1.1s forwards;
-
-      transition:background 0.3s,color 0.3s;
-
+    .hero-cta,
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 58px;
+      padding: 0 36px;
+      border: 1px solid var(--ink);
+      border-radius: 999px;
+      font-family: "Manrope", sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--ink);
+      background: transparent;
+      transition: background 0.25s ease, color 0.25s ease;
     }
 
-    .hero-cta:hover {background:#2a1a0e; color:#fdfaf6;}
-
-
-
-    /* cartoon side and bubbles */
-
-    .hero-cartoon {
-
-      flex-shrink:0;
-
-      min-height: 0;
-
-      width:clamp(240px,34vw,400px);
-
-      position:relative;
-
-      display:flex;
-
-      align-items:flex-end;
-
-      justify-content:center;
-
-      overflow:hidden;
-
+    .hero-cta:hover,
+    .cta-btn:hover {
+      background: var(--ink);
+      color: var(--cream);
     }
 
-
-
-    .hero-cartoon svg {
-
-      display:block;
-
-      width:100%;
-
-      height:auto;
-
-      max-height:100%;
-
+    .hero-visual {
+      position: relative;
+      min-height: 520px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
     }
-
-
 
     .bubble {
-
-      position:absolute;
-
-      background:#2a1a0e; /* dark tone for bubbles */
-
-      color:#fdfaf6; /* light text for contrast */
-
-      font-family:'Ostrich Sans',sans-serif;
-
-      font-weight:700;
-
-      border-radius:14px;
-
-      padding:9px 16px;
-
-      white-space:nowrap;
-
-      font-size:clamp(12px,1.4vw,16px);
-
-      opacity:0;
-
-      transform:scale(0.7) translateY(8px);
-
-      transition:opacity 0.4s ease,transform 0.4s ease;
-
-      pointer-events:none;
-
-      z-index:10;
-
+      position: absolute;
+      z-index: 2;
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: #4b3523;
+      color: #fff;
+      font-family: "Manrope", sans-serif;
+      font-size: clamp(15px, 1.2vw, 18px);
+      font-weight: 700;
+      line-height: 1;
+      box-shadow: 0 10px 20px rgba(61, 43, 26, 0.12);
     }
 
     .bubble::after {
-
-      content:'';
-
-      position:absolute;
-
-      bottom:-8px;
-
-      left:20px;
-
-      width:0;
-
-      height:0;
-
-      border-left:8px solid transparent;
-
-      border-right:8px solid transparent;
-
-      border-top:8px solid #2a1a0e; /* matches bubble background */
-
+      content: "";
+      position: absolute;
+      bottom: -8px;
+      left: 22px;
+      width: 14px;
+      height: 14px;
+      background: #4b3523;
+      transform: rotate(45deg);
+      border-radius: 2px;
     }
 
-    .bubble.show {opacity:1; transform:scale(1) translateY(0);}
+    .bubble-1 { top: 18px; left: 52%; }
+    .bubble-2 { top: 164px; right: 4%; }
+    .bubble-3 { top: 304px; left: 54%; }
 
-
-
-    /* Bubbles position */
-
-    .bubble-1 {top:6%;left:-12%;}
-
-    .bubble-2 {top:34%;right:-8%;}
-
-    .bubble-3 {top:60%;left:-10%;}
-
-
-
-    @keyframes up {
-
-      from {opacity:0;transform:translateY(20px);}
-
-      to {opacity:1;transform:translateY(0);}
-
+    .hero-illustration {
+      width: min(440px, 100%);
+      height: auto;
+      display: block;
     }
 
-
-
-    /* --- Shared Styles --- */
-
-    .ai-section {
-
-      padding:88px 8%;
-
+    .story-section {
+      background: var(--light);
+      padding: 76px 8% 92px;
     }
 
-    .tl-bg {background:#f6efe7;} /* soft background */
-
-    .quiz-bg {background:#f6efe7;}
-
-
-
-    .ai-kicker {
-
-      font-size:11px;
-
-      letter-spacing:1.5px;
-
-      text-transform:uppercase;
-
-      color:#c8b6a6;
-
-      margin-bottom:10px;
-
-      display:block;
-
+    .story-wrap {
+      max-width: 960px;
     }
 
-
-
-    .ai-h2 {
-
-      font-family:'Ostrich Sans',sans-serif;
-
-      font-size:clamp(34px,4.5vw,54px);
-
-      font-weight:700;
-
-      letter-spacing:-1px;
-
-      color:#2a1a0e;
-
-      margin-bottom:14px;
-
+    .story-title,
+    .tools-title,
+    .quiz-title,
+    .cta-title {
+      margin-bottom: 16px;
+      font-family: "DM Serif Display", serif;
+      font-size: clamp(42px, 4.5vw, 64px);
+      font-weight: 400;
+      line-height: 1;
+      letter-spacing: 0;
+      color: var(--ink);
     }
 
-
-
-    .ai-intro {
-
-      font-size:clamp(17px,1.8vw,21px);
-
-      color:#6b4f35;
-
-      max-width:580px;
-
-      line-height:1.6;
-
-      margin-bottom:42px;
-
+    .story-intro,
+    .tools-intro,
+    .quiz-intro,
+    .cta-copy {
+      max-width: 560px;
+      margin-bottom: 44px;
+      font-size: clamp(17px, 1.7vw, 20px);
+      line-height: 1.6;
+      color: var(--mink);
     }
-
-
-
-    /* Timeline styles */
 
     .timeline {
-
-      position:relative;
-
-      max-width:720px;
-
+      position: relative;
+      max-width: 860px;
+      margin-top: 20px;
+      padding-left: 72px;
     }
 
     .timeline::before {
-
-      content:'';
-
-      position:absolute;
-
-      left:23px;
-
-      top:0;
-
-      bottom:0;
-
-      width:1px;
-
-      background:linear-gradient(to bottom, transparent, #c8b6a6 8%, #c8b6a6 92%, transparent);
-
+      content: "";
+      position: absolute;
+      left: 24px;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, rgba(200, 168, 130, 0.7) 8%, rgba(200, 168, 130, 0.7) 92%, transparent);
     }
 
-
-
-    .tl-item {
-
-      display:flex;
-
-      gap:28px;
-
-      margin-bottom:50px;
-
-      opacity:0;
-
-      transform:translateX(-22px);
-
-      transition:opacity 0.6s ease, transform 0.6s ease;
-
+    .timeline-item {
+      position: relative;
+      margin-bottom: 42px;
     }
 
-    .tl-item.in {opacity:1; transform:translateX(0);}
-
-
-
-    .tl-dot {
-
-      flex-shrink:0;
-
-      width:46px;
-
-      height:46px;
-
-      border-radius:50%;
-
-      background:#fdfaf6; /* light background */
-
-      border:1.5px solid #c8b6a6; /* muted border */
-
-      display:flex;
-
-      align-items:center;
-
-      justify-content:center;
-
-      font-size:18px;
-
-      position:relative;
-
-      z-index:1;
-
+    .timeline-dot {
+      position: absolute;
+      left: -72px;
+      top: 2px;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: var(--cream);
+      border: 1px solid rgba(200, 168, 130, 0.58);
+      color: #6e8c2e;
+      font-family: "Alice", serif;
+      font-size: 20px;
+      box-shadow: 0 10px 20px rgba(61, 43, 26, 0.06);
     }
 
-
-
-    .tl-year {
-
-      font-size:11px;
-
-      letter-spacing:1.2px;
-
-      text-transform:uppercase;
-
-      color:#c8b6a6;
-
-      margin-bottom:5px;
-
+    .timeline-label {
+      margin-bottom: 8px;
+      font-family: "Alice", serif;
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
     }
 
-
-
-    .tl-title {
-
-      font-family:'Ostrich Sans',sans-serif;
-
-      font-size:22px;
-
-      font-weight:700;
-
-      color:#2a1a0e;
-
-      margin-bottom:8px;
-
+    .timeline-head {
+      margin-bottom: 8px;
+      font-family: "DM Serif Display", serif;
+      font-size: clamp(28px, 2.2vw, 34px);
+      font-weight: 400;
+      color: var(--ink);
     }
 
-
-
-    .tl-text {
-
-      font-size:18px;
-
-      color:#6b4f35;
-
-      line-height:1.6;
-
+    .timeline-text {
+      font-size: clamp(18px, 1.55vw, 21px);
+      line-height: 1.65;
+      color: var(--mink);
     }
 
-
-
-    /* Tools grid styles */
+    .tools-section {
+      padding: 92px 8%;
+      background: var(--cream);
+    }
 
     .tools-grid {
-
-      display:grid;
-
-      grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
-
-      gap:18px;
-
-      max-width:960px;
-
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 18px;
     }
-
-
 
     .tool-card {
-
-      background:#fff; /* white background */
-
-      border:1.5px solid rgba(200,182,166,0.5);
-
-      border-radius:20px;
-
-      padding:28px 22px;
-
-      opacity:0;
-
-      transform:translateY(22px);
-
-      transition:opacity 0.5s ease,transform 0.5s ease,box-shadow 0.3s;
-
+      padding: 26px 20px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: var(--glass);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 12px 24px rgba(61, 43, 26, 0.07);
     }
 
-    .tool-card.in {opacity:1; transform:translateY(0);}
+    .tool-icon {
+      display: block;
+      margin-bottom: 14px;
+      font-family: "Alice", serif;
+      font-size: 22px;
+      color: var(--warm);
+    }
 
-    .tool-card:hover {box-shadow:0 10px 28px rgba(42,26,14,0.1); transform:translateY(-3px);}
+    .tool-name {
+      margin-bottom: 8px;
+      font-family: "DM Serif Display", serif;
+      font-size: 24px;
+      font-weight: 400;
+      color: var(--ink);
+    }
 
-
-
-    .tool-icon {font-size:28px; margin-bottom:14px; display:block;}
-
-    .tool-name {font-family:'Ostrich Sans',sans-serif; font-size:21px; font-weight:700; color:#2a1a0e; margin-bottom:8px;}
-
-    .tool-use {font-size:16px; color:#6b4f35; line-height:1.65;}
+    .tool-text {
+      font-size: 17px;
+      line-height: 1.6;
+      color: var(--mink);
+    }
 
     .tool-tag {
-
-      display:inline-block;
-
-      margin-top:14px;
-
-      padding:4px 14px;
-
-      border-radius:999px;
-
-      background:rgba(200,182,166,0.22);
-
-      font-size:11px;
-
-      letter-spacing:1px;
-
-      text-transform:uppercase;
-
-      color:#8b5e3c;
-
+      display: inline-block;
+      margin-top: 16px;
+      padding: 5px 12px;
+      border-radius: 999px;
+      background: rgba(200, 168, 130, 0.16);
+      font-family: "Manrope", sans-serif;
+      font-size: 10px;
+      letter-spacing: 1.6px;
+      text-transform: uppercase;
+      color: var(--warm);
     }
 
-
-
-    /* Quiz section override */
-
-    .quiz-bg {
-
-      background: #1c1712 !important;
-
-      padding: 120px 8% 140px !important;
-
+    .quiz-section {
+      padding: 110px 8%;
+      background: #1c1712;
     }
 
-    .quiz-bg .ai-kicker { color: #c8b6a6; }
+    .quiz-section .section-kicker,
+    .quiz-section .quiz-title {
+      color: #f0e8df;
+    }
 
-    .quiz-bg .ai-h2 { color: #f0e8df; font-size: clamp(48px, 6vw, 82px); margin-bottom: 18px; }
-
-    .quiz-bg .ai-intro { color: #9a8878; font-size: clamp(18px, 2vw, 22px); margin-bottom: 56px; }
-
-
-
-    /* Quiz box styles */
+    .quiz-section .quiz-intro {
+      color: #aa9887;
+    }
 
     .quiz-box {
-
-      max-width: 100%;
-
-      background: #1c1712;
-
-      border: none;
-
-      border-radius: 0;
-
-      padding: 0;
-
+      max-width: 760px;
+      margin-top: 12px;
     }
 
-    .quiz-progress-label {
-
-      font-family: 'Cutive Mono', monospace;
-
-      font-size: 12px;
-
-      letter-spacing: 3px;
-
-      text-transform: uppercase;
-
-      color: #c8b6a6;
-
+    .quiz-progress {
       margin-bottom: 16px;
-
+      font-family: "Manrope", sans-serif;
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
     }
 
     .quiz-bar {
-
       width: 100%;
-
       height: 1px;
-
-      background: rgba(200,182,166,0.3);
-
-      border-radius: 0;
-
-      margin-bottom: 52px;
-
-      overflow: hidden;
-
+      margin-bottom: 42px;
+      background: rgba(200, 168, 130, 0.28);
     }
 
     .quiz-bar-fill {
-
+      width: 33%;
       height: 100%;
-
-      background: #c8b6a6;
-
-      border-radius: 0;
-
-      transition: width 0.5s ease;
-
+      background: var(--gold);
+      transition: width 0.35s ease;
     }
 
-    .quiz-q {
-
-      font-family: 'Sacramento', cursive;
-
-      font-size: clamp(32px, 4vw, 52px);
-
+    .quiz-question {
+      margin-bottom: 30px;
+      font-family: "Sacramento", cursive;
+      font-size: clamp(38px, 4vw, 56px);
       font-weight: 400;
-
-      font-style: italic;
-
-      color: #c8b6a6;
-
-      margin-bottom: 48px;
-
-      min-height: 60px;
-
-      line-height: 1.3;
-
+      line-height: 1.12;
+      color: var(--gold);
     }
 
-    .quiz-opts {
-
-      display: flex;
-
-      flex-direction: column;
-
+    .quiz-options {
+      display: grid;
       gap: 0;
-
     }
 
-    .quiz-opt {
-
+    .quiz-option {
       padding: 22px 28px;
-
-      border: 1px solid rgba(200,182,166,0.2);
-
-      border-bottom: none;
-
-      border-radius: 0;
-
-      font-family: 'Crimson Text', serif;
-
-      font-size: clamp(18px, 2vw, 24px);
-
-      color: #e8ddd4;
-
+      border: 1px solid rgba(200, 168, 130, 0.22);
+      border-bottom: 0;
       background: transparent;
-
-      cursor: pointer;
-
+      color: #ece1d7;
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(19px, 1.8vw, 24px);
       text-align: left;
-
-      transition: background 0.2s, color 0.2s, padding-left 0.2s;
-
+      cursor: pointer;
+      transition: background 0.2s ease, padding-left 0.2s ease;
     }
 
-    .quiz-opt:last-child { border-bottom: 1px solid rgba(200,182,166,0.2); }
-
-    .quiz-opt:hover {
-
-      background: rgba(200,182,166,0.07);
-
-      color: #fdfaf6;
-
-      padding-left: 38px;
-
+    .quiz-option:last-child {
+      border-bottom: 1px solid rgba(200, 168, 130, 0.22);
     }
 
-    .quiz-opt.selected {
-
-      background: rgba(200,182,166,0.12);
-
-      color: #fdfaf6;
-
+    .quiz-option:hover,
+    .quiz-option.selected {
+      background: rgba(200, 168, 130, 0.08);
+      padding-left: 36px;
     }
-
-
-
-    /* Result */
 
     .quiz-result {
-
       display: none;
-
+      padding-top: 18px;
       text-align: center;
-
-      padding: 40px 0;
-
     }
 
-    .quiz-result.show { display: block; }
-
-    .res-icon {
-
-      font-size: 56px;
-
-      margin-bottom: 24px;
-
+    .quiz-result.show {
+      display: block;
     }
 
-    .res-title {
+    .quiz-result-icon {
+      margin-bottom: 20px;
+      font-family: "Alice", serif;
+      font-size: 44px;
+      color: var(--gold);
+    }
 
-      font-family: 'Sacramento', cursive;
-
-      font-size: clamp(42px, 5vw, 64px);
-
+    .quiz-result-title {
+      margin-bottom: 14px;
+      font-family: "Sacramento", cursive;
+      font-size: clamp(48px, 4.5vw, 66px);
       font-weight: 400;
-
       color: #f0e8df;
-
-      margin-bottom: 18px;
-
     }
 
-    .res-text {
-
-      font-size: clamp(18px, 1.8vw, 22px);
-
-      color: #c8b6a6;
-
-      line-height: 1.75;
-
-      margin-bottom: 40px;
-
+    .quiz-result-text {
       max-width: 620px;
-
-      margin-left: auto;
-
-      margin-right: auto;
-
+      margin: 0 auto 34px;
+      font-size: clamp(19px, 1.8vw, 22px);
+      line-height: 1.7;
+      color: var(--gold);
     }
 
-
-
-    /* Restart button style */
-
-    .quiz-restart {
-
-      border: 1px solid rgba(200,182,166,0.45);
-
-      border-radius: 0;
-
-      padding: 14px 48px;
-
-      font-family: 'Cutive Mono', monospace;
-
-      font-size: 11px;
-
-      letter-spacing: 2.5px;
-
-      text-transform: uppercase;
-
-      color: #c8b6a6;
-
+    .quiz-reset {
+      border: 1px solid rgba(200, 168, 130, 0.42);
       background: transparent;
-
+      color: var(--gold);
+      padding: 14px 34px;
+      font-family: "Manrope", sans-serif;
+      font-size: 11px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
       cursor: pointer;
-
-      transition: background 0.3s, color 0.3s, border-color 0.3s;
-
+      transition: background 0.25s ease, color 0.25s ease;
     }
 
-    .quiz-restart:hover {
-
-      background: rgba(200,182,166,0.1);
-
-      color: #fdfaf6;
-
-      border-color: #c8b6a6;
-
+    .quiz-reset:hover {
+      background: rgba(200, 168, 130, 0.1);
+      color: #fff;
     }
 
-
-
-    /* CTA styles */
-
-    .ai-cta {
-
-      text-align:center;
-
-      padding:96px 8%;
-
+    .cta-section {
+      padding: 96px 8%;
+      text-align: center;
+      background: var(--cream);
     }
 
-    .ai-cta p {
-
-      font-size:clamp(17px,2vw,22px);
-
-      color:#6b4f35;
-
-      max-width:480px;
-
-      margin:0 auto 34px;
-
-      line-height:1.6;
-
+    .cta-copy {
+      margin-left: auto;
+      margin-right: auto;
     }
 
-    .ai-cta-btn {
+    @media (max-width: 1080px) {
+      .ai-hero {
+        grid-template-columns: 1fr;
+        padding-top: 112px;
+      }
 
-      display:inline-block;
+      .hero-text {
+        max-width: 640px;
+      }
 
-      padding:15px 46px;
+      .hero-visual {
+        min-height: 460px;
+      }
 
-      border:2px solid #2a1a0e;
-
-      border-radius:999px;
-
-      font-family:'Ostrich Sans',sans-serif;
-
-      font-size:15px;
-
-      letter-spacing:1px;
-
-      text-transform:uppercase;
-
-      color:#2a1a0e;
-
-      text-decoration:none;
-
-      background:transparent;
-
-      transition:background 0.3s,color 0.3s;
-
+      .tools-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
     }
 
-    .ai-cta-btn:hover {
+    @media (max-width: 1024px) {
+      html,
+      body.ai-page {
+        overflow-x: clip;
+      }
 
-      background:#2a1a0e;
+      .nav {
+        top: 12px !important;
+        right: 12px !important;
+        left: auto !important;
+        transform: none !important;
+        width: 52px !important;
+        min-width: 52px !important;
+        max-width: 52px !important;
+        min-height: 52px !important;
+        height: 52px !important;
+        padding: 0 !important;
+        justify-content: center !important;
+      }
 
-      color:#fdfaf6;
+      .nav-desktop {
+        display: none !important;
+      }
 
-    }
+      .mobile-menu {
+        display: flex !important;
+      }
 
-
-
-    /* Responsive adjustments for smaller screens */
-
-    @media(max-width:700px){
+      .hamburger {
+        display: flex !important;
+      }
 
       .ai-hero {
-
-        flex-direction:column-reverse;
-
-        padding-top:100px;
-
+        grid-template-columns: 1fr;
+        gap: 24px;
+        padding: 96px 20px 38px;
       }
 
-      .hero-cartoon {width:78%;}
+      .hero-text {
+        max-width: 640px;
+      }
 
-      .bubble-2 {right:0;}
-
-      .quiz-box {padding:30px 22px;}
-
+      .hero-visual {
+        order: 2;
+        min-height: 390px;
+      }
     }
 
+    @media (max-width: 768px) {
+      .ai-hero {
+        padding: 96px 20px 38px;
+      }
+
+      .hero-h1 {
+        font-size: clamp(44px, 13vw, 62px);
+      }
+
+      .hero-sub {
+        font-size: 18px;
+      }
+
+      .hero-cta,
+      .cta-btn {
+        min-height: 54px;
+        padding: 0 28px;
+        font-size: 11px;
+      }
+
+      .hero-illustration {
+        width: min(320px, 94%);
+      }
+
+      .bubble {
+        font-size: 13px;
+        padding: 12px 14px;
+      }
+
+      .bubble-1 {
+        top: 8px;
+        left: 50%;
+      }
+
+      .bubble-2 {
+        top: 132px;
+        right: 0;
+      }
+
+      .bubble-3 {
+        top: 246px;
+        left: 6%;
+      }
+
+      .story-section,
+      .tools-section,
+      .quiz-section,
+      .cta-section {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+
+      .timeline {
+        padding-left: 58px;
+      }
+
+      .timeline-dot {
+        left: -58px;
+        width: 42px;
+        height: 42px;
+      }
+
+      .tools-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .quiz-option {
+        padding: 18px 20px;
+      }
+    }
   </style>
-
 </head>
-
 <body class="ai-page">
-
-  <nav class="nav">
-
-    <a href="about.html">About Me</a>
-
-    <a href="gallery.html">Portfolio</a>
-
-    <a href="index.html" class="logo">imwangeshi</a>
-
-    <a href="ai-buddy.html">AI & ME</a>
-
-    <a href="contact.html">Contact</a>
-
+  <nav class="nav" id="sitenav">
+    <button id="hamburger" class="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </button>
+    <div class="nav-desktop">
+      <a href="about.html">About Me</a>
+      <a href="gallery.html">Portfolio</a>
+      <a href="index.html" class="logo">imwangeshi</a>
+      <a href="ai-buddy.html">AI &amp; ME</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div id="mobileMenu" class="mobile-menu">
+      <a href="index.html" class="logo">imwangeshi</a>
+      <a href="about.html">About Me</a>
+      <a href="gallery.html">Portfolio</a>
+      <a href="ai-buddy.html">AI &amp; ME</a>
+      <a href="contact.html">Contact</a>
+    </div>
   </nav>
 
-  
-
-  <!-- HERO -->
-
   <section class="ai-hero">
-
     <div class="hero-text">
-
-      <span class="hero-kicker">A personal story</span>
-
-      <h1 class="hero-h1">
-
-        <span class="line"><span class="word" id="hw1">I didn't go</span></span>
-
-        <span class="line"><span class="word" id="hw2">to a bootcamp.</span></span>
-
-        <span class="line"><span class="word" id="hw3"><em>I opened an AI</em></span></span>
-
-        <span class="line"><span class="word" id="hw4">and started</span></span>
-
-        <span class="line"><span class="word" id="hw5">asking questions.</span></span>
-
-      </h1>
-
-      <p class="hero-sub">This is how I used AI to teach myself web design, content creation, and branding — and how you can too.</p>
-
-      <a class="hero-cta" href="#journey">See My Journey ↓</a>
-
+      <span class="hero-kicker">A Personal Story</span>
+      <h1 class="hero-h1">I didn't go<br>to a bootcamp.<br><em>I opened an AI</em><br>and started<br>asking questions.</h1>
+      <p class="hero-sub">This is how I used AI to teach myself web design, content creation, and branding - and how you can too.</p>
+      <a class="hero-cta" href="#journey">See My Journey &#8595;</a>
     </div>
 
-
-
-    <!-- CARTOON + WORD BUBBLES -->
-
-    <div class="hero-cartoon">
-
-      <div class="bubble bubble-1" id="b1">Design ✦</div>
-
-      <div class="bubble bubble-2" id="b2">Build 💻</div>
-
-      <div class="bubble bubble-3" id="b3">Create 🎨</div>
-
-
-
-      <svg viewBox="0 0 320 420" xmlns="http://www.w3.org/2000/svg">
-
-        <!-- desk -->
-
+    <div class="hero-visual">
+      <div class="bubble bubble-1">Design</div>
+      <div class="bubble bubble-2">Build</div>
+      <div class="bubble bubble-3">Create</div>
+      <svg class="hero-illustration" viewBox="0 0 320 420" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <rect x="10" y="320" width="300" height="14" rx="4" fill="#d9c9b8"/>
-
         <rect x="50" y="334" width="10" height="70" rx="3" fill="#c8b6a6"/>
-
         <rect x="260" y="334" width="10" height="70" rx="3" fill="#c8b6a6"/>
-
-
-
-        <!-- laptop base -->
-
         <rect x="60" y="278" width="200" height="46" rx="6" fill="#3e2f23"/>
-
-        <!-- laptop hinge -->
-
         <rect x="58" y="276" width="204" height="6" rx="3" fill="#2a1a0e"/>
-
-        <!-- laptop screen outer -->
-
         <rect x="68" y="172" width="184" height="110" rx="10" fill="#3e2f23"/>
-
-        <!-- laptop screen inner -->
-
         <rect x="76" y="180" width="168" height="96" rx="6" fill="#f0e8df"/>
-
-
-
-        <!-- code lines on screen -->
-
         <rect x="88" y="192" width="90" height="5" rx="2" fill="#c8b6a6" opacity="0.7"/>
-
         <rect x="88" y="203" width="120" height="5" rx="2" fill="#8b5e3c" opacity="0.6"/>
-
         <rect x="88" y="214" width="65" height="5" rx="2" fill="#c8b6a6" opacity="0.7"/>
-
         <rect x="88" y="225" width="100" height="5" rx="2" fill="#3e2f23" opacity="0.35"/>
-
         <rect x="88" y="236" width="75" height="5" rx="2" fill="#8b5e3c" opacity="0.6"/>
-
         <rect x="88" y="247" width="110" height="5" rx="2" fill="#c8b6a6" opacity="0.5"/>
-
-        <!-- blinking cursor -->
-
         <rect x="190" y="192" width="3" height="14" rx="1" fill="#3e2f23">
-
           <animate attributeName="opacity" values="1;0;1" dur="1s" repeatCount="indefinite"/>
-
         </rect>
-
-
-
-        <!-- body / torso -->
-
         <ellipse cx="160" cy="258" rx="46" ry="38" fill="#8b5e3c"/>
-
-        <!-- collar detail -->
-
         <path d="M160 232 L148 248 L160 243 L172 248 Z" fill="#fdfaf6" opacity="0.6"/>
-
-
-
-        <!-- left arm -->
-
         <path d="M116 262 Q84 278 96 300" stroke="#f5c5a3" stroke-width="20" fill="none" stroke-linecap="round"/>
-
-        <!-- right arm -->
-
         <path d="M204 262 Q236 278 224 300" stroke="#f5c5a3" stroke-width="20" fill="none" stroke-linecap="round"/>
-
-        <!-- hands -->
-
         <ellipse cx="100" cy="302" rx="15" ry="10" fill="#f5c5a3"/>
-
         <ellipse cx="220" cy="302" rx="15" ry="10" fill="#f5c5a3"/>
-
-
-
-        <!-- neck -->
-
         <rect x="152" y="210" width="16" height="26" rx="7" fill="#f5c5a3"/>
-
-
-
-        <!-- head -->
-
         <ellipse cx="160" cy="188" rx="46" ry="44" fill="#f5c5a3"/>
-
-
-
-        <!-- hair -->
-
         <path d="M114 175 Q116 124 160 120 Q204 124 206 175 Q192 138 160 134 Q128 138 114 175Z" fill="#2a1a0e"/>
-
         <ellipse cx="160" cy="120" rx="24" ry="16" fill="#2a1a0e"/>
-
-        <!-- braids -->
-
         <path d="M136 120 Q126 94 140 84" stroke="#2a1a0e" stroke-width="9" fill="none" stroke-linecap="round"/>
-
         <path d="M160 116 Q160 92 166 82" stroke="#2a1a0e" stroke-width="9" fill="none" stroke-linecap="round"/>
-
         <path d="M184 120 Q194 94 180 84" stroke="#2a1a0e" stroke-width="9" fill="none" stroke-linecap="round"/>
-
-        <!-- bun -->
-
         <circle cx="160" cy="80" r="16" fill="#2a1a0e"/>
-
         <circle cx="146" cy="82" r="9" fill="#2a1a0e"/>
-
         <circle cx="174" cy="82" r="9" fill="#2a1a0e"/>
-
-
-
-        <!-- face -->
-
-        <!-- eyes -->
-
         <ellipse cx="146" cy="186" rx="7" ry="8" fill="#2a1a0e"/>
-
         <ellipse cx="174" cy="186" rx="7" ry="8" fill="#2a1a0e"/>
-
-        <circle cx="148" cy="184" r="2.5" fill="white"/>
-
-        <circle cx="176" cy="184" r="2.5" fill="white"/>
-
-        <!-- eyebrows -->
-
+        <circle cx="148" cy="184" r="2.5" fill="#fff"/>
+        <circle cx="176" cy="184" r="2.5" fill="#fff"/>
         <path d="M139 176 Q146 172 153 176" stroke="#2a1a0e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-
         <path d="M167 176 Q174 172 181 176" stroke="#2a1a0e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-
-        <!-- smile -->
-
         <path d="M148 202 Q160 213 172 202" stroke="#2a1a0e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-
-        <!-- cheeks -->
-
         <ellipse cx="134" cy="197" rx="9" ry="6" fill="#f5a07a" opacity="0.38"/>
-
         <ellipse cx="186" cy="197" rx="9" ry="6" fill="#f5a07a" opacity="0.38"/>
-
-        <!-- earrings -->
-
         <circle cx="114" cy="192" r="5" fill="#c8b6a6"/>
-
         <circle cx="206" cy="192" r="5" fill="#c8b6a6"/>
-
-
-
-        <!-- sparkles -->
-
-        <text x="46" y="162" font-size="16" fill="#8b5e3c" opacity="0">✦
-
-          <animate attributeName="opacity" values="0;1;0" dur="2.4s" begin="0.5s" repeatCount="indefinite"/>
-
-        </text>
-
-        <text x="262" y="148" font-size="13" fill="#c8b6a6" opacity="0">✦
-
-          <animate attributeName="opacity" values="0;1;0" dur="2.4s" begin="1.2s" repeatCount="indefinite"/>
-
-        </text>
-
-        <text x="38" y="230" font-size="11" fill="#c8b6a6" opacity="0">✦
-
-          <animate attributeName="opacity" values="0;1;0" dur="2.4s" begin="0.9s" repeatCount="indefinite"/>
-
-        </text>
-
+        <text x="46" y="162" font-size="16" fill="#8b5e3c" opacity="0">*</text>
+        <text x="262" y="148" font-size="13" fill="#c8b6a6" opacity="0">*</text>
+        <text x="38" y="230" font-size="11" fill="#c8b6a6" opacity="0">*</text>
       </svg>
-
     </div>
-
   </section>
 
-
-
-  <!-- TIMELINE -->
-
-  <section class="ai-section tl-bg" id="journey">
-
-    <div style="max-width:800px;">
-
-      <span class="ai-kicker">The story</span>
-
-      <h2 class="ai-h2">How it happened</h2>
-
-      <p class="ai-intro">It wasn't planned. It started with curiosity and a lot of late nights.</p>
-
-      <div class="section-rule"></div>
-
+  <section class="story-section" id="journey">
+    <div class="story-wrap">
+      <span class="section-kicker">The Story</span>
+      <h2 class="story-title">How it happened</h2>
+      <p class="story-intro">It wasn't planned. It started with curiosity and a lot of late nights.</p>
       <div class="timeline">
-
-        <div class="tl-item">
-
-          <div class="tl-dot">🌱</div>
-
-          <div><p class="tl-year">The beginning</p><p class="tl-title">I was bored and curious</p><p class="tl-text">I stumbled onto ChatGPT and started asking random questions. I didn't know it would change everything. I just wanted to see what it could do.</p></div>
-
-        </div>
-
-        <div class="tl-item">
-
-          <div class="tl-dot">💻</div>
-
-          <div><p class="tl-year">First experiment</p><p class="tl-title">I asked it to teach me HTML</p><p class="tl-text">I typed "teach me how to build a website from scratch" and it actually did. Step by step. I built my first page that same week. It was ugly — but it worked.</p></div>
-
-        </div>
-
-        <div class="tl-item">
-
-          <div class="tl-dot">🎨</div>
-
-          <div><p class="tl-year">Getting creative</p><p class="tl-title">Design, logos, graphics</p><p class="tl-text">I found Canva AI and Deep AI for visuals. I started designing brand assets, social media content, even logos — all with AI as my creative partner.</p></div>
-
-        </div>
-
-        <div class="tl-item">
-
-          <div class="tl-dot">⚡</div>
-
-          <div><p class="tl-year">Level up</p><p class="tl-title">Cursor changed how I code</p><p class="tl-text">Cursor lets me write real code with AI inside the editor. I could build things I didn't fully understand yet — and learn by watching it happen in real time.</p></div>
-
-        </div>
-
-        <div class="tl-item">
-
-          <div class="tl-dot">🌍</div>
-
-          <div><p class="tl-year">Today</p><p class="tl-title">Real work, real results</p><p class="tl-text">I've built websites for organisations, managed social media for brands, and created content that performs. AI didn't do it for me — it helped me do it better.</p></div>
-
-        </div>
-
+        <article class="timeline-item">
+          <div class="timeline-dot">1</div>
+          <p class="timeline-label">The Beginning</p>
+          <h3 class="timeline-head">I was bored and curious</h3>
+          <p class="timeline-text">I stumbled onto ChatGPT and started asking random questions. I didn't know it would change everything. I just wanted to see what it could do.</p>
+        </article>
+        <article class="timeline-item">
+          <div class="timeline-dot">2</div>
+          <p class="timeline-label">First Experiment</p>
+          <h3 class="timeline-head">I asked it to teach me HTML</h3>
+          <p class="timeline-text">I typed "teach me how to build a website from scratch" and it actually did. Step by step. I built my first page that same week. It was messy, but it worked.</p>
+        </article>
+        <article class="timeline-item">
+          <div class="timeline-dot">3</div>
+          <p class="timeline-label">Getting Creative</p>
+          <h3 class="timeline-head">Design, logos, graphics</h3>
+          <p class="timeline-text">I found Canva AI and image tools for visuals. I started designing brand assets, social media content, and ideas that looked more polished than what I could do alone.</p>
+        </article>
+        <article class="timeline-item">
+          <div class="timeline-dot">4</div>
+          <p class="timeline-label">Level Up</p>
+          <h3 class="timeline-head">AI became my creative partner</h3>
+          <p class="timeline-text">With the right prompts and repetition, I could build faster, test ideas, and learn by doing. What felt technical became something I could actually practice every day.</p>
+        </article>
+        <article class="timeline-item">
+          <div class="timeline-dot">5</div>
+          <p class="timeline-label">Today</p>
+          <h3 class="timeline-head">Real work, real results</h3>
+          <p class="timeline-text">I now use AI to support websites, content, branding, and strategy. It didn't replace my effort - it made my effort go further.</p>
+        </article>
       </div>
-
     </div>
-
   </section>
 
-
-
-  <!-- TOOLS -->
-
-  <section class="ai-section">
-
-    <span class="ai-kicker">The toolkit</span>
-
-    <h2 class="ai-h2">Tools I actually used</h2>
-
-    <p class="ai-intro">Not a sponsored list. These are the tools that genuinely changed how I work and learn.</p>
-
-    <div class="section-rule"></div>
-
+  <section class="tools-section">
+    <span class="section-kicker">The Toolkit</span>
+    <h2 class="tools-title">Tools I actually used</h2>
+    <p class="tools-intro">Not a sponsored list. These are the tools that genuinely changed how I work and learn.</p>
     <div class="tools-grid">
-
-      <div class="tool-card"><span class="tool-icon">🤖</span><p class="tool-name">ChatGPT</p><p class="tool-use">My first AI tutor. I used it to learn HTML, CSS, writing, strategy, and to explain anything I didn't understand.</p><span class="tool-tag">Learning</span></div>
-
-      <div class="tool-card"><span class="tool-icon">✦</span><p class="tool-name">Claude</p><p class="tool-use">For longer thinking — writing, editing, planning strategies, and building this very website.</p><span class="tool-tag">Writing & Code</span></div>
-
-      <div class="tool-card"><span class="tool-icon">🎨</span><p class="tool-name">Canva AI</p><p class="tool-use">Graphics, social posts, brand kits, presentations. The AI features make design feel effortless.</p><span class="tool-tag">Design</span></div>
-
-      <div class="tool-card"><span class="tool-icon">⚡</span><p class="tool-name">Cursor</p><p class="tool-use">An AI-powered code editor. It writes, fixes, and explains code as you build — like having a developer beside you.</p><span class="tool-tag">Development</span></div>
-
-      <div class="tool-card"><span class="tool-icon">🖼️</span><p class="tool-name">Deep AI</p><p class="tool-use">For generating images and visual concepts when I needed something that didn't exist yet.</p><span class="tool-tag">Visuals</span></div>
-
+      <article class="tool-card">
+        <span class="tool-icon">01</span>
+        <h3 class="tool-name">ChatGPT</h3>
+        <p class="tool-text">My first AI tutor for HTML, CSS, writing, planning, and understanding the basics.</p>
+        <span class="tool-tag">Learning</span>
+      </article>
+      <article class="tool-card">
+        <span class="tool-icon">02</span>
+        <h3 class="tool-name">Claude</h3>
+        <p class="tool-text">Helpful for longer thinking, editing, planning, and structuring creative work.</p>
+        <span class="tool-tag">Writing</span>
+      </article>
+      <article class="tool-card">
+        <span class="tool-icon">03</span>
+        <h3 class="tool-name">Canva AI</h3>
+        <p class="tool-text">For graphics, social media content, presentations, and cleaner visual direction.</p>
+        <span class="tool-tag">Design</span>
+      </article>
+      <article class="tool-card">
+        <span class="tool-icon">04</span>
+        <h3 class="tool-name">Cursor</h3>
+        <p class="tool-text">An AI-powered editor that helped me build, fix, and understand code while working.</p>
+        <span class="tool-tag">Development</span>
+      </article>
+      <article class="tool-card">
+        <span class="tool-icon">05</span>
+        <h3 class="tool-name">Image Tools</h3>
+        <p class="tool-text">Useful when I needed visual concepts, mockups, and fast creative starting points.</p>
+        <span class="tool-tag">Visuals</span>
+      </article>
     </div>
-
   </section>
 
-
-
-  <!-- QUIZ -->
-
-  <section class="ai-section quiz-bg">
-
-    <div>
-
-      <span class="ai-kicker" style="color:#c8b6a6;">Find your path</span>
-
-      <h2 class="ai-h2" style="color:#f0e8df;">Where should you start?</h2>
-
-      <p class="ai-intro" style="color:#9a8878;">Answer 3 quick questions and I'll point you to the right tool.</p>
-
-      <div class="section-rule"></div>
-
-      <div class="quiz-box">
-
-        <div id="quiz-main">
-
-          <p class="quiz-progress-label" id="qprog">Question 1 of 3</p>
-
-          <div class="quiz-bar"><div class="quiz-bar-fill" id="qbar" style="width:33%"></div></div>
-
-          <p class="quiz-q" id="qq"></p>
-
-          <div class="quiz-opts" id="qopts"></div>
-
-        </div>
-
-        <div class="quiz-result" id="qresult">
-
-          <div class="res-icon" id="ricon"></div>
-
-          <p class="res-title" id="rtitle"></p>
-
-          <p class="res-text" id="rtext"></p>
-
-          <button class="quiz-restart" onclick="restartQuiz()">Try Again</button>
-
-        </div>
-
+  <section class="quiz-section">
+    <span class="section-kicker">Find Your Path</span>
+    <h2 class="quiz-title">Where should you start?</h2>
+    <p class="quiz-intro">Answer three quick questions and I will point you toward a good starting place.</p>
+    <div class="quiz-box">
+      <div id="quizMain">
+        <p class="quiz-progress" id="quizProgress">Question 1 of 3</p>
+        <div class="quiz-bar"><div class="quiz-bar-fill" id="quizBar"></div></div>
+        <p class="quiz-question" id="quizQuestion"></p>
+        <div class="quiz-options" id="quizOptions"></div>
       </div>
-
+      <div class="quiz-result" id="quizResult">
+        <div class="quiz-result-icon" id="resultIcon"></div>
+        <h3 class="quiz-result-title" id="resultTitle"></h3>
+        <p class="quiz-result-text" id="resultText"></p>
+        <button class="quiz-reset" id="quizReset" type="button">Try Again</button>
+      </div>
     </div>
-
   </section>
 
-
-
-  <!-- CTA -->
-
-  <section class="ai-cta">
-
-    <span class="ai-kicker">Let me help</span>
-
-    <h2 class="ai-h2">Want to learn this too?</h2>
-
-    <p>If you want to use AI to build real skills — web design, content, branding — I can guide you. Let's talk.</p>
-
-    <a class="ai-cta-btn" href="mailto:gwangeshi9@gmail.com">Get In Touch →</a>
-
+  <section class="cta-section">
+    <span class="section-kicker">Let Me Help</span>
+    <h2 class="cta-title">Want to learn this too?</h2>
+    <p class="cta-copy">If you want to use AI to build real skills in web design, content, and branding, I can guide you.</p>
+    <a class="cta-btn" href="https://www.tiktok.com/@imwangeshi" target="_blank" rel="noopener noreferrer">Get In Touch</a>
   </section>
-
-
 
   <script>
+    const hamburger = document.getElementById("hamburger");
+    const mobileMenu = document.getElementById("mobileMenu");
 
-    const delay = ms => new Promise(r => setTimeout(r, ms));
+    if (hamburger && mobileMenu) {
+      const closeMenu = () => {
+        hamburger.classList.remove("open");
+        mobileMenu.classList.remove("open");
+        hamburger.setAttribute("aria-expanded", "false");
+      };
 
+      hamburger.addEventListener("click", () => {
+        const isOpen = hamburger.classList.toggle("open");
+        mobileMenu.classList.toggle("open", isOpen);
+        hamburger.setAttribute("aria-expanded", String(isOpen));
+      });
 
+      mobileMenu.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", closeMenu);
+      });
 
-    /* hero words */
-
-    (async () => {
-
-      await delay(300);
-
-      for (let i = 1; i <= 5; i++) {
-
-        document.getElementById('hw'+i).classList.add('up');
-
-        await delay(130);
-
-      }
-
-      await delay(600);
-
-      for (const id of ['b1','b2','b3']) {
-
-        document.getElementById(id).classList.add('show');
-
-        await delay(420);
-
-      }
-
-    })();
-
-
-
-    /* scroll reveal */
-
-    const obs = new IntersectionObserver(entries => {
-
-      entries.forEach((e, i) => {
-
-        if (e.isIntersecting) {
-
-          setTimeout(() => e.target.classList.add('in'), i * 90);
-
-          obs.unobserve(e.target);
-
+      document.addEventListener("click", (event) => {
+        if (!hamburger.contains(event.target) && !mobileMenu.contains(event.target)) {
+          closeMenu();
         }
-
       });
 
-    }, { threshold: 0.12 });
-
-    document.querySelectorAll('.tl-item, .tool-card').forEach(el => obs.observe(el));
-
-
-
-    /* quiz */
-
-    const questions = [
-
-      { q:"What do you most want to learn?", opts:["Web design & building websites","Writing & content creation","Graphic design & visuals","Strategy & brand planning"] },
-
-      { q:"How would you describe your skill level right now?", opts:["Complete beginner — zero experience","I know a little, want to go further","Intermediate, want to level up","I just want to work faster with AI"] },
-
-      { q:"How do you learn best?", opts:["Step-by-step with lots of examples","Diving in and figuring it out","Watching, then copying","Asking questions as I go"] }
-
-    ];
-
-
-
-    const results = [
-
-      { icon:"💻", title:"Start with Cursor + ChatGPT", text:"You're built for building. Open Cursor, ask ChatGPT to teach you HTML basics, and start with a simple one-page site. You'll have something real within a week." },
-
-      { icon:"✍️", title:"Start with Claude or ChatGPT", text:"Claude is incredible for writing and content strategy. Start by asking it to help you write one thing — a caption, a bio, a post — then keep going from there." },
-
-      { icon:"🎨", title:"Start with Canva AI + Deep AI", text:"Canva AI's Magic Studio will feel like a superpower. Pair it with Deep AI for image generation and you'll be creating beautiful visuals faster than you imagined." },
-
-      { icon:"🤖", title:"Start with ChatGPT", text:"ChatGPT is the best all-round starting point. It will explain, teach, plan, and help with almost anything. Begin by asking it one real question you've been wondering about." }
-
-    ];
-
-
-
-    let cur = 0, answers = [];
-
-
-
-    function renderQ() {
-
-      const q = questions[cur];
-
-      document.getElementById('qq').textContent = q.q;
-
-      document.getElementById('qprog').textContent = `Question ${cur+1} of ${questions.length}`;
-
-      document.getElementById('qbar').style.width = `${((cur+1)/questions.length)*100}%`;
-
-      const opts = document.getElementById('qopts');
-
-      opts.innerHTML = '';
-
-      q.opts.forEach((o, i) => {
-
-        const btn = document.createElement('button');
-
-        btn.className = 'quiz-opt';
-
-        btn.textContent = o;
-
-        btn.onclick = () => pick(i);
-
-        opts.appendChild(btn);
-
+      window.addEventListener("resize", () => {
+        if (window.innerWidth > 1024) {
+          closeMenu();
+        }
       });
-
     }
 
+    const quizQuestions = [
+      {
+        q: "What do you most want to learn?",
+        opts: [
+          "Web design and building websites",
+          "Writing and content creation",
+          "Graphic design and visuals",
+          "Strategy and brand planning"
+        ]
+      },
+      {
+        q: "How would you describe your skill level right now?",
+        opts: [
+          "Complete beginner",
+          "I know a little and want to go further",
+          "Intermediate and ready to level up",
+          "I just want to work faster with AI"
+        ]
+      },
+      {
+        q: "How do you learn best?",
+        opts: [
+          "Step by step with examples",
+          "Diving in and figuring it out",
+          "Watching and then copying",
+          "Asking questions as I go"
+        ]
+      }
+    ];
 
+    const quizResults = [
+      {
+        icon: "01",
+        title: "Start with Cursor and ChatGPT",
+        text: "You are built for making things. Start with a simple one-page website and let AI explain each step while you build."
+      },
+      {
+        icon: "02",
+        title: "Start with Claude or ChatGPT",
+        text: "Begin with writing, captions, bios, and content planning. Ask the tool to help you improve one real piece of work."
+      },
+      {
+        icon: "03",
+        title: "Start with Canva AI",
+        text: "Use it to create layouts, graphics, and brand ideas quickly. It is a strong starting point if visuals excite you most."
+      },
+      {
+        icon: "04",
+        title: "Start with ChatGPT",
+        text: "It is the strongest all-round starting point. Use it to learn, plan, ask questions, and build confidence before adding more tools."
+      }
+    ];
 
-    function pick(i) {
+    let quizIndex = 0;
+    let quizAnswers = [];
 
-      document.querySelectorAll('.quiz-opt').forEach(b => b.classList.remove('selected'));
+    const quizProgress = document.getElementById("quizProgress");
+    const quizBar = document.getElementById("quizBar");
+    const quizQuestion = document.getElementById("quizQuestion");
+    const quizOptions = document.getElementById("quizOptions");
+    const quizMain = document.getElementById("quizMain");
+    const quizResult = document.getElementById("quizResult");
+    const resultIcon = document.getElementById("resultIcon");
+    const resultTitle = document.getElementById("resultTitle");
+    const resultText = document.getElementById("resultText");
+    const quizReset = document.getElementById("quizReset");
 
-      document.querySelectorAll('.quiz-opt')[i].classList.add('selected');
-
-      answers.push(i);
-
-      setTimeout(() => { cur++; cur < questions.length ? renderQ() : showResult(); }, 380);
-
+    function renderQuiz() {
+      const current = quizQuestions[quizIndex];
+      quizProgress.textContent = "Question " + (quizIndex + 1) + " of " + quizQuestions.length;
+      quizBar.style.width = (((quizIndex + 1) / quizQuestions.length) * 100) + "%";
+      quizQuestion.textContent = current.q;
+      quizOptions.innerHTML = "";
+      current.opts.forEach((opt, idx) => {
+        const button = document.createElement("button");
+        button.className = "quiz-option";
+        button.type = "button";
+        button.textContent = opt;
+        button.addEventListener("click", () => selectAnswer(idx));
+        quizOptions.appendChild(button);
+      });
     }
 
-
-
-    function showResult() {
-
-      document.getElementById('quiz-main').style.display = 'none';
-
-      const r = results[answers[0]] || results[0];
-
-      document.getElementById('ricon').textContent = r.icon;
-
-      document.getElementById('rtitle').textContent = r.title;
-
-      document.getElementById('rtext').textContent = r.text;
-
-      document.getElementById('qresult').classList.add('show');
-
+    function selectAnswer(index) {
+      quizAnswers.push(index);
+      quizIndex += 1;
+      if (quizIndex < quizQuestions.length) {
+        renderQuiz();
+        return;
+      }
+      const firstChoice = quizAnswers[0];
+      const result = quizResults[firstChoice] || quizResults[3];
+      quizMain.style.display = "none";
+      resultIcon.textContent = result.icon;
+      resultTitle.textContent = result.title;
+      resultText.textContent = result.text;
+      quizResult.classList.add("show");
     }
 
+    quizReset.addEventListener("click", () => {
+      quizIndex = 0;
+      quizAnswers = [];
+      quizMain.style.display = "block";
+      quizResult.classList.remove("show");
+      renderQuiz();
+    });
 
-
-    function restartQuiz() {
-
-      cur = 0; answers = [];
-
-      document.getElementById('quiz-main').style.display = 'block';
-
-      document.getElementById('qresult').classList.remove('show');
-
-      renderQ();
-
-    }
-
-
-
-    renderQ();
-
+    renderQuiz();
   </script>
-
 </body>
-
+</html>

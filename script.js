@@ -31,7 +31,7 @@ function typeWriter() {
     }
 }
 
-window.onload = typeWriter;
+window.addEventListener("load", typeWriter);
 window.addEventListener('scroll', function() {
   const nav = document.querySelector('.nav');
   if (!nav) return;
@@ -50,56 +50,148 @@ document.querySelectorAll(".identity-card").forEach(card => {
     });
 });
 
-// MODAL
-const modal = document.getElementById("cardModal");
-const title = document.getElementById("modalTitle");
-const desc = document.getElementById("modalDesc");
-const closeBtn = document.querySelector(".close-modal");
-
+// ===== IDENTITY CARD FLIP =====
 document.querySelectorAll(".identity-card").forEach(card => {
-    card.addEventListener("click", () => {
-        title.innerText = card.dataset.title;
-        desc.innerText = card.dataset.desc;
-        modal.style.display = "flex";
+    const isTouchMode = () => window.matchMedia("(hover: none), (pointer: coarse)").matches || window.innerWidth <= 900;
+
+    card.addEventListener("click", (e) => {
+        if (isTouchMode()) {
+            e.preventDefault();
+            card.classList.toggle("flipped");
+        }
     });
-});
 
-closeBtn.onclick = () => modal.style.display = "none";
-
-window.onclick = (e) => {
-    if (e.target == modal) {
-        modal.style.display = "none";
-    }
-};
-// ===== 3D TILT =====
-document.querySelectorAll(".identity-card").forEach(card => {
-
-    card.addEventListener("mousemove", e => {
-        const rect = card.getBoundingClientRect();
-
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-
-        const rotateX = -(y - centerY) / 10;
-        const rotateY = (x - centerX) / 10;
-
-        const inner = card.querySelector(".card-inner");
-        inner.style.transform = `
-            rotateX(${rotateX}deg)
-            rotateY(${rotateY}deg)
-            scale(1.05)
-        `;
+    card.addEventListener("mouseenter", () => {
+        if (!isTouchMode()) {
+            card.classList.add("flipped");
+        }
     });
 
     card.addEventListener("mouseleave", () => {
-        const inner = card.querySelector(".card-inner");
-        inner.style.transform = "rotateX(0) rotateY(0) scale(1)";
+        if (!isTouchMode()) {
+            card.classList.remove("flipped");
+        }
+    });
+});
+
+// ===== REEL VIDEO AUTOPLAY SUPPORT =====
+function primeReelVideo(video) {
+    video.muted = true;
+    video.defaultMuted = true;
+    video.loop = true;
+    video.autoplay = true;
+    video.playsInline = true;
+    video.setAttribute("muted", "");
+    video.setAttribute("autoplay", "");
+    video.setAttribute("loop", "");
+    video.setAttribute("playsinline", "");
+    video.setAttribute("webkit-playsinline", "");
+    video.preload = "auto";
+}
+
+function tryPlayReel(video) {
+    primeReelVideo(video);
+    const promise = video.play();
+    if (promise && typeof promise.catch === "function") {
+        promise.catch(() => {});
+    }
+}
+
+function initReelStrip() {
+    const track = document.querySelector(".marquee-track");
+    if (!track) {
+        return { track: null, videos: [] };
+    }
+
+    if (!track.dataset.reelCloned) {
+        const originalCards = Array.from(track.children);
+
+        originalCards.forEach((card) => {
+            const clone = card.cloneNode(true);
+            clone.setAttribute("aria-hidden", "true");
+            track.appendChild(clone);
+        });
+
+        track.dataset.reelCloned = "true";
+        track.style.animation = "none";
+        track.offsetHeight;
+        track.style.animation = "";
+    }
+
+    const videos = Array.from(track.querySelectorAll(".reel-card video"));
+
+    videos.forEach((video) => {
+        primeReelVideo(video);
+
+        if (video.readyState === 0) {
+            try {
+                video.load();
+            } catch (error) {
+                // Ignore browsers that do not want an explicit load() here.
+            }
+        }
+
+        if (video.readyState >= 2) {
+            tryPlayReel(video);
+        } else {
+            video.addEventListener("loadeddata", () => tryPlayReel(video), { once: true });
+            video.addEventListener("canplay", () => tryPlayReel(video), { once: true });
+        }
     });
 
+    return { track, videos };
+}
+
+const reelStrip = initReelStrip();
+const reelVideos = reelStrip.videos;
+
+const reelVideoObserver = typeof IntersectionObserver === "function"
+    ? new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            const video = entry.target;
+
+            if (entry.isIntersecting) {
+                tryPlayReel(video);
+            } else {
+                video.pause();
+            }
+        });
+    }, { threshold: 0.35 })
+    : null;
+
+window.addEventListener("load", () => reelVideos.forEach(tryPlayReel));
+
+document.addEventListener("visibilitychange", () => {
+    if (!document.hidden) {
+        reelVideos.forEach(tryPlayReel);
+    } else {
+        reelVideos.forEach((video) => video.pause());
+    }
 });
+
+["touchstart", "click", "scroll"].forEach((eventName) => {
+    window.addEventListener(eventName, () => reelVideos.forEach(tryPlayReel), { once: true, passive: true });
+});
+
+if (reelStrip.track) {
+    reelStrip.track.addEventListener("animationiteration", () => {
+        reelVideos.forEach((video) => {
+            if (video.paused) {
+                try {
+                    video.currentTime = 0;
+                } catch (error) {
+                    // Some browsers can block currentTime writes while buffering.
+                }
+            }
+
+            tryPlayReel(video);
+        });
+    });
+}
+
+if (reelVideoObserver) {
+    reelVideos.forEach((video) => reelVideoObserver.observe(video));
+}
 
 
 // ===== HAMBURGER MENU =====
@@ -110,7 +202,7 @@ if (hamburger && mobileMenu) {
     hamburger.addEventListener('click', () => {
         const isOpen = hamburger.classList.toggle('open');
         mobileMenu.classList.toggle('open', isOpen);
-        hamburger.setAttribute('aria-expanded', isOpen);
+        hamburger.setAttribute('aria-expanded', String(isOpen));
     });
 
     // Close menu when a link is tapped
@@ -118,7 +210,7 @@ if (hamburger && mobileMenu) {
         link.addEventListener('click', () => {
             hamburger.classList.remove('open');
             mobileMenu.classList.remove('open');
-            hamburger.setAttribute('aria-expanded', false);
+            hamburger.setAttribute('aria-expanded', 'false');
         });
     });
 
@@ -127,7 +219,7 @@ if (hamburger && mobileMenu) {
         if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
             hamburger.classList.remove('open');
             mobileMenu.classList.remove('open');
-            hamburger.setAttribute('aria-expanded', false);
+            hamburger.setAttribute('aria-expanded', 'false');
         }
     });
 }

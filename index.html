@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta name="google-site-verification" content="faDBlgus4GiIZXAsDOBm0XIunrn3gUfZIHR8-Mu_nsA" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wangeshi | Creative student, social media manager & web developer</title>
@@ -17,6 +18,8 @@
     <meta name="twitter:title" content="Wangeshi | Creative student, social media manager & web developer" />
     <meta name="twitter:description" content="Discover Wangeshi's creative portfolio: social media strategy, web development, sustainable leadership, and bold digital storytelling." />
     <meta name="twitter:image" content="https://imwangeshi.site/butterfly-fairy.png" />
+    <!-- Google Search Console verification: replace the content value with your token -->
+    <meta name="google-site-verification" content="PASTE_GOOGLE_VERIFICATION_TOKEN_HERE" />
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -655,11 +658,15 @@ a { color: inherit; text-decoration: none; }
   inset: 0;
   z-index: 3;
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.30));
+}
+
+.hero__fairy-flight {
+  position: absolute;
   right: 4vw;
   bottom: 8vh;
   z-index: 9;
-  width: clamp(96px, 12vw, 150px);
-  aspect-ratio: 1;
+  width: clamp(72px, 6vw, 112px);
+  height: clamp(72px, 6vw, 112px);
   pointer-events: none;
   opacity: 0.96;
   transform: translate3d(0, 0, 0) rotate(16deg) scale(0.72);
@@ -766,10 +773,11 @@ a { color: inherit; text-decoration: none; }
 
 @media (max-width: 640px) {
   .hero__fairy-flight {
-    width: clamp(78px, 23vw, 104px);
+    width: clamp(58px, 18vw, 78px);
+    height: clamp(58px, 18vw, 78px);
     right: 4vw;
-    bottom: 7vh;
-    animation-duration: 8s;
+    bottom: 11vh;
+    animation-duration: 8.4s;
   }
 }
 

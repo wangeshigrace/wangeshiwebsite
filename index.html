@@ -18,7 +18,6 @@
     <meta name="twitter:title" content="Wangeshi | Creative student, social media manager & web developer" />
     <meta name="twitter:description" content="Discover Wangeshi's creative portfolio: social media strategy, web development, sustainable leadership, and bold digital storytelling." />
     <meta name="twitter:image" content="https://imwangeshi.site/butterfly-fairy.png" />
-    <meta name="google-site-verification" content="faDBlgus4GiIZXAsDOBm0XIunrn3gUfZIHR8-Mu_nsA" />
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -783,6 +782,35 @@ a { color: inherit; text-decoration: none; }
 @media (prefers-reduced-motion: reduce) {
   .hero__fairy-flight {
     display: none;
+  }
+}
+
+body.home-page .hero .hero__fairy-flight {
+  width: clamp(54px, 4.5vw, 86px) !important;
+  height: clamp(54px, 4.5vw, 86px) !important;
+  right: clamp(18px, 4vw, 76px) !important;
+  bottom: clamp(58px, 10vh, 96px) !important;
+  max-width: 86px !important;
+  max-height: 86px !important;
+  pointer-events: none !important;
+}
+
+body.home-page .hero .hero__butterfly {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: contain !important;
+}
+
+@media (max-width: 640px) {
+  body.home-page .hero .hero__fairy-flight {
+    width: clamp(42px, 15vw, 62px) !important;
+    height: clamp(42px, 15vw, 62px) !important;
+    max-width: 62px !important;
+    max-height: 62px !important;
+    right: 18px !important;
+    bottom: 92px !important;
   }
 }
 

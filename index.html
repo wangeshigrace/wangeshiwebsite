@@ -626,6 +626,132 @@ a { color: inherit; text-decoration: none; }
   background: transparent;
 }
 
+.hero__fairy-flight {
+  position: absolute;
+  right: 4vw;
+  bottom: 8vh;
+  z-index: 9;
+  width: clamp(96px, 12vw, 150px);
+  aspect-ratio: 1;
+  pointer-events: none;
+  opacity: 0.96;
+  transform: translate3d(0, 0, 0) rotate(16deg) scale(0.72);
+  filter:
+    drop-shadow(0 14px 26px rgba(45, 24, 9, 0.34))
+    drop-shadow(0 0 14px rgba(255, 221, 151, 0.24));
+  animation: fairyFlight 9.6s cubic-bezier(0.42, 0, 0.16, 1) infinite;
+}
+
+.hero__butterfly {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transform-origin: 50% 58%;
+  transform: scaleX(-1) rotate(-8deg);
+  animation: fairyFloat 1.65s ease-in-out infinite;
+  filter:
+    sepia(0.16)
+    saturate(1.08)
+    drop-shadow(0 0 9px rgba(255, 222, 158, 0.3));
+}
+
+.hero__sparkle {
+  position: absolute;
+  width: clamp(5px, 0.7vw, 9px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #ffe6a6;
+  box-shadow:
+    0 0 8px rgba(255, 228, 166, 0.95),
+    0 0 18px rgba(210, 151, 71, 0.45);
+  animation: sparkleTwinkle 1.25s ease-in-out infinite, sparkleDrift 2.2s ease-in-out infinite;
+}
+
+.hero__sparkle::before,
+.hero__sparkle::after {
+  content: "";
+  position: absolute;
+  inset: 45% -80%;
+  height: 1px;
+  background: rgba(255, 236, 184, 0.82);
+}
+
+.hero__sparkle::after {
+  transform: rotate(90deg);
+}
+
+.hero__sparkle--one { right: 6%; bottom: 18%; animation-delay: 0s, 0.1s; }
+.hero__sparkle--two { right: 42%; bottom: 4%; transform: scale(0.72); animation-delay: 0.28s, 0.45s; }
+.hero__sparkle--three { right: -2%; bottom: 54%; transform: scale(0.62); animation-delay: 0.52s, 0.7s; }
+.hero__sparkle--four { right: 68%; bottom: 38%; transform: scale(0.8); animation-delay: 0.78s, 0.95s; }
+
+@keyframes fairyFlight {
+  0% {
+    opacity: 0;
+    transform: translate3d(8vw, 8vh, 0) rotate(18deg) scale(0.58);
+  }
+  6% {
+    opacity: 0.98;
+    transform: translate3d(0, 0, 0) rotate(10deg) scale(0.72);
+  }
+  18% {
+    opacity: 0.98;
+    transform: translate3d(-15vw, -11vh, 0) rotate(-10deg) scale(0.88);
+  }
+  34% {
+    transform: translate3d(-34vw, -28vh, 0) rotate(8deg) scale(0.98);
+  }
+  48% {
+    transform: translate3d(-50vw, -48vh, 0) rotate(-16deg) scale(0.9);
+  }
+  66% {
+    opacity: 0.96;
+    transform: translate3d(-75vw, -66vh, 0) rotate(-24deg) scale(0.78);
+  }
+  86% {
+    opacity: 0;
+    transform: translate3d(-112vw, -106vh, 0) rotate(-30deg) scale(0.52);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(-112vw, -106vh, 0) rotate(-30deg) scale(0.52);
+  }
+}
+
+@keyframes fairyFloat {
+  0%, 100% { transform: scaleX(-1) translateY(0) rotate(-10deg); }
+  35% { transform: scaleX(-1) translateY(-10%) rotate(7deg); }
+  68% { transform: scaleX(-1) translateY(5%) rotate(-4deg); }
+}
+
+@keyframes sparkleTwinkle {
+  0%, 100% { opacity: 0.12; transform: scale(0.55); }
+  45% { opacity: 1; transform: scale(1.1); }
+}
+
+@keyframes sparkleDrift {
+  0%, 100% { margin: 0; }
+  40% { margin: -8px 0 0 -10px; }
+  70% { margin: 4px 0 0 8px; }
+}
+
+@media (max-width: 640px) {
+  .hero__fairy-flight {
+    width: clamp(78px, 23vw, 104px);
+    right: 4vw;
+    bottom: 7vh;
+    animation-duration: 8s;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__fairy-flight {
+    display: none;
+  }
+}
+
 .hero__loading {
   position: absolute;
   inset: 0;
@@ -1162,6 +1288,13 @@ a { color: inherit; text-decoration: none; }
       </div>
     </div>
     <div class="hero__overlay"></div>
+    <div class="hero__fairy-flight" aria-hidden="true">
+      <span class="hero__sparkle hero__sparkle--one"></span>
+      <span class="hero__sparkle hero__sparkle--two"></span>
+      <span class="hero__sparkle hero__sparkle--three"></span>
+      <span class="hero__sparkle hero__sparkle--four"></span>
+      <img class="hero__butterfly" src="butterfly-fairy.png" alt="">
+    </div>
 
     <header class="hero__header">
     </header>

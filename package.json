@@ -1,0 +1,28 @@
+{
+  "name": "wangeshiwebsite",
+  "version": "1.0.0",
+  "description": "Wangeshi Grace's portfolio website",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wangeshigrace/wangeshiwebsite.git"
+  },
+  "keywords": [
+    "portfolio",
+    "website",
+    "vercel",
+    "analytics"
+  ],
+  "author": "Wangeshi Grace",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wangeshigrace/wangeshiwebsite/issues"
+  },
+  "homepage": "https://github.com/wangeshigrace/wangeshiwebsite#readme",
+  "dependencies": {
+    "@vercel/analytics": "^2.0.1"
+  }
+}

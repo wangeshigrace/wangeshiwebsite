@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://imwangeshi.site/sitemap.xml

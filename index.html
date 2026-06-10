@@ -1425,101 +1425,125 @@ a { color: inherit; text-decoration: none; }
   <div class="reel-strip__track-wrap">
     <div class="marquee-track">
         <div class="reel-card">
-          <video autoplay muted loop playsinline preload="metadata">
+          <video muted loop playsinline preload="none" data-src="New folder/WhatsApp Video 2026-05-09 at 10.49.44 PM.mp4">
             <source src="New folder/WhatsApp Video 2026-05-09 at 10.49.44 PM.mp4" type="video/mp4">
-            Your browser does not support video tag.
           </video>
           <div class="reel-card__gradient"></div>
           <span class="reel-card__tag">Influencer</span>
           <div class="reel-card__title">Life Journal</div>
         </div>
         <div class="reel-card">
-          <video autoplay muted loop playsinline preload="metadata">
+          <video muted loop playsinline preload="none">
             <source src="New folder/WhatsApp Video 2026-05-09 at 10.49.39 PM.mp4" type="video/mp4">
-            Your browser does not support video tag.
           </video>
           <div class="reel-card__gradient"></div>
           <span class="reel-card__tag">Social Media</span>
           <div class="reel-card__title">Sunshine</div>
         </div>
         <div class="reel-card">
-          <video autoplay muted loop playsinline preload="metadata">
+          <video muted loop playsinline preload="none">
             <source src="New folder/WhatsApp Video 2026-05-09 at 10.49.36 PM.mp4" type="video/mp4">
-            Your browser does not support video tag.
           </video>
           <div class="reel-card__gradient"></div>
           <span class="reel-card__tag">Lifestyle</span>
           <div class="reel-card__title">22/01/25</div>
-                  </div>
-        
-        
-         
-         <div class="reel-card">
-          <video autoplay muted loop playsinline preload="metadata">
+        </div>
+        <div class="reel-card">
+          <video muted loop playsinline preload="none">
             <source src="New folder/WhatsApp Video 2026-05-09 at 10.49.46 PM.mp4" type="video/mp4">
-            Your browser does not support video tag.
           </video>
           <div class="reel-card__gradient"></div>
           <span class="reel-card__tag">Lifestyle</span>
           <div class="reel-card__title">Vibes</div>
-                  </div>
-         <div class="reel-card">
-          <video autoplay muted loop playsinline preload="metadata">
+        </div>
+        <div class="reel-card">
+          <video muted loop playsinline preload="none">
             <source src="New folder/WhatsApp Video 2026-05-09 at 10.49.47 PM.mp4" type="video/mp4">
-            Your browser does not support video tag.
           </video>
           <div class="reel-card__gradient"></div>
           <span class="reel-card__tag">Lifestyle</span>
           <div class="reel-card__title">Ray of Sunshine</div>
-                  </div>
-         <div class="reel-card">
-          <video autoplay muted loop playsinline preload="metadata">
+        </div>
+        <div class="reel-card">
+          <video muted loop playsinline preload="none">
             <source src="New folder/WhatsApp Video 2026-05-09 at 10.49.49 PM.mp4" type="video/mp4">
-            Your browser does not support video tag.
           </video>
           <div class="reel-card__gradient"></div>
           <span class="reel-card__tag">Lifestyle</span>
           <div class="reel-card__title">Miss Universe</div>
-                  </div>
-         <div class="reel-card">
-          <video autoplay muted loop playsinline preload="metadata">
+        </div>
+        <div class="reel-card">
+          <video muted loop playsinline preload="none">
             <source src="New folder/WhatsApp Video 2026-05-09 at 10.49.50 PM.mp4" type="video/mp4">
-            Your browser does not support video tag.
           </video>
           <div class="reel-card__gradient"></div>
           <span class="reel-card__tag">Lifestyle</span>
           <div class="reel-card__title">Glow and Radiance</div>
-                  </div>
-         <div class="reel-card">
-          <video autoplay muted loop playsinline preload="metadata">
+        </div>
+        <div class="reel-card">
+          <video muted loop playsinline preload="none">
             <source src="New folder/WhatsApp Video 2026-05-09 at 10.49.52 PM.mp4" type="video/mp4">
-            Your browser does not support video tag.
           </video>
           <div class="reel-card__gradient"></div>
           <span class="reel-card__tag">Lifestyle</span>
           <div class="reel-card__title">Culture</div>
-                  </div>
-         <div class="reel-card">
-          <video autoplay muted loop playsinline preload="metadata">
+        </div>
+        <div class="reel-card">
+          <video muted loop playsinline preload="none">
             <source src="New folder/WhatsApp Video 2026-05-09 at 10.49.55 PM.mp4" type="video/mp4">
-            Your browser does not support video tag.
           </video>
           <div class="reel-card__gradient"></div>
           <span class="reel-card__tag">Lifestyle</span>
           <div class="reel-card__title">Don't be boring</div>
-                  </div>
-         <div class="reel-card">
-          <video autoplay muted loop playsinline preload="metadata">
+        </div>
+        <div class="reel-card">
+          <video muted loop playsinline preload="none">
             <source src="New folder/WhatsApp Video 2026-05-09 at 10.49.57 PM.mp4" type="video/mp4">
-            Your browser does not support video tag.
           </video>
           <div class="reel-card__gradient"></div>
           <span class="reel-card__tag">Lifestyle</span>
           <div class="reel-card__title">A day at a time</div>
-                  </div>
+        </div>
     </div>
   </div>
 </div>
+
+<script>
+// Play only visible reel videos — reduces load dramatically
+(function() {
+  var track = document.querySelector('.marquee-track');
+  if (!track) return;
+
+  // Clone cards for seamless loop
+  var origCards = Array.from(track.children);
+  origCards.forEach(function(card) {
+    var clone = card.cloneNode(true);
+    track.appendChild(clone);
+  });
+
+  // Only play videos that are inside the visible strip area
+  var allVideos = track.querySelectorAll('video');
+  var strip = document.querySelector('.reel-strip__track-wrap');
+
+  function updatePlaying() {
+    var stripRect = strip.getBoundingClientRect();
+    allVideos.forEach(function(v) {
+      var r = v.getBoundingClientRect();
+      var visible = r.right > stripRect.left && r.left < stripRect.right;
+      if (visible) {
+        if (v.paused) { v.load(); v.play().catch(function(){}); }
+      } else {
+        if (!v.paused) { v.pause(); }
+      }
+    });
+  }
+
+  // Check on scroll and on a timer (since cards move via CSS animation)
+  window.addEventListener('scroll', updatePlaying, { passive: true });
+  setInterval(updatePlaying, 1500);
+  setTimeout(updatePlaying, 500);
+})();
+</script>
 
 <!-- CTA -->
 <section class="section reveal home-cta-section">

@@ -1147,7 +1147,10 @@ a { color: inherit; text-decoration: none; }
         loop
         playsinline
         webkit-playsinline
-        preload="metadata"
+        preload="auto"
+        disablepictureinpicture
+        controlslist="nodownload noplaybackrate noremoteplayback"
+        aria-hidden="true"
       ></video>
     <div class="hero__loading" id="heroLoading" aria-hidden="true">
       <div class="hero__loading-copy">
@@ -1235,28 +1238,43 @@ a { color: inherit; text-decoration: none; }
         hero.classList.toggle("hero--landscape", !isPortrait);
     }
 
-    function playHeroVideo() {
+    function primeHeroVideo() {
         if (!video) return;
         video.muted = true;
         video.defaultMuted = true;
+        video.autoplay = true;
+        video.loop = true;
+        video.controls = false;
         video.playsInline = true;
         video.setAttribute("muted", "");
         video.setAttribute("autoplay", "");
+        video.setAttribute("loop", "");
         video.setAttribute("playsinline", "");
         video.setAttribute("webkit-playsinline", "");
+        video.removeAttribute("controls");
+    }
+
+    function playHeroVideo() {
+        if (!video) return;
+        primeHeroVideo();
         const playPromise = video.play();
         if (playPromise && typeof playPromise.catch === "function") {
             playPromise.catch(() => {});
         }
     }
 
+    primeHeroVideo();
+
     video.addEventListener("loadedmetadata", () => {
         setHeroVideoMode();
         playHeroVideo();
     });
+    video.addEventListener("loadeddata", playHeroVideo);
     video.addEventListener("canplay", playHeroVideo);
     video.addEventListener("playing", markHeroReady);
     video.addEventListener("loadeddata", markHeroReady);
+    window.addEventListener("pageshow", playHeroVideo);
+    window.addEventListener("load", playHeroVideo);
     document.addEventListener("visibilitychange", () => {
         if (!document.hidden) playHeroVideo();
     });

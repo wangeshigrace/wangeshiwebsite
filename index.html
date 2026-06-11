@@ -4,7 +4,7 @@
   <meta name="google-site-verification" content="faDBlgus4GiIZXAsDOBm0XIunrn3gUfZIHR8-Mu_nsA" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https://*; font-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; connect-src 'self' https://formspree.io; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; upgrade-insecure-requests;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https://*; font-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; connect-src 'self' https://formspree.io; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; upgrade-insecure-requests;">
     <title>Wangeshi | Creative student, social media manager & web developer</title>
     <meta name="description" content="Discover Wangeshi's creative portfolio: social media strategy, web development, sustainable leadership, and bold digital storytelling." />
     <meta name="author" content="Wangeshi" />
@@ -38,10 +38,8 @@
     }
     </script>
     <meta name="theme-color" content="#fdfaf6">
-    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="/favicon.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="manifest" href="/site.webmanifest">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="apple-touch-icon" href="/favicon.png">
     <link rel="stylesheet" href="style.css?v=index-section-seam30">
     <script src="script.js?v=index-section-seam30" defer></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -80,7 +78,7 @@
     margin-top: 0;
     background: #fdfaf6;
     align-items: stretch;
-    min-height: clamp(320px, 45vh, 480px);
+    min-height: 480px;
     border-bottom: 5px solid #3e2f23;
   }
 
@@ -144,7 +142,7 @@
     width: 100%;
     max-width: none;
     height: 100%;
-    min-height: clamp(240px, 40vh, 480px);
+    min-height: 480px;
     object-fit: cover;
     object-position: center;
     border-radius: 0;
@@ -183,18 +181,18 @@
   /* ===== REEL STRIP ===== */
   .reel-strip {
     background: linear-gradient(135deg, #f5f0e8 0%, #e8dbd0 100%);
-    padding: clamp(30px, 4vw, 52px) 0;
+    padding: 40px 0;
     overflow: hidden;
     position: relative;
     border-top: 0;
     border-bottom: 0;
-    max-height: clamp(400px, 60vh, 824px);
+    max-height: 620px;
   }
 
   /* edge fade */
   .reel-strip__track-wrap {
     overflow: hidden;
-    height: clamp(300px, 50vh, 720px);
+    height: 560px;
     -webkit-mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
     mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
   }
@@ -225,8 +223,8 @@
   /* scaled-down reel card - Instagram reel dimensions (9:16 ratio) */
   .reel-card {
     flex: 0 0 auto;
-    width: clamp(170px, 23vw, 300px);
-    height: min(clamp(302px, 41vw, 534px), calc(50vh - 28px));
+    width: 300px;
+    height: 534px;
     background: linear-gradient(135deg, rgba(245, 240, 232, 0.9) 0%, rgba(232, 219, 208, 0.8) 100%);
     border: 1px solid rgba(200, 168, 130, 0.4);
     border-radius: 24px;
@@ -351,61 +349,6 @@
   .reel-card__btn svg {
     width: 10px;
     height: 10px;
-  }
-
-  @media (max-width: 1024px) {
-    .reel-strip {
-      padding: clamp(25px, 3vw, 40px) 0;
-      max-height: clamp(350px, 55vh, 700px);
-    }
-
-    .reel-strip__track-wrap {
-      height: clamp(250px, 45vh, 600px);
-    }
-
-    .reel-card {
-      width: clamp(170px, 31vw, 250px);
-      height: min(clamp(302px, 55vw, 445px), calc(45vh - 24px));
-    }
-  }
-
-  @media (max-width: 768px) {
-    .reel-strip {
-      padding: clamp(20px, 3vw, 30px) 0;
-      max-height: clamp(300px, 50vh, 600px);
-    }
-
-    .reel-strip__track-wrap {
-      height: clamp(220px, 40vh, 500px);
-    }
-
-    .marquee-track {
-      gap: 12px;
-      animation-duration: 72s !important;
-    }
-
-    .reel-card {
-      width: clamp(150px, 44vw, 220px);
-      height: min(clamp(267px, 78vw, 392px), calc(40vh - 20px));
-      border-radius: 20px;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .reel-strip {
-      padding: clamp(15px, 2vw, 25px) 0;
-      max-height: clamp(250px, 45vh, 500px);
-    }
-
-    .reel-strip__track-wrap {
-      height: clamp(190px, 35vh, 400px);
-    }
-
-    .reel-card {
-      width: clamp(130px, 46vw, 170px);
-      height: min(clamp(231px, 82vw, 303px), calc(35vh - 18px));
-      border-radius: 18px;
-    }
   }
 
   
@@ -1398,7 +1341,7 @@ body.home-page .hero .hero__butterfly {
         loop
         playsinline
         webkit-playsinline
-        preload="metadata"
+        preload="auto"
         disablepictureinpicture
         controlslist="nodownload noplaybackrate noremoteplayback"
         aria-hidden="true"
@@ -1698,8 +1641,8 @@ body.home-page .hero .hero__butterfly {
           <div class="reel-card__title">Life Journal</div>
         </div>
         <div class="reel-card">
-          <video muted loop playsinline preload="none" data-src="New folder/WhatsApp Video 2026-05-09 at 10.49.39 PM.mp4">
-            <source data-src="New folder/WhatsApp Video 2026-05-09 at 10.49.39 PM.mp4" type="video/mp4">
+          <video muted loop playsinline preload="none" data-src="New folder/WhatsApp Video 2026-05-09 at 10.49:39 PM.mp4">
+            <source data-src="New folder/WhatsApp Video 2026-05-09 at 10.49:39 PM.mp4" type="video/mp4">
           </video>
           <div class="reel-card__gradient"></div>
           <span class="reel-card__tag">Social Media</span>
@@ -1774,85 +1717,122 @@ body.home-page .hero .hero__butterfly {
 </div>
 
 <script>
-// Reel strip: clone once for a seamless loop, then lazy-load visible videos.
+// Lazy-load reel videos and only play nearby ones for seamless playback
 (function() {
   var track = document.querySelector('.marquee-track');
   if (!track) return;
 
+  // Clone cards for seamless loop (cloned nodes keep data-src, so won't auto-download)
+  var origCards = Array.from(track.children);
+  origCards.forEach(function(card) {
+    var clone = card.cloneNode(true);
+    track.appendChild(clone);
+  });
+
   var strip = document.querySelector('.reel-strip__track-wrap');
-  var allVideos = [];
+  var allVideos = Array.from(track.querySelectorAll('video'));
 
-  // Clone only as many times as needed to fill at least two view widths
-  if (track.dataset.reelReady !== 'true') {
-    var originalChildren = Array.from(track.children);
-    // append clones until track width >= 2 * strip width or max 3 repeats
-    var maxRepeats = 3;
-    var repeats = 0;
-    while (track.scrollWidth < (strip ? strip.clientWidth * 2 : window.innerWidth * 2) && repeats < maxRepeats) {
-      originalChildren.forEach(function(card) {
-        var clone = card.cloneNode(true);
-        clone.setAttribute('aria-hidden', 'true');
-        track.appendChild(clone);
+  function loadVideoSources(video) {
+    if (!video) return;
+    if (video.dataset.loaded === 'true') return;
+    var sources = Array.from(video.querySelectorAll('source'));
+
+    // Determine original filename from data-src (prefer source[data-src], then video[data-src])
+    var original = '';
+    for (var i = 0; i < sources.length; i++) {
+      if (sources[i].dataset && sources[i].dataset.src) { original = sources[i].dataset.src; break; }
+    }
+    if (!original && video.dataset && video.dataset.src) original = video.dataset.src || '';
+
+    if (original) {
+      // create safe base name (spaces -> _, remove unsafe chars)
+      var base = original.split('/').pop().replace(/\.[^.]+$/, '');
+      var safeBase = base.replace(/\s+/g, '_').replace(/[^A-Za-z0-9_\-]/g, '');
+
+      // candidate files in dist/videos (webm first for better compression)
+      var candidates = [
+        'dist/videos/' + encodeURIComponent(safeBase) + '_720p.webm',
+        'dist/videos/' + encodeURIComponent(safeBase) + '_720p.mp4',
+        'dist/videos/' + encodeURIComponent(safeBase) + '_480p.webm',
+        'dist/videos/' + encodeURIComponent(safeBase) + '_480p.mp4'
+      ];
+
+      // remove existing source elements so we can insert optimized candidates
+      sources.forEach(function(s) { try { s.remove(); } catch (e) {} });
+
+      candidates.forEach(function(url) {
+        var s = document.createElement('source');
+        s.src = url;
+        s.type = url.endsWith('.webm') ? 'video/webm' : 'video/mp4';
+        video.appendChild(s);
       });
-      repeats++;
-    }
-    track.dataset.reelReady = 'true';
-  }
 
-  allVideos = Array.from(track.querySelectorAll('video'));
-
-  function loadVideo(video) {
-    if (!video || video.dataset.loaded === 'true') return;
-
-    Array.from(video.querySelectorAll('source')).forEach(function(source) {
-      if (source.dataset.src && !source.src) {
-        source.src = source.dataset.src;
-      }
-    });
-
-    if (video.dataset.src && !video.src) {
-      video.src = video.dataset.src;
+      // set a poster pointing to a small jpg (optional, user can generate posters)
+      video.poster = 'dist/videos/' + encodeURIComponent(safeBase) + '_poster.jpg';
+    } else {
+      // fallback: if no data-src mapping, use any dataset attributes present
+      sources.forEach(function(s) {
+        var ds = s.dataset.src;
+        if (ds && !s.src) s.src = ds;
+      });
+      if (video.dataset.src && !video.src) video.src = video.dataset.src;
     }
 
-    video.muted = true;
-    video.defaultMuted = true;
-    video.loop = true;
-    video.playsInline = true;
-    video.preload = 'metadata';
-    video.dataset.loaded = 'true';
-    video.style.willChange = 'transform, opacity';
-
-    try { video.load(); } catch (e) {}
-  }
-
-  function playVideo(video) {
-    loadVideo(video);
     try {
-      var promise = video.play();
-      if (promise && typeof promise.catch === 'function') promise.catch(function() {});
-    } catch (e) {}
+      video.preload = 'auto';
+      video.load();
+      video.dataset.loaded = 'true';
+    } catch (e) {
+      // ignore
+    }
   }
 
-  function pauseVideo(video) {
+  function tryPlay(video) {
+    if (!video) return;
+    loadVideoSources(video);
+    if (video.paused) {
+      var p = video.play();
+      if (p && typeof p.catch === 'function') p.catch(function(){});
+    }
+  }
+
+  function tryPause(video) {
+    if (!video) return;
     try { video.pause(); } catch (e) {}
   }
 
-  if ('IntersectionObserver' in window && strip) {
-    var observer = new IntersectionObserver(function(entries) {
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(entries) {
       entries.forEach(function(entry) {
-        if (entry.isIntersecting) {
-          playVideo(entry.target);
+        var v = entry.target;
+        if (entry.isIntersecting && entry.intersectionRatio > 0.15) {
+          // load a bit early for smoothness
+          loadVideoSources(v);
+          tryPlay(v);
         } else {
-          pauseVideo(entry.target);
+          tryPause(v);
         }
       });
-    }, { root: strip, rootMargin: '300px 0px', threshold: 0.2 });
+    }, { root: strip, rootMargin: '300px 0px 300px 0px', threshold: [0, 0.15, 0.5] });
 
-    allVideos.forEach(function(video) { observer.observe(video); });
+    allVideos.forEach(function(v) { io.observe(v); });
   } else {
-    // Fallback: load only the first few videos to reduce initial work
-    allVideos.slice(0, 4).forEach(loadVideo);
+    // Fallback for older browsers: periodic check
+    function updatePlaying() {
+      var stripRect = strip.getBoundingClientRect();
+      allVideos.forEach(function(v) {
+        var r = v.getBoundingClientRect();
+        var visible = r.right > stripRect.left && r.left < stripRect.right;
+        if (visible) { tryPlay(v); } else { tryPause(v); }
+      });
+    }
+    window.addEventListener('scroll', updatePlaying, { passive: true });
+    setInterval(updatePlaying, 800);
+    setTimeout(updatePlaying, 500);
   }
+
+  // Initial warm-up: load the first few videos so the strip looks seamless on load
+  for (var i = 0; i < Math.min(3, allVideos.length); i++) loadVideoSources(allVideos[i]);
 })();
 </script>
 

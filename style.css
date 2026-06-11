@@ -467,17 +467,18 @@ body.ai-page .cta-section {
     }
 
     body.home-page .reel-strip {
-        padding: 20px 0 34px !important;
+        padding: clamp(20px, 3vw, 30px) 0 !important;
+        max-height: clamp(300px, 50vh, 600px) !important;
     }
 
     body.home-page .reel-strip__track-wrap {
-        height: clamp(350px, 78vw, 480px) !important;
+        height: clamp(220px, 40vh, 500px) !important;
     }
 
     body.home-page .reel-card {
-        width: clamp(200px, 54vw, 260px) !important;
-        height: clamp(350px, 78vw, 480px) !important;
-        flex: 0 0 clamp(200px, 54vw, 260px) !important;
+        width: clamp(150px, 44vw, 220px) !important;
+        height: min(clamp(267px, 78vw, 392px), calc(40vh - 20px)) !important;
+        flex: 0 0 clamp(150px, 44vw, 220px) !important;
     }
 
     body.home-page .home-cta-section h2 {
@@ -541,13 +542,13 @@ body.ai-page .cta-section {
     }
 
     body.home-page .reel-card {
-        width: clamp(190px, 70vw, 240px) !important;
-        height: clamp(330px, 118vw, 430px) !important;
-        flex-basis: clamp(190px, 70vw, 240px) !important;
+        width: clamp(130px, 46vw, 170px) !important;
+        height: min(clamp(231px, 82vw, 303px), calc(35vh - 18px)) !important;
+        flex-basis: clamp(130px, 46vw, 170px) !important;
     }
 
     body.home-page .reel-strip__track-wrap {
-        height: clamp(330px, 118vw, 430px) !important;
+        height: clamp(190px, 35vh, 400px) !important;
     }
 
     body.home-page .home-cta-section {
@@ -1672,35 +1673,29 @@ body.home-page .identity-card.flipped .card-inner {
     }
 }
 
-/* ===== HOME REEL STRIP - SAME FORMAT ON MOBILE ===== */
-body.home-page {
-    --home-reel-card-width: clamp(220px, 72vw, 300px);
-    --home-reel-card-height: calc(var(--home-reel-card-width) * 1.78);
-    --home-reel-duration: 88s;
-}
-
+/* ===== HOME REEL STRIP ===== */
 body.home-page .reel-strip {
     background: linear-gradient(135deg, #f5f0e8 0%, #e8dbd0 100%);
-    padding: clamp(30px, 6vw, 40px) 0 !important;
-    max-height: none !important;
+    padding: clamp(30px, 4vw, 52px) 0 !important;
+    max-height: clamp(400px, 60vh, 824px) !important;
     overflow: hidden;
 }
 
 body.home-page .reel-strip__track-wrap {
-    height: var(--home-reel-card-height) !important;
+    height: clamp(300px, 50vh, 720px) !important;
     overflow: hidden;
 }
 
 body.home-page .marquee-track {
     align-items: center;
     gap: clamp(12px, 3vw, 14px);
-    animation-duration: var(--home-reel-duration) !important;
+    animation-duration: 72s !important;
 }
 
 body.home-page .reel-card {
-    width: var(--home-reel-card-width) !important;
-    height: var(--home-reel-card-height) !important;
-    flex: 0 0 var(--home-reel-card-width) !important;
+    width: clamp(170px, 23vw, 300px) !important;
+    height: min(clamp(302px, 41vw, 534px), calc(50vh - 28px)) !important;
+    flex: 0 0 clamp(170px, 23vw, 300px) !important;
     border-radius: clamp(18px, 5vw, 24px);
 }
 
@@ -1711,9 +1706,8 @@ body.home-page .reel-card__gradient {
 }
 
 body.home-page .reel-card__title {
-    font-size: clamp(26px, 8vw, 32px);
     font-family: 'Qwitcher Grypen', cursive !important;
-    font-size: clamp(34px, 9vw, 52px) !important;
+    font-size: clamp(32px, 5vw, 48px) !important;
     font-weight: 400 !important;
     letter-spacing: 0 !important;
     line-height: 0.95 !important;
@@ -1756,14 +1750,59 @@ body.home-page .reel-card__title {
 }
 
 @media (max-width: 1024px) {
-    body.home-page {
-        --home-reel-duration: 98s;
+    body.home-page .reel-strip {
+        padding: clamp(25px, 3vw, 40px) 0 !important;
+        max-height: clamp(350px, 55vh, 700px) !important;
+    }
+
+    body.home-page .reel-strip__track-wrap {
+        height: clamp(250px, 45vh, 600px) !important;
+    }
+
+    body.home-page .reel-card {
+        width: clamp(170px, 31vw, 250px) !important;
+        height: min(clamp(302px, 55vw, 445px), calc(45vh - 24px)) !important;
+        flex-basis: clamp(170px, 31vw, 250px) !important;
     }
 }
 
 @media (max-width: 768px) {
-    body.home-page {
-        --home-reel-duration: 118s;
+    body.home-page .reel-strip {
+        padding: clamp(20px, 3vw, 30px) 0 !important;
+        max-height: clamp(300px, 50vh, 600px) !important;
+    }
+
+    body.home-page .reel-strip__track-wrap {
+        height: clamp(220px, 40vh, 500px) !important;
+    }
+
+    body.home-page .marquee-track {
+        animation-duration: 82s !important;
+    }
+
+    body.home-page .reel-card {
+        width: clamp(150px, 44vw, 220px) !important;
+        height: min(clamp(267px, 78vw, 392px), calc(40vh - 20px)) !important;
+        flex-basis: clamp(150px, 44vw, 220px) !important;
+        border-radius: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    body.home-page .reel-strip {
+        padding: clamp(15px, 2vw, 25px) 0 !important;
+        max-height: clamp(250px, 45vh, 500px) !important;
+    }
+
+    body.home-page .reel-strip__track-wrap {
+        height: clamp(190px, 35vh, 400px) !important;
+    }
+
+    body.home-page .reel-card {
+        width: clamp(130px, 46vw, 170px) !important;
+        height: min(clamp(231px, 82vw, 303px), calc(35vh - 18px)) !important;
+        flex-basis: clamp(130px, 46vw, 170px) !important;
+        border-radius: 18px;
     }
 }
 
@@ -4806,8 +4845,6 @@ body.home-page .services-section .cta-btn {
         transform: translateY(-6px) rotate(-45deg) !important;
     }
 }
-
-
 
 
 

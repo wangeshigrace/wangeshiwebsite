@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https://*; font-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; connect-src 'self' https://formspree.io; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; upgrade-insecure-requests;">
   <title>Portfolio - Wangeshi</title>
   <meta name="description" content="Explore Wangeshi's portfolio of creative projects, social media work, visual storytelling, and digital design experiments." />
   <meta name="robots" content="index, follow" />
@@ -1744,7 +1745,7 @@
   <!-- IMAGE SECTION -->
   <section id="image-section">
     <div class="image-container">
-      <img src="Brown and White Minimalist Portfolio Presentation.png" alt="Uploaded Image" />
+      <img loading="lazy" src="Brown and White Minimalist Portfolio Presentation.png" alt="Uploaded Image" />
     </div>
   </section>
 
@@ -1819,8 +1820,8 @@
       <!-- RIGHT: stacked image mockup -->
       <div class="we-right reveal">
         <div class="we-img-stack">
-          <img class="we-img we-img--back" src="Screenshot (135).png" alt="Work sample back" />
-          <img class="we-img we-img--front" src="Screenshot (152).png" alt="Work sample front" />
+          <img loading="lazy" class="we-img we-img--back" src="Screenshot (135).png" alt="Work sample back" />
+          <img loading="lazy" class="we-img we-img--front" src="Screenshot (152).png" alt="Work sample front" />
         </div>
       </div>
 
@@ -1887,62 +1888,62 @@
     
     <div class="portfolio-showcase reveal">
       <div class="portfolio-image-container">
-        <img class="portfolio-image active" src="work images/poster.png" alt="Brand Identity">
+        <img loading="lazy" class="portfolio-image active" src="work images/poster.png" alt="Brand Identity">
         <div class="portfolio-caption">
           <span class="portfolio-tag">Brand Identity</span>
           <span class="portfolio-name">Errun . Poster</span>
         </div>
         
-        <img class="portfolio-image" src="work images/branding 2.png" alt="Packaging Design">
+        <img loading="lazy" class="portfolio-image" src="work images/branding 2.png" alt="Packaging Design">
         <div class="portfolio-caption">
           <span class="portfolio-tag">Packaging Design</span>
           <span class="portfolio-name">Beeyouke</span>
         </div>
-         <img class="portfolio-image" src="work images/branding.png" alt="Packaging Design">
+         <img loading="lazy" class="portfolio-image" src="work images/branding.png" alt="Packaging Design">
         <div class="portfolio-caption">
           <span class="portfolio-tag">Packaging Design</span>
           <span class="portfolio-name">Beeyouke</span>
         </div>
-         <img class="portfolio-image" src="work images/Screenshot (152).png" alt="Lead Generation">
+         <img loading="lazy" class="portfolio-image" src="work images/Screenshot (152).png" alt="Lead Generation">
         <div class="portfolio-caption">
           <span class="portfolio-tag">Lead Generation</span>
           <span class="portfolio-name">Virtual Assistance</span>
         </div>
-         <img class="portfolio-image" src="work images/Screenshot (154).png" alt="Customer Relationship Management">
+         <img loading="lazy" class="portfolio-image" src="work images/Screenshot (154).png" alt="Customer Relationship Management">
         <div class="portfolio-caption">
           <span class="portfolio-tag">Customer Relationship Management</span>
           <span class="portfolio-name">Virtual Assistance(Hubspot)</span>
         </div>
-         <img class="portfolio-image" src="work images/Screenshot (158).png" alt="Task Management">
+         <img loading="lazy" class="portfolio-image" src="work images/Screenshot (158).png" alt="Task Management">
         <div class="portfolio-caption">
           <span class="portfolio-tag">Task Management</span>
           <span class="portfolio-name">Virtual Assistance</span>
         </div>
-         <img class="portfolio-image" src="work images/Screenshot (161).png" alt="Email Management">
+         <img loading="lazy" class="portfolio-image" src="work images/Screenshot (161).png" alt="Email Management">
         <div class="portfolio-caption">
           <span class="portfolio-tag">Email Management</span>
           <span class="portfolio-name">Virtual Assistance</span>
         </div>
-         <img class="portfolio-image" src="work images/trello.PNG" alt="Project Management">
+         <img loading="lazy" class="portfolio-image" src="work images/trello.PNG" alt="Project Management">
         <div class="portfolio-caption">
           <span class="portfolio-tag">Project Management</span>
           <span class="portfolio-name">Virtual Assistance</span>
         </div>
        
         
-        <img class="portfolio-image" src="logo images/lead generation.png" alt="Lead Generation">
+        <img loading="lazy" class="portfolio-image" src="logo images/lead generation.png" alt="Lead Generation">
         <div class="portfolio-caption">
           <span class="portfolio-tag">Lead Generation</span>
           <span class="portfolio-name">Ngobo . Leads</span>
         </div>
         
-        <img class="portfolio-image" src="logo images/calendar management.png" alt="Calendar Management">
+        <img loading="lazy" class="portfolio-image" src="logo images/calendar management.png" alt="Calendar Management">
         <div class="portfolio-caption">
           <span class="portfolio-tag">Calendar Management</span>
           <span class="portfolio-name">Virtual Assistance</span>
         </div>
         
-        <img class="portfolio-image" src="work images/bee.PNG" alt="Social Media Management">
+        <img loading="lazy" class="portfolio-image" src="work images/bee.PNG" alt="Social Media Management">
         <div class="portfolio-caption">
           <span class="portfolio-tag">Social Media Management</span>
           <span class="portfolio-name">Beeyouke . Social Media . IG . Page</span>
@@ -1967,15 +1968,15 @@
     <h2 class="contact-title reveal">Get In<br>Touch.</h2>
     <a class="contact-btn reveal" href="contact.html">Send Me a Message</a>
     <div class="contact-socials reveal">
-      <a class="csocial" href="https://www.instagram.com/imwangeshi?igsh=MWYxMG9odGx3b2pjcw%3D%3D&utm_source=qr" target="_blank">
+      <a class="csocial" href="https://www.instagram.com/imwangeshi?igsh=MWYxMG9odGx3b2pjcw%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer">
         <div class="csocial-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></div>
         <span class="csocial-label">Instagram</span>
       </a>
-      <a class="csocial" href="https://www.tiktok.com/@lifewithwangeshi?_r=1&_t=ZS-95yWEqpU0aT" target="_blank">
+      <a class="csocial" href="https://www.tiktok.com/@lifewithwangeshi?_r=1&_t=ZS-95yWEqpU0aT" target="_blank" rel="noopener noreferrer">
         <div class="csocial-icon"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.15 8.15 0 004.78 1.52V6.76a4.85 4.85 0 01-1.01-.07z"/></svg></div>
         <span class="csocial-label">TikTok</span>
       </a>
-      <a class="csocial" href="https://www.linkedin.com/in/gracegachagua" target="_blank">
+      <a class="csocial" href="https://www.linkedin.com/in/gracegachagua" target="_blank" rel="noopener noreferrer">
         <div class="csocial-icon"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></div>
         <span class="csocial-label">LinkedIn</span>
       </a>

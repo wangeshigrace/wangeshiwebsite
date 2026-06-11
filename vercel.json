@@ -1,4 +1,6 @@
 {
+  "cleanUrls": true,
+  "trailingSlash": false,
   "redirects": [
     {
       "source": "/:path*",
@@ -10,6 +12,57 @@
       ],
       "destination": "https://imwangeshi.site/:path*",
       "permanent": true
+    },
+    {
+      "source": "/index.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/about.html",
+      "destination": "/about",
+      "permanent": true
+    },
+    {
+      "source": "/abou.html",
+      "destination": "/about",
+      "permanent": true
+    },
+    {
+      "source": "/gallery.html",
+      "destination": "/portfolio",
+      "permanent": true
+    },
+    {
+      "source": "/gallery",
+      "destination": "/portfolio",
+      "permanent": true
+    },
+    {
+      "source": "/contact.html",
+      "destination": "/contact",
+      "permanent": true
+    },
+    {
+      "source": "/ai-buddy.html",
+      "destination": "/ai-buddy",
+      "permanent": true
+    },
+    {
+      "source": "/aigenius.html",
+      "destination": "/ai-buddy",
+      "permanent": true
+    },
+    {
+      "source": "/aigenius",
+      "destination": "/ai-buddy",
+      "permanent": true
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/portfolio",
+      "destination": "/gallery.html"
     }
   ],
   "headers": [

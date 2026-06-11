@@ -4820,11 +4820,17 @@ body.home-page .reel-strip {
 }
 
 body.home-page .reel-strip__track-wrap {
+    position: relative !important;
+    max-width: 100vw !important;
     height: var(--reel-card-height) !important;
     overflow: hidden !important;
+    contain: layout paint !important;
 }
 
 body.home-page .marquee-track {
+    position: absolute !important;
+    inset: 0 auto auto 0 !important;
+    width: max-content !important;
     align-items: center !important;
     gap: clamp(12px, 2vw, 16px) !important;
     animation-duration: 78s !important;
@@ -4918,6 +4924,24 @@ body.home-page .reel-card__title {
 }
 
 @media (max-width: 768px) {
+    body.home-page .mobile-menu:not(.open),
+    body.about-page .mobile-menu:not(.open),
+    body.ai-page .mobile-menu:not(.open),
+    body.contact-page .mobile-menu:not(.open) {
+        display: none !important;
+    }
+
+    body.home-page .mobile-menu.open,
+    body.home-page .hamburger.open ~ .mobile-menu,
+    body.about-page .mobile-menu.open,
+    body.about-page .hamburger.open ~ .mobile-menu,
+    body.ai-page .mobile-menu.open,
+    body.ai-page .hamburger.open ~ .mobile-menu,
+    body.contact-page .mobile-menu.open,
+    body.contact-page .hamburger.open ~ .mobile-menu {
+        display: flex !important;
+    }
+
     body.home-page {
         --reel-card-width: clamp(172px, 54vw, 230px);
     }

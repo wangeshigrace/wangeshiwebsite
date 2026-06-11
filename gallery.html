@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https://*; font-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; connect-src 'self' https://formspree.io; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; upgrade-insecure-requests;">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https://*; font-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; connect-src 'self' https://formspree.io; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; upgrade-insecure-requests;">
   <title>Portfolio - Wangeshi</title>
   <meta name="description" content="Explore Wangeshi's portfolio of creative projects, social media work, visual storytelling, and digital design experiments." />
   <meta name="robots" content="index, follow" />
@@ -11,7 +11,7 @@
   <meta name="theme-color" content="#fdfaf6">
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="apple-touch-icon" href="favicon.png">
-  <link rel="stylesheet" href="style.css?v=hamburger-unified-contact2">
+  <link rel="stylesheet" href="style.css?v=site-polish1">
   <link href="https://fonts.googleapis.com/css2?family=Alice&family=Crimson+Text:wght@400;600;700&family=Forum&family=Cutive+Mono&family=Sacramento&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,700&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,700;1,6..96,400;1,6..96,700&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -846,8 +846,11 @@
     }
 
     .progress-dot {
+      appearance: none;
+      -webkit-appearance: none;
       width: 8px;
       height: 8px;
+      padding: 0;
       border-radius: 50%;
       background: rgba(238, 228, 218, 0.2);
       border: 1px solid rgba(200, 164, 159, 0.3);
@@ -1712,6 +1715,38 @@
       }
     }
 
+    /* Final portfolio stability pass: keep animated off-screen content from widening the page. */
+    body.portfolio-page {
+      width: 100%;
+      max-width: 100vw;
+      overflow-x: hidden !important;
+    }
+
+    body.portfolio-page .marquee-strip {
+      display: block;
+      width: 100%;
+      max-width: 100vw;
+      overflow: hidden !important;
+      contain: layout paint;
+    }
+
+    body.portfolio-page .marquee-inner {
+      display: flex;
+      width: max-content;
+      will-change: transform;
+    }
+
+    @media(max-width:768px){
+      body.portfolio-page .mobile-menu:not(.open) {
+        display: none !important;
+      }
+
+      body.portfolio-page .mobile-menu.open,
+      body.portfolio-page .hamburger.open ~ .mobile-menu {
+        display: flex !important;
+      }
+    }
+
   </style>
 </head>
 <body class="portfolio-page">
@@ -1883,7 +1918,7 @@
   <section id="work">
     <div class="work-header reveal">
       <div class="work-title"><strong>Portfolio Showcase</strong>My Work</div>
-      <div class="work-counter" id="work-counter">01 / 07</div>
+      <div class="work-counter" id="work-counter">01 / 11</div>
     </div>
     
     <div class="portfolio-showcase reveal">
@@ -1951,13 +1986,13 @@
       </div>
       
       <div class="portfolio-progress">
-        <div class="progress-dot active" data-slide="0"></div>
-        <div class="progress-dot" data-slide="1"></div>
-        <div class="progress-dot" data-slide="2"></div>
-        <div class="progress-dot" data-slide="3"></div>
-        <div class="progress-dot" data-slide="4"></div>
-        <div class="progress-dot" data-slide="5"></div>
-        <div class="progress-dot" data-slide="6"></div>
+        <button class="progress-dot active" type="button" data-slide="0" aria-label="Show portfolio item 1"></button>
+        <button class="progress-dot" type="button" data-slide="1" aria-label="Show portfolio item 2"></button>
+        <button class="progress-dot" type="button" data-slide="2" aria-label="Show portfolio item 3"></button>
+        <button class="progress-dot" type="button" data-slide="3" aria-label="Show portfolio item 4"></button>
+        <button class="progress-dot" type="button" data-slide="4" aria-label="Show portfolio item 5"></button>
+        <button class="progress-dot" type="button" data-slide="5" aria-label="Show portfolio item 6"></button>
+        <button class="progress-dot" type="button" data-slide="6" aria-label="Show portfolio item 7"></button>
       </div>
     </div>
   </section>
@@ -2253,10 +2288,25 @@
     // Luxury Portfolio Slideshow
     const images = document.querySelectorAll('.portfolio-image');
     const captions = document.querySelectorAll('.portfolio-caption');
-    const dots = document.querySelectorAll('.progress-dot');
+    const progress = document.querySelector('.portfolio-progress');
     const counter = document.getElementById('work-counter');
     let currentIndex = 0;
     const totalImages = images.length;
+
+    if (progress && totalImages) {
+      progress.innerHTML = '';
+      images.forEach((_, index) => {
+        const dot = document.createElement('button');
+        dot.className = 'progress-dot';
+        dot.type = 'button';
+        dot.dataset.slide = String(index);
+        dot.setAttribute('aria-label', `Show portfolio item ${index + 1}`);
+        if (index === 0) dot.classList.add('active');
+        progress.appendChild(dot);
+      });
+    }
+
+    const dots = document.querySelectorAll('.progress-dot');
 
     function showSlide(index) {
       // Hide all images and captions
@@ -2277,7 +2327,7 @@
       }, 300);
       
       // Update active dot
-      dots[currentIndex].classList.add('active');
+      if (dots[currentIndex]) dots[currentIndex].classList.add('active');
       
       // Update counter
       if (counter) {

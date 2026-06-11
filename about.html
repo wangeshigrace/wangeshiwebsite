@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https://*; font-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; connect-src 'self' https://formspree.io; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; upgrade-insecure-requests;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https://*; font-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; connect-src 'self' https://formspree.io; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; upgrade-insecure-requests;">
     <title>About Wangeshi | Creative portfolio</title>
     <meta name="description" content="Meet Wangeshi: a creative social media manager, web builder, and storyteller blending digital strategy, design, and personal growth." />
     <meta name="robots" content="index, follow" />
@@ -11,7 +11,7 @@
     <meta name="theme-color" content="#fdfaf6">
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="apple-touch-icon" href="favicon.png">
-    <link rel="stylesheet" href="style.css?v=smm-tablet-grid1">
+    <link rel="stylesheet" href="style.css?v=site-polish1">
     <link href="https://fonts.googleapis.com/css2?family=Alice:wght@400;500&family=Romantic+Couple:wght@400&family=Cormorant+Garamond:wght@300;400;500;600;700&family=Playfair+Display:wght@500&family=DM+Serif+Display&family=Poppins:wght@300;400&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
     /* GLOBAL RESET */
@@ -859,6 +859,51 @@
             color: #6e3b3b !important;
         }
     }
+    /* Final spiral fit pass: keep the rotating travel cards inside mobile screens. */
+    @media (max-width: 640px) {
+        .travel-section {
+            padding-left: 14px !important;
+            padding-right: 14px !important;
+        }
+
+        .travel-spiral {
+            display: flex !important;
+            align-items: stretch !important;
+            justify-content: flex-start !important;
+            gap: 16px !important;
+            height: auto !important;
+            min-height: 0 !important;
+            overflow-x: auto !important;
+            overflow-y: hidden !important;
+            padding: 10px 4px 22px !important;
+            scroll-snap-type: x mandatory !important;
+            -webkit-overflow-scrolling: touch !important;
+        }
+
+        .travel-card {
+            position: relative !important;
+            left: auto !important;
+            top: auto !important;
+            transform: none !important;
+            z-index: auto !important;
+            opacity: 1 !important;
+            flex: 0 0 clamp(188px, 62vw, 228px) !important;
+            width: clamp(188px, 62vw, 228px) !important;
+            padding: 10px !important;
+            border-radius: 16px !important;
+            scroll-snap-align: center !important;
+        }
+
+        .travel-card img {
+            height: clamp(122px, 35vw, 150px) !important;
+            border-radius: 12px !important;
+        }
+
+        .travel-card h3 {
+            font-size: 13px !important;
+            margin-top: 8px !important;
+        }
+    }
 </style>
 </head>
 
@@ -991,7 +1036,7 @@ This is still just the beginning for me.</p>
         <a href="gallery.html" class="portfolio-btn">View My Work →</a>
     </div>
 </section>
-<script src="script.js?v=smm-tablet-grid1" defer></script>
+<script src="script.js?v=site-polish1" defer></script>
 <script>
 (() => {
     const spiral = document.getElementById("travel-spiral");
@@ -1028,8 +1073,8 @@ This is still just the beginning for me.</p>
         const t = Date.now() / 1000;
         const breath = (Math.sin(t * 0.9) + 1) / 2;
 
-        const idealRx = w < 400 ? w * 0.34 : w < 768 ? w * 0.33 : Math.min(240, w * 0.37);
-        const idealRy = h < 340 ? h * 0.30 : h < 480 ? h * 0.32 : Math.min(158, h * 0.35);
+        const idealRx = w < 400 ? w * 0.21 : w < 768 ? w * 0.27 : Math.min(240, w * 0.37);
+        const idealRy = h < 340 ? h * 0.22 : h < 480 ? h * 0.27 : Math.min(158, h * 0.35);
 
         let baseRadiusX = Math.min(idealRx, maxRx);
         let baseRadiusY = Math.min(idealRy, maxRy);

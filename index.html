@@ -40,8 +40,8 @@
     <meta name="theme-color" content="#fdfaf6">
     <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="apple-touch-icon" href="/favicon.png">
-    <link rel="stylesheet" href="style.css?v=index-section-seam30">
-    <script src="script.js?v=index-section-seam30" defer></script>
+    <link rel="stylesheet" href="style.css?v=site-polish1">
+    <script src="script.js?v=site-polish1" defer></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
@@ -677,6 +677,7 @@ a { color: inherit; text-decoration: none; }
     drop-shadow(0 14px 26px rgba(45, 24, 9, 0.34))
     drop-shadow(0 0 14px rgba(255, 221, 151, 0.24));
   animation: fairyFlight 9.6s cubic-bezier(0.42, 0, 0.16, 1) infinite;
+  contain: layout paint;
 }
 
 .hero__butterfly {
@@ -728,7 +729,7 @@ a { color: inherit; text-decoration: none; }
 @keyframes fairyFlight {
   0% {
     opacity: 0;
-    transform: translate3d(8vw, 8vh, 0) rotate(18deg);
+    transform: translate3d(0, 0, 0) rotate(18deg);
   }
   6% {
     opacity: 0.98;

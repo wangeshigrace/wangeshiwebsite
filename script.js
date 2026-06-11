@@ -1,3 +1,4 @@
+(() => {
 // SCROLL REVEAL
 function revealOnScroll() {
     let elements = document.querySelectorAll(".reveal");
@@ -17,7 +18,7 @@ window.addEventListener("load", revealOnScroll);
 
 
 // TYPEWRITER
-const text = "Hey, I’m Wangeshi ✨";
+const text = "Hey, I'm Wangeshi";
 let i = 0;
 
 function typeWriter() {
@@ -79,27 +80,36 @@ const hamburger = document.getElementById('hamburger');
 const mobileMenu = document.getElementById('mobileMenu');
 
 if (hamburger && mobileMenu) {
-    hamburger.addEventListener('click', () => {
+    const closeMenu = () => {
+        hamburger.classList.remove('open');
+        mobileMenu.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
+    };
+
+    const toggleMenu = () => {
         const isOpen = hamburger.classList.toggle('open');
         mobileMenu.classList.toggle('open', isOpen);
         hamburger.setAttribute('aria-expanded', String(isOpen));
-    });
+    };
+
+    hamburger.addEventListener('click', (event) => {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        toggleMenu();
+    }, true);
 
     // Close menu when a link is tapped
     mobileMenu.querySelectorAll('a').forEach(link => {
         link.addEventListener('click', () => {
-            hamburger.classList.remove('open');
-            mobileMenu.classList.remove('open');
-            hamburger.setAttribute('aria-expanded', 'false');
+            closeMenu();
         });
     });
 
     // Close menu on outside tap
     document.addEventListener('click', (e) => {
         if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
-            hamburger.classList.remove('open');
-            mobileMenu.classList.remove('open');
-            hamburger.setAttribute('aria-expanded', 'false');
+            closeMenu();
         }
     });
 }
+})();

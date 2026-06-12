@@ -859,7 +859,7 @@
             color: #6e3b3b !important;
         }
     }
-    /* Final spiral fit pass: keep the rotating travel cards inside mobile screens. */
+    /* Final spiral fit pass: keep the rotating travel cards animated on mobile too. */
     @media (max-width: 640px) {
         .travel-section {
             padding-left: 14px !important;
@@ -867,35 +867,30 @@
         }
 
         .travel-spiral {
-            display: flex !important;
-            align-items: stretch !important;
-            justify-content: flex-start !important;
-            gap: 16px !important;
-            height: auto !important;
-            min-height: 0 !important;
-            overflow-x: auto !important;
-            overflow-y: hidden !important;
-            padding: 10px 4px 22px !important;
-            scroll-snap-type: x mandatory !important;
-            -webkit-overflow-scrolling: touch !important;
+            position: relative !important;
+            display: block !important;
+            width: 100% !important;
+            max-width: 360px !important;
+            height: clamp(410px, 112vw, 500px) !important;
+            overflow: hidden !important;
+            padding: 0 !important;
+            margin-left: auto !important;
+            margin-right: auto !important;
+            touch-action: pan-y !important;
         }
 
         .travel-card {
-            position: relative !important;
-            left: auto !important;
-            top: auto !important;
-            transform: none !important;
-            z-index: auto !important;
-            opacity: 1 !important;
-            flex: 0 0 clamp(188px, 62vw, 228px) !important;
-            width: clamp(188px, 62vw, 228px) !important;
+            position: absolute !important;
+            width: clamp(140px, 45vw, 168px) !important;
+            max-width: 168px !important;
             padding: 10px !important;
             border-radius: 16px !important;
-            scroll-snap-align: center !important;
+            transition: opacity 0.25s ease, filter 0.25s ease !important;
+            will-change: left, top, transform, opacity !important;
         }
 
         .travel-card img {
-            height: clamp(122px, 35vw, 150px) !important;
+            height: clamp(96px, 29vw, 120px) !important;
             border-radius: 12px !important;
         }
 
